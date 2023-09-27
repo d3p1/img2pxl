@@ -2,6 +2,7 @@
  * @description Pixel unit test
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
+import { it, expect } from "@jest/globals";
 import Pixel from "../../model/particle/pixel";
 
 /**
