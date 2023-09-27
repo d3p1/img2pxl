@@ -22,27 +22,21 @@ export default abstract class Particle {
   ) {}
 
   /**
-   * Get x coordinate of current location
-   *
-   * @returns {number}
+   * @inheritdoc
    */
   get x(): number {
     return this._x;
   }
 
   /**
-   * Get y coordinate of current location
-   *
-   * @returns {number}
+   * @inheritdoc
    */
   get y(): number {
     return this._y;
   }
 
   /**
-   * Update particle position using particle velocity
-   *
-   * @returns {void}
+   * @inheritdoc
    */
   public update(): void {
     this._x += this.vx;
