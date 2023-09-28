@@ -1,6 +1,12 @@
 /**
  * @description Image builder factory unit test helper
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
+ * @note        This class is intended to help in Jest unit test cases.
+ *              It is necessary to import this file explicitly because it was
+ *              considered that expose it globally using
+ *              Jest `setupFiles` configuration could cause
+ *              mantainability issues
+ * @link        https://jestjs.io/docs/configuration#setupfiles-array
  */
 import Canvas from "../util/canvas";
 import ImageBuilder from "../../../builder/image-builder";
@@ -33,9 +39,9 @@ export default class ImageBuilderFactory {
    */
   create(): ImageBuilder {
     return new ImageBuilder(
+      this.canvas.getContext("2d") as CanvasRenderingContext2D,
       document.createElement("img"),
       this.pixelSize,
-      this.canvas.getContext("2d") as CanvasRenderingContext2D,
     );
   }
 }
