@@ -8,7 +8,7 @@ export default interface IImageBuilder {
   /**
    * Build image. Init pixels related to image
    *
-   * @returns {Array<IPixel>}
+   * @returns {IPixel[]}
    */
   build(): IPixel[];
 }
