@@ -1,6 +1,12 @@
 /**
- * @description Canvas utility class for testing purposes
+ * @description Canvas unit test helper
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
+ * @note        This class is intended to help in Jest unit test cases.
+ *              It is necessary to import this file explicitly because it was
+ *              considered that expose it globally using
+ *              Jest `setupFiles` configuration could cause
+ *              mantainability issues
+ * @link        https://jestjs.io/docs/configuration#setupfiles-array
  */
 export default class Canvas {
   /**
@@ -15,13 +21,13 @@ export default class Canvas {
     height: number,
   ): HTMLCanvasElement {
     const canvas = _initCanvas(width, height);
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d") as CanvasRenderingContext2D;
     const imageData = new ImageData(
       new Uint8ClampedArray(_generateRandomPixels(width, height)),
       width,
       height,
     );
-    context?.putImageData(imageData, 0, 0);
+    context.getImageData = jest.fn().mockReturnValue(imageData);
     return canvas;
   }
 }
