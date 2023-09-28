@@ -18,8 +18,8 @@ export default class Canvas {
     const context = canvas.getContext("2d");
     const imageData = new ImageData(
       new Uint8ClampedArray(_generateRandomPixels(width, height)),
-      0,
-      0,
+      width,
+      height,
     );
     context?.putImageData(imageData, 0, 0);
     return canvas;
@@ -34,10 +34,10 @@ export default class Canvas {
  * @returns {number[]}
  */
 function _generateRandomPixels(width: number, height: number): number[] {
-  const pixels: number[] = [];
+  let pixels: number[] = [];
   const numPixels: number = width * height;
   for (let pixel = 0; pixel < numPixels; pixel++) {
-    pixels.concat(_generateRandomPixel());
+    pixels = pixels.concat(_generateRandomPixel());
   }
   return pixels;
 }
