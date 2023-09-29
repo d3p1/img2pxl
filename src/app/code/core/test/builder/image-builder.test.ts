@@ -32,7 +32,7 @@ describe.each(dataSet)(
     "width: $width - " +
     "height: $height - " +
     "numPixels: $numPixels" +
-    ")",
+  ")",
   ({ pixelSize, width, height, numPixels }) => {
     let imageBuilderFactory: ImageBuilderFactory;
     let imageBuilder: ImageBuilder;
@@ -42,7 +42,7 @@ describe.each(dataSet)(
       imageBuilder = imageBuilderFactory.create();
     });
 
-    it("Draw image on canvas and init pixels", () => {
+    it("Build image: Draw image on canvas and init pixels", () => {
       const pixels = imageBuilder.build();
       const context = imageBuilderFactory.canvas.getContext("2d");
       const imageData = context?.getImageData(0, 0, width, height);

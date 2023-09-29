@@ -5,7 +5,8 @@
  *              It is necessary to import this file explicitly because it was
  *              considered that expose it globally using
  *              Jest `setupFiles` configuration could cause
- *              mantainability issues
+ *              mantainability issues (i.e.: it would be necessary to maintain 
+ *              a declaration file)
  * @link        https://jestjs.io/docs/configuration#setupfiles-array
  */
 export default class Canvas {
