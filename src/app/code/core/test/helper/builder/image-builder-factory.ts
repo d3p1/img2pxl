@@ -9,16 +9,11 @@
  *              a declaration file)
  * @link        https://jestjs.io/docs/configuration#setupfiles-array
  */
-import Canvas from '../util/canvas'
+import ObjectManger from '../util/canvas/object-manager'
 import IImageBuilder from '../../../api/image-builder'
 import ImageBuilder from '../../../builder/image-builder'
 
-export default class ImageBuilderFactory {
-  /**
-   * @type {CanvasRenderingContext2D}
-   */
-  public context: CanvasRenderingContext2D
-
+export default class ImageBuilderFactory extends ObjectManger<IImageBuilder> {
   /**
    * Constructor
    *
@@ -31,14 +26,11 @@ export default class ImageBuilderFactory {
     width: number,
     height: number,
   ) {
-    const canvas = Canvas.initCanvasWithImageData(width, height)
-    this.context = canvas.getContext('2d') as CanvasRenderingContext2D
+    super(width, height)
   }
 
   /**
-   * Create
-   *
-   * @returns {IImageBuilder}
+   * @inheritdoc
    */
   public create(): IImageBuilder {
     return new ImageBuilder(
