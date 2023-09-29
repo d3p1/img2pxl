@@ -3,7 +3,7 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 import ImageBuilderFactory from '../helper/builder/image-builder-factory'
-import ImageBuilder from '../../builder/image-builder'
+import IImageBuilder from '../../api/image-builder'
 
 /**
  * @note Init data set to test image build with different situations
@@ -35,7 +35,7 @@ describe.each(dataSet)(
     ')',
   ({pixelSize, width, height, numPixels}) => {
     let imageBuilderFactory: ImageBuilderFactory
-    let imageBuilder: ImageBuilder
+    let imageBuilder: IImageBuilder
 
     beforeEach(() => {
       imageBuilderFactory = new ImageBuilderFactory(pixelSize, width, height)

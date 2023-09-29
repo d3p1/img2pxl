@@ -10,7 +10,8 @@
  * @link        https://jestjs.io/docs/configuration#setupfiles-array
  */
 import Canvas from '../util/canvas'
-import ImageBuilder from '../../../builder/image-builder'
+import IImageBuilder  from '../../../api/image-builder'
+import ImageBuilder  from '../../../builder/image-builder'
 
 export default class ImageBuilderFactory {
   /**
@@ -36,9 +37,9 @@ export default class ImageBuilderFactory {
   /**
    * Create
    *
-   * @returns {ImageBuilder}
+   * @returns {IImageBuilder}
    */
-  create(): ImageBuilder {
+  create(): IImageBuilder {
     return new ImageBuilder(
       this.canvas.getContext('2d') as CanvasRenderingContext2D,
       document.createElement('img'),
