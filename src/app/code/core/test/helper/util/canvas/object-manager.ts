@@ -1,12 +1,11 @@
-import Canvas from "../canvas"
-
 /**
  * @description Object manager to create unit test helper related to canvas
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  * @note        The main purpose of this entity is to generalize the way
- *              unit test helpers are created and helps control how 
+ *              unit test helpers are created and helps control how
  *              their dependencies behaves
- */
+*/
+import Canvas from '../canvas'
 export default abstract class ObjectManger<T> {
   /**
    * @type {HTMLCanvasElement}
@@ -43,10 +42,7 @@ export default abstract class ObjectManger<T> {
    * @param   {number}            height
    * @returns {HTMLCanvasElement}
    */
-  protected _initCanvas(
-    width: number,
-    height: number,
-  ): HTMLCanvasElement {
+  protected _initCanvas(width: number, height: number): HTMLCanvasElement {
     return Canvas.initCanvasWithImageData(width, height)
   }
 }
