@@ -44,9 +44,13 @@ describe.each(dataSet)(
 
     it('Build image: Draw image on canvas and init pixels', () => {
       const pixels = imageBuilder.build()
-      const context = imageBuilderFactory.canvas.getContext('2d')
-      const imageData = context?.getImageData(0, 0, width, height)
-      expect(context?.drawImage).toHaveBeenCalledTimes(1)
+      const imageData = imageBuilderFactory.context?.getImageData(
+        0,
+        0,
+        width,
+        height,
+      )
+      expect(imageBuilderFactory.context?.drawImage).toHaveBeenCalledTimes(1)
       expect(pixels.length).toBe(numPixels)
       expect(pixels[0].color).toEqual([
         imageData?.data[0],
