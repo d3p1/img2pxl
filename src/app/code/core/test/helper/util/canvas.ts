@@ -64,15 +64,10 @@ function _generatePixels(width: number, height: number): number[] {
 }
 
 /**
- * Generate white pixel 
- * 
+ * Generate white pixel
+ *
  * @returns {number[]}
  */
 function _generateWhitePixel(): number[] {
-  return [
-    255,
-    255,
-    255,
-    255
-  ]
+  return [255, 255, 255, 255]
 }

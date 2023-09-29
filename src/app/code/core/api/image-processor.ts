@@ -5,8 +5,8 @@
 export default interface IImageProcessor {
   /**
    * Render pixels
-   * 
+   *
    * @returns {void}
    */
-  render(): void;
+  render(): void
 }
