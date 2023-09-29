@@ -1,8 +1,8 @@
 /**
- * @description Particle class
+ * @description Particle entity
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
- * @note        This class does not need to know about canvas and its
- *              render context. Because of that, other class will be
+ * @note        This entity does not need to know about canvas and its
+ *              render context. Because of that, other entity will be
  *              responsible of its render logic
  */
 export default abstract class Particle {

@@ -1,7 +1,7 @@
 /**
  * @description Canvas unit test helper
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
- * @note        This class is intended to help in Jest unit test cases.
+ * @note        This entity is intended to help in Jest unit test cases.
  *              It is necessary to import this file explicitly because it was
  *              considered that expose it globally using
  *              Jest `setupFiles` configuration could cause
