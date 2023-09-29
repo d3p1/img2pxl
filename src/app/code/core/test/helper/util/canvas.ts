@@ -17,7 +17,7 @@ export default class Canvas {
    * @param   {number}            height
    * @returns {HTMLCanvasElement}
    */
-  static initCanvas(width: number, height: number): HTMLCanvasElement {
+  public static initCanvas(width: number, height: number): HTMLCanvasElement {
     const canvas = document.createElement('canvas')
     canvas.width = width
     canvas.height = height
@@ -31,7 +31,7 @@ export default class Canvas {
    * @param   {number}            height
    * @returns {HTMLCanvasElement}
    */
-  static initCanvasWithImageData(
+  public static initCanvasWithImageData(
     width: number,
     height: number,
   ): HTMLCanvasElement {

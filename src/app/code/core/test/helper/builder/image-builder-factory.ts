@@ -40,7 +40,7 @@ export default class ImageBuilderFactory {
    *
    * @returns {IImageBuilder}
    */
-  create(): IImageBuilder {
+  public create(): IImageBuilder {
     return new ImageBuilder(
       this.context,
       document.createElement('img'),
