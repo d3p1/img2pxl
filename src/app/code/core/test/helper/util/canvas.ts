@@ -11,6 +11,20 @@
  */
 export default class Canvas {
   /**
+   * Init canvas
+   *
+   * @param   {number}            width
+   * @param   {number}            height
+   * @returns {HTMLCanvasElement}
+   */
+  static initCanvas(width: number, height: number): HTMLCanvasElement {
+    const canvas = document.createElement('canvas')
+    canvas.width = width
+    canvas.height = height
+    return canvas
+  }
+
+  /**
    * Init canvas with image data
    *
    * @param   {number}            width
@@ -21,7 +35,7 @@ export default class Canvas {
     width: number,
     height: number,
   ): HTMLCanvasElement {
-    const canvas = _initCanvas(width, height)
+    const canvas = this.initCanvas(width, height)
     const context = canvas.getContext('2d') as CanvasRenderingContext2D
     const imageData = new ImageData(
       new Uint8ClampedArray(_generatePixels(width, height)),
@@ -61,18 +75,4 @@ function _generateWhitePixel(): number[] {
     255,
     255
   ]
-}
-
-/**
- * Init canvas
- *
- * @param   {number}            width
- * @param   {number}            height
- * @returns {HTMLCanvasElement}
- */
-function _initCanvas(width: number, height: number): HTMLCanvasElement {
-  const canvas = document.createElement('canvas')
-  canvas.width = width
-  canvas.height = height
-  return canvas
 }
