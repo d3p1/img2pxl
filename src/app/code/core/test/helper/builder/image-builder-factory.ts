@@ -30,7 +30,7 @@ export default class ImageBuilderFactory {
     width: number,
     height: number,
   ) {
-    this.canvas = Canvas.initCanvasWithRandomImageData(width, height)
+    this.canvas = Canvas.initCanvasWithImageData(width, height)
   }
 
   /**

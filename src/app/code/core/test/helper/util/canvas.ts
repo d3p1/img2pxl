@@ -11,20 +11,20 @@
  */
 export default class Canvas {
   /**
-   * Init canvas with random image data
+   * Init canvas with image data
    *
    * @param   {number}            width
    * @param   {number}            height
    * @returns {HTMLCanvasElement}
    */
-  static initCanvasWithRandomImageData(
+  static initCanvasWithImageData(
     width: number,
     height: number,
   ): HTMLCanvasElement {
     const canvas = _initCanvas(width, height)
     const context = canvas.getContext('2d') as CanvasRenderingContext2D
     const imageData = new ImageData(
-      new Uint8ClampedArray(_generateRandomPixels(width, height)),
+      new Uint8ClampedArray(_generatePixels(width, height)),
       width,
       height,
     )
@@ -34,32 +34,32 @@ export default class Canvas {
 }
 
 /**
- * Generate random pixels
+ * Generate pixels
  *
  * @param   {number}   width
  * @param   {number}   height
  * @returns {number[]}
  */
-function _generateRandomPixels(width: number, height: number): number[] {
+function _generatePixels(width: number, height: number): number[] {
   let pixels: number[] = []
   const numPixels: number = width * height
   for (let pixel = 0; pixel < numPixels; pixel++) {
-    pixels = pixels.concat(_generateRandomPixel())
+    pixels = pixels.concat(_generateWhitePixel())
   }
   return pixels
 }
 
 /**
- * Generate random pixel. Each pixel has an RGBA value between 0 and 255
- *
+ * Generate white pixel 
+ * 
  * @returns {number[]}
  */
-function _generateRandomPixel(): number[] {
+function _generateWhitePixel(): number[] {
   return [
-    Math.floor(255 * Math.random()),
-    Math.floor(255 * Math.random()),
-    Math.floor(255 * Math.random()),
-    Math.floor(255 * Math.random()),
+    255,
+    255,
+    255,
+    255
   ]
 }
 
