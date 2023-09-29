@@ -27,7 +27,7 @@ export default abstract class Particle {
    * @returns {number}
    */
   get x(): number {
-    return this._x;
+    return this._x
   }
 
   /**
@@ -36,7 +36,7 @@ export default abstract class Particle {
    * @returns {number}
    */
   get y(): number {
-    return this._y;
+    return this._y
   }
 
   /**
@@ -45,7 +45,7 @@ export default abstract class Particle {
    * @returns {void}
    */
   public update(): void {
-    this._x += this.vx;
-    this._y += this.vy;
+    this._x += this.vx
+    this._y += this.vy
   }
 }

@@ -9,7 +9,7 @@
 /**
  * @type {Color}
  */
-export type Color = [number, number, number, number];
+export type Color = [number, number, number, number]
 
 /**
  * @interface
@@ -18,31 +18,31 @@ export interface IPixel {
   /**
    * @type {number}
    */
-  size: number;
+  size: number
 
   /**
    * @type {Color}
    */
-  color: Color;
+  color: Color
 
   /**
    * Get x coordinate of current location
    *
    * @returns {number}
    */
-  get x(): number;
+  get x(): number
 
   /**
    * Get y coordinate of current location
    *
    * @returns {number}
    */
-  get y(): number;
+  get y(): number
 
   /**
    * Update pixel position
    *
    * @returns {void}
    */
-  update(): void;
+  update(): void
 }

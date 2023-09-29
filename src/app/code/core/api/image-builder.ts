@@ -2,7 +2,7 @@
  * @description Image builder interface
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
-import { IPixel } from "./data/particle/pixel";
+import {IPixel} from './data/particle/pixel'
 
 export default interface IImageBuilder {
   /**
@@ -10,5 +10,5 @@ export default interface IImageBuilder {
    *
    * @returns {IPixel[]}
    */
-  build(): IPixel[];
+  build(): IPixel[]
 }

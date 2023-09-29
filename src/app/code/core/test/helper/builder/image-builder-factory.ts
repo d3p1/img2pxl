@@ -5,18 +5,18 @@
  *              It is necessary to import this file explicitly because it was
  *              considered that expose it globally using
  *              Jest `setupFiles` configuration could cause
- *              mantainability issues (i.e.: it would be necessary to maintain 
+ *              mantainability issues (i.e.: it would be necessary to maintain
  *              a declaration file)
  * @link        https://jestjs.io/docs/configuration#setupfiles-array
  */
-import Canvas from "../util/canvas";
-import ImageBuilder from "../../../builder/image-builder";
+import Canvas from '../util/canvas'
+import ImageBuilder from '../../../builder/image-builder'
 
 export default class ImageBuilderFactory {
   /**
    * @type {HTMLCanvasElement}
    */
-  public canvas: HTMLCanvasElement;
+  public canvas: HTMLCanvasElement
 
   /**
    * Constructor
@@ -30,7 +30,7 @@ export default class ImageBuilderFactory {
     width: number,
     height: number,
   ) {
-    this.canvas = Canvas.initCanvasWithRandomImageData(width, height);
+    this.canvas = Canvas.initCanvasWithRandomImageData(width, height)
   }
 
   /**
@@ -40,9 +40,9 @@ export default class ImageBuilderFactory {
    */
   create(): ImageBuilder {
     return new ImageBuilder(
-      this.canvas.getContext("2d") as CanvasRenderingContext2D,
-      document.createElement("img"),
+      this.canvas.getContext('2d') as CanvasRenderingContext2D,
+      document.createElement('img'),
       this.pixelSize,
-    );
+    )
   }
 }

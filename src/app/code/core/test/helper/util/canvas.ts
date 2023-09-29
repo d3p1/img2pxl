@@ -5,7 +5,7 @@
  *              It is necessary to import this file explicitly because it was
  *              considered that expose it globally using
  *              Jest `setupFiles` configuration could cause
- *              mantainability issues (i.e.: it would be necessary to maintain 
+ *              mantainability issues (i.e.: it would be necessary to maintain
  *              a declaration file)
  * @link        https://jestjs.io/docs/configuration#setupfiles-array
  */
@@ -21,15 +21,15 @@ export default class Canvas {
     width: number,
     height: number,
   ): HTMLCanvasElement {
-    const canvas = _initCanvas(width, height);
-    const context = canvas.getContext("2d") as CanvasRenderingContext2D;
+    const canvas = _initCanvas(width, height)
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D
     const imageData = new ImageData(
       new Uint8ClampedArray(_generateRandomPixels(width, height)),
       width,
       height,
-    );
-    context.getImageData = jest.fn().mockReturnValue(imageData);
-    return canvas;
+    )
+    context.getImageData = jest.fn().mockReturnValue(imageData)
+    return canvas
   }
 }
 
@@ -41,12 +41,12 @@ export default class Canvas {
  * @returns {number[]}
  */
 function _generateRandomPixels(width: number, height: number): number[] {
-  let pixels: number[] = [];
-  const numPixels: number = width * height;
+  let pixels: number[] = []
+  const numPixels: number = width * height
   for (let pixel = 0; pixel < numPixels; pixel++) {
-    pixels = pixels.concat(_generateRandomPixel());
+    pixels = pixels.concat(_generateRandomPixel())
   }
-  return pixels;
+  return pixels
 }
 
 /**
@@ -60,7 +60,7 @@ function _generateRandomPixel(): number[] {
     Math.floor(255 * Math.random()),
     Math.floor(255 * Math.random()),
     Math.floor(255 * Math.random()),
-  ];
+  ]
 }
 
 /**
@@ -71,8 +71,8 @@ function _generateRandomPixel(): number[] {
  * @returns {HTMLCanvasElement}
  */
 function _initCanvas(width: number, height: number): HTMLCanvasElement {
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-  return canvas;
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  return canvas
 }

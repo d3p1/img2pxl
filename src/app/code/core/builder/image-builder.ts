@@ -2,9 +2,9 @@
  * @description Image builder
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
-import { Color, IPixel } from "../api/data/particle/pixel";
-import IImageBuilder from "../api/image-builder";
-import Pixel from "../model/particle/pixel";
+import {Color, IPixel} from '../api/data/particle/pixel'
+import IImageBuilder from '../api/image-builder'
+import Pixel from '../model/particle/pixel'
 
 export default class ImageBuilder implements IImageBuilder {
   /**
@@ -27,8 +27,8 @@ export default class ImageBuilder implements IImageBuilder {
     /**
      * @note Init pixel information and load image data
      */
-    const pixels: IPixel[] = [];
-    const imageData: ImageData = this._loadImageData();
+    const pixels: IPixel[] = []
+    const imageData: ImageData = this._loadImageData()
 
     /**
      * @note Loop image information. It is considered the pixel size
@@ -48,14 +48,14 @@ export default class ImageBuilder implements IImageBuilder {
             x,
             y,
           ),
-        );
+        )
       }
     }
 
     /**
      * @note Return created pixels
      */
-    return pixels;
+    return pixels
   }
 
   /**
@@ -67,7 +67,7 @@ export default class ImageBuilder implements IImageBuilder {
    * @returns {IPixel}
    */
   protected _createPixel(color: Color, x: number, y: number): IPixel {
-    return new Pixel(this._imagePixelSize, color, 0, 0, x, y);
+    return new Pixel(this._imagePixelSize, color, 0, 0, x, y)
   }
 
   /**
@@ -78,13 +78,13 @@ export default class ImageBuilder implements IImageBuilder {
    *          have the same dimensions to avoid creating a distorted image
    */
   protected _loadImageData(): ImageData {
-    this._context.drawImage(this._image, 0, 0);
+    this._context.drawImage(this._image, 0, 0)
     const imageData = this._context.getImageData(
       0,
       0,
       this._context.canvas.width,
       this._context.canvas.height,
-    );
-    return imageData;
+    )
+    return imageData
   }
 }

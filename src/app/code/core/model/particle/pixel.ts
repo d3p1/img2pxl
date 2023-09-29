@@ -5,8 +5,8 @@
  *              render context. Because of that, other class will be
  *              responsible of its render logic
  */
-import { Color, IPixel } from "../../api/data/particle/pixel";
-import Particle from "../particle";
+import {Color, IPixel} from '../../api/data/particle/pixel'
+import Particle from '../particle'
 
 export default class Pixel extends Particle implements IPixel {
   /**
@@ -27,8 +27,8 @@ export default class Pixel extends Particle implements IPixel {
     protected _x: number,
     protected _y: number,
   ) {
-    super(vx, vy, _x, _y);
-    this.size = size;
-    this.color = color;
+    super(vx, vy, _x, _y)
+    this.size = size
+    this.color = color
   }
 }
