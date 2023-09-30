@@ -9,6 +9,8 @@
  *              a declaration file)
  * @link        https://jestjs.io/docs/configuration#setupfiles-array
  */
+import Pixel from './particle/pixel'
+
 export default class Canvas {
   /**
    * Init canvas
@@ -38,36 +40,11 @@ export default class Canvas {
     const canvas = this.initCanvas(width, height)
     const context = canvas.getContext('2d') as CanvasRenderingContext2D
     const imageData = new ImageData(
-      new Uint8ClampedArray(_generatePixels(width, height)),
+      new Uint8ClampedArray(Pixel.generatePixels(width, height)),
       width,
       height,
     )
     context.getImageData = jest.fn().mockReturnValue(imageData)
     return canvas
   }
-}
-
-/**
- * Generate pixels
- *
- * @param   {number}   width
- * @param   {number}   height
- * @returns {number[]}
- */
-function _generatePixels(width: number, height: number): number[] {
-  let pixels: number[] = []
-  const numPixels: number = width * height
-  for (let pixel = 0; pixel < numPixels; pixel++) {
-    pixels = pixels.concat(_generateWhitePixel())
-  }
-  return pixels
-}
-
-/**
- * Generate white pixel
- *
- * @returns {number[]}
- */
-function _generateWhitePixel(): number[] {
-  return [255, 255, 255, 255]
 }
