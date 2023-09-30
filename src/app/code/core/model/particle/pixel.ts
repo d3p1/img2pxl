@@ -1,34 +1,48 @@
 /**
- * @description Pixel entity. A pixel is a particle but with RGBA color and size
+ * @description Pixel entity
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
- * @note        This entity does not need to know about canvas and its
- *              render context. Because of that, other entity will be
- *              responsible of its render logic
+ * @note        A pixel is a particle with size and RGBA color
  */
+import {Point} from '../../api/data/particle'
 import {Color, IPixel} from '../../api/data/particle/pixel'
-import Particle from '../particle'
 
-export default class Pixel extends Particle implements IPixel {
+export default class Pixel implements IPixel {
   /**
    * Constructor
    *
-   * @param {number} size
-   * @param {Color}  color
-   * @param {number} vx
-   * @param {number} vy
-   * @param {number} _x
-   * @param {number} _y
+   * @param {number}   size
+   * @param {number[]} color
+   * @param {number}   vx
+   * @param {number}   vy
+   * @param {number}   x
+   * @param {number}   y
    */
   constructor(
     public size: number,
     public color: Color,
     public vx: number,
     public vy: number,
-    protected _x: number,
-    protected _y: number,
-  ) {
-    super(vx, vy, _x, _y)
-    this.size = size
-    this.color = color
+    public x: number,
+    public y: number,
+  ) {}
+
+  /**
+   * @inheritdoc
+   */
+  public update(): void {
+    this.x += this.vx
+    this.y += this.vy
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public checkAndHandleCollision(
+    point: Point,
+    handleCollision: (instance: this) => void,
+  ): void {
+    if (this.x === point.x && this.y === point.y) {
+      handleCollision(this)
+    }
   }
 }

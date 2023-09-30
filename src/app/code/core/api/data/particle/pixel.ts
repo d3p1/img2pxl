@@ -1,48 +1,26 @@
 /**
  * @description Pixel interface
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
- * @note        This entity does not need to know about canvas and its
- *              render context. Because of that, other entity will be
- *              responsible of its render logic
+ * @note        A pixel is a particle with size and RGBA color
  */
+import {IParticle} from '../particle'
 
 /**
- * @type {Color}
+ * @type {number[]}
  */
 export type Color = [number, number, number, number]
 
 /**
  * @interface
  */
-export interface IPixel {
+export interface IPixel extends IParticle {
   /**
    * @type {number}
    */
   size: number
 
   /**
-   * @type {Color}
+   * @type {number[]}
    */
   color: Color
-
-  /**
-   * Get x coordinate of current location
-   *
-   * @returns {number}
-   */
-  get x(): number
-
-  /**
-   * Get y coordinate of current location
-   *
-   * @returns {number}
-   */
-  get y(): number
-
-  /**
-   * Update pixel position
-   *
-   * @returns {void}
-   */
-  update(): void
 }

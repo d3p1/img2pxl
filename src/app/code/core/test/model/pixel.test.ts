@@ -2,28 +2,92 @@
  * @description Pixel unit test
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
+import {Point} from '../../api/data/particle'
+import {IPixel} from '../../api/data/particle/pixel'
 import Pixel from '../../model/particle/pixel'
 
 /**
- * @note The pixel is not able to check canvas edges and
- *       canvas coordinate system origin (0,0) location (i.e.: when the origin
- *       of the coordinate system is translated),
- *       so it cannot check if it is outside the canvas or if a negative
- *       coordinate value is invalid. There will be an other entity that
- *       will check these situations
+ * @note Init data set
  */
-describe('Pixel', () => {
-  it('Update pixel with positive x and y velocity', () => {
-    const pixel = new Pixel(10, [255, 0, 0, 0], 1, 1, 0, 0)
-    pixel.update()
-    expect(pixel.x).toBe(1)
-    expect(pixel.y).toBe(1)
-  })
+type DataSet = Array<
+  Omit<IPixel, 'update' | 'checkAndHandleCollision'> & {
+    updatedX: number
+    updatedY: number
+    collisionData: Point & {
+      isExpectedCollision: boolean
+    }
+  }
+>
+const dataSet: DataSet = [
+  {
+    size: 10,
+    color: [255, 0, 0, 0],
+    vx: 1,
+    vy: 1,
+    x: 0,
+    y: 0,
+    updatedX: 1,
+    updatedY: 1,
+    collisionData: {
+      x: 1,
+      y: 1,
+      isExpectedCollision: true,
+    },
+  },
+  {
+    size: 10,
+    color: [255, 0, 0, 0],
+    vx: -1,
+    vy: -1,
+    x: 0,
+    y: 0,
+    updatedX: -1,
+    updatedY: -1,
+    collisionData: {
+      x: 0,
+      y: 0,
+      isExpectedCollision: false,
+    },
+  },
+]
 
-  it('Update pixel with negative x and y velocity', () => {
-    const pixel = new Pixel(10, [255, 0, 0, 0], -1, -1, 0, 0)
-    pixel.update()
-    expect(pixel.x).toBe(-1)
-    expect(pixel.y).toBe(-1)
-  })
-})
+describe.each(dataSet)(
+  'Pixel (' +
+    'size: $size -' +
+    'color: $color -' +
+    'vx: $vx -' +
+    'vy: $vy -' +
+    'x: $x -' +
+    'y: $y -' +
+    'updatedX: $updatedX -' +
+    'updatedY: $updatedY -' +
+    'collisionData.x: $collisionData.x -' +
+    'collisionData.y: $collisionData.y -' +
+    'collisionData.isExpectedCollision: $collisionData.isExpectedCollision' +
+    ')',
+  ({size, color, vx, vy, x, y, updatedX, updatedY, collisionData}) => {
+    let pixel: IPixel
+
+    beforeEach(() => {
+      pixel = new Pixel(size, color, vx, vy, x, y)
+    })
+
+    it('Update pixel: move pixel coordinates taking velocity into account', () => {
+      pixel.update()
+      expect(pixel.x).toBe(updatedX)
+      expect(pixel.y).toBe(updatedY)
+    })
+
+    it('Check and handle collision: execute callback if collision occur', () => {
+      const callback = jest.fn()
+      pixel.update()
+      pixel.checkAndHandleCollision(
+        {x: collisionData.x, y: collisionData.y},
+        callback,
+      )
+      expect(callback).toHaveBeenCalledTimes(
+        collisionData.isExpectedCollision ? 1 : 0,
+      )
+    })
+  },
+)
