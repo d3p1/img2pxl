@@ -88,7 +88,9 @@ function _generateWhitePixelObject(
   x: number,
   y: number,
 ): IPixel {
-  return new BasePixel(size, _generateWhitePixel(), vx, vy, x, y)
+  const pixel = new BasePixel(size, _generateWhitePixel(), vx, vy, x, y)
+  jest.spyOn(pixel, 'update')
+  return pixel
 }
 
 /**
