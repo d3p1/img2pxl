@@ -4,7 +4,7 @@
  * @note        The main purpose of this entity is to generalize the way
  *              unit test helpers are created and helps control how
  *              their dependencies behaves
-*/
+ */
 import Canvas from '../canvas'
 export default abstract class ObjectManger<T> {
   /**

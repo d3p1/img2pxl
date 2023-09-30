@@ -21,7 +21,7 @@ export default class ImageProcessor implements IImageProcessor {
    * @inheritdoc
    */
   public render(): void {
-    for(const pixel of this._pixels) {
+    for (const pixel of this._pixels) {
       this._renderPixel(pixel)
       this._updatePixel(pixel)
     }
@@ -29,8 +29,8 @@ export default class ImageProcessor implements IImageProcessor {
 
   /**
    * Render pixel
-   * 
-   * @param   {IPixel} pixel 
+   *
+   * @param   {IPixel} pixel
    * @returns {void}
    */
   protected _renderPixel(pixel: IPixel): void {
@@ -39,10 +39,10 @@ export default class ImageProcessor implements IImageProcessor {
   }
 
   /**
-   * Update pixel 
-   * 
+   * Update pixel
+   *
    * @param   {IPixel} pixel
-   * @returns {void} 
+   * @returns {void}
    */
   protected _updatePixel(pixel: IPixel): void {
     pixel.update()
@@ -50,8 +50,8 @@ export default class ImageProcessor implements IImageProcessor {
 
   /**
    * Get fill style from pixel
-   * 
-   * @param   {IPixel} pixel 
+   *
+   * @param   {IPixel} pixel
    * @returns {string}
    */
   #getFillStyleFromPixel(pixel: IPixel): string {
