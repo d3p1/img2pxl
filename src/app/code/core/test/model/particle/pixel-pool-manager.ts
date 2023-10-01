@@ -77,7 +77,6 @@ export default class PixelPoolManager {
       x,
       y,
     )
-    jest.spyOn(pixel, 'update')
     return pixel
   }
 
