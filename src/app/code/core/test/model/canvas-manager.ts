@@ -16,7 +16,7 @@ export default class CanvasManager {
     height: number,
     imagePixels: number[],
   ): HTMLCanvasElement {
-    const canvas = this._createCanvas(width, height)
+    const canvas = this.createCanvas(width, height)
     const context = canvas.getContext('2d') as CanvasRenderingContext2D
     const imageData = new ImageData(
       new Uint8ClampedArray(imagePixels),
@@ -34,7 +34,7 @@ export default class CanvasManager {
    * @param   {number}            height
    * @returns {HTMLCanvasElement}
    */
-  protected _createCanvas(width: number, height: number): HTMLCanvasElement {
+  public createCanvas(width: number, height: number): HTMLCanvasElement {
     const canvas = document.createElement('canvas')
     canvas.width = width
     canvas.height = height
