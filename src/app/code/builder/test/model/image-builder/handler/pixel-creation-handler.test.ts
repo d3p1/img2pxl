@@ -13,14 +13,7 @@ describe('Pixel Creation Handler', () => {
   })
 
   it('init pixel: create pixel', () => {
-    const pixel = pixelCreationHandler.initPixel(
-      1,
-      [255, 255, 255, 255],
-      0,
-      0,
-      0,
-      0,
-    )
+    const pixel = pixelCreationHandler.initPixel(1, [255, 255, 255, 255], 0, 0)
     expect(pixel).toBeInstanceOf(Pixel)
   })
 })

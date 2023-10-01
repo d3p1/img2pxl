@@ -4,7 +4,7 @@
  * @note        The main purpose of this entity is to act as a middleware
  *              in the pixel creation logic (i.e.: add a factory entity to
  *              create the pixel and/or allow the customization of the pixel
- *              color)
+ *              color, velocity, etc.)
  */
 import {Color, IPixel} from '../../../../core/api/data/particle/pixel'
 import Pixel from '../../../../core/model/particle/pixel'
@@ -14,14 +14,7 @@ export default class PixelCreationHandler implements IPixelCreationHandler {
   /**
    * @inheritdoc
    */
-  initPixel(
-    size: number,
-    color: Color,
-    vx: number,
-    vy: number,
-    x: number,
-    y: number,
-  ): IPixel {
-    return new Pixel(size, color, vx, vy, x, y)
+  initPixel(size: number, color: Color, x: number, y: number): IPixel {
+    return new Pixel(size, color, 0, 0, x, y)
   }
 }

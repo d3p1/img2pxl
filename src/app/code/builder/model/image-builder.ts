@@ -72,8 +72,6 @@ export default class ImageBuilder implements IImageBuilder {
     return this._pixelCreationHandler.initPixel(
       this._imagePixelSize,
       color,
-      0,
-      0,
       x,
       y,
     )
