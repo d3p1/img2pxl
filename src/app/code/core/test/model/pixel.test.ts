@@ -23,7 +23,7 @@ const dataSet: DataSet = [
     x: 0,
     y: 0,
     updatedX: 1,
-    updatedY: 1
+    updatedY: 1,
   },
   {
     size: 10,
@@ -33,7 +33,7 @@ const dataSet: DataSet = [
     x: 0,
     y: 0,
     updatedX: -1,
-    updatedY: -1
+    updatedY: -1,
   },
 ]
 

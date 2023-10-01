@@ -3,22 +3,24 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 import {Color, IPixel} from '../../../api/data/particle/pixel'
-import Pixel from '../../../model/particle/pixel'
+import PixelManager from './pixel-manager'
 
 export default class PixelPoolManager {
   /**
    * Constructor
    *
-   * @param {number}   pixelSize
-   * @param {number[]} pixelColor
-   * @param {number}   pixelVelocityX
-   * @param {number}   pixelVelocityY
+   * @param {Object}   _pixelManager
+   * @param {number}   _pixelSize
+   * @param {number[]} _pixelColor
+   * @param {number}   _pixelVelocityX
+   * @param {number}   _pixelVelocityY
    */
   constructor(
-    public pixelSize: number = 1,
-    public pixelColor: Color = [255, 255, 255, 255],
-    public pixelVelocityX: number = 0,
-    public pixelVelocityY: number = 0,
+    protected _pixelManager: PixelManager,
+    protected _pixelSize: number = 1,
+    protected _pixelColor: Color = [255, 255, 255, 255],
+    protected _pixelVelocityX: number = 0,
+    protected _pixelVelocityY: number = 0,
   ) {}
 
   /**
@@ -54,7 +56,7 @@ export default class PixelPoolManager {
   public generateRawPixels(imgWidth: number, imgHeight: number): number[] {
     let pixels: number[] = []
     this.#generatePixels(imgWidth, imgHeight, () => {
-      pixels = pixels.concat(this.pixelColor)
+      pixels = pixels.concat(this._pixelColor)
     })
     return pixels
   }
@@ -67,11 +69,11 @@ export default class PixelPoolManager {
    * @returns {Object}
    */
   protected _generatePixelObject(x: number, y: number): IPixel {
-    const pixel = new Pixel(
-      this.pixelSize,
-      this.pixelColor,
-      this.pixelVelocityX,
-      this.pixelVelocityY,
+    const pixel = this._pixelManager.createPixel(
+      this._pixelSize,
+      this._pixelColor,
+      this._pixelVelocityX,
+      this._pixelVelocityY,
       x,
       y,
     )

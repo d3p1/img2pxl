@@ -3,6 +3,7 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 import CanvasManager from '../../../core/test/model/canvas-manager'
+import PixelManager from '../../../core/test/model/particle/pixel-manager'
 import PixelPoolManager from '../../../core/test/model/particle/pixel-pool-manager'
 import PixelCreationHandler from '../../model/image-builder/handler/pixel-creation-handler'
 import IImageBuilder from '../../api/image-builder'
@@ -42,7 +43,8 @@ describe.each(dataSet)(
     let imageBuilder: IImageBuilder
 
     beforeEach(() => {
-      const pixelPoolManager = new PixelPoolManager()
+      const pixelManager = new PixelManager()
+      const pixelPoolManager = new PixelPoolManager(pixelManager)
       const canvasManager = new CanvasManager()
       const canvas = canvasManager.createCanvasWithImageData(
         width,
@@ -50,27 +52,22 @@ describe.each(dataSet)(
         pixelPoolManager.generateRawPixels(width, height),
       )
       pixelCreationHandler = new PixelCreationHandler()
+      pixelCreationHandler.initPixel = jest.fn()
       context = canvas.getContext('2d') as CanvasRenderingContext2D
       imageBuilder = new ImageBuilder(
         context,
         document.createElement('img'),
         pixelSize,
-        pixelCreationHandler
+        pixelCreationHandler,
       )
     })
 
     it('Build image: draw image on canvas and init pixels', () => {
-      const pixels = imageBuilder.build()
-      const imageData = context.getImageData(0, 0, width, height)
+      imageBuilder.build()
       expect(context.drawImage).toHaveBeenCalledTimes(1)
-      expect(pixelCreationHandler.initPixel).toHaveBeenCalledTimes(1)
-      expect(pixels.length).toBe(expectedNumPixels)
-      expect(pixels[0].color).toEqual([
-        imageData?.data[0],
-        imageData?.data[1],
-        imageData?.data[2],
-        imageData?.data[3],
-      ])
+      expect(pixelCreationHandler.initPixel).toHaveBeenCalledTimes(
+        expectedNumPixels,
+      )
     })
   },
 )

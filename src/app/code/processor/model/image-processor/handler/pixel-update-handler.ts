@@ -4,8 +4,8 @@
  * @note        The main purpose of this entity is to act as a middleware
  *              in the pixel update logic (i.e.: handle out of canvas pixels)
  */
-import { IPixel } from "../../../../core/api/data/particle/pixel";
-import IPixelUpdateHandler from "../../../../processor/api/image-processor/handler/pixel-update-handler";
+import {IPixel} from '../../../../core/api/data/particle/pixel'
+import IPixelUpdateHandler from '../../../../processor/api/image-processor/handler/pixel-update-handler'
 
 export default class PixelUpdateHandler implements IPixelUpdateHandler {
   /**

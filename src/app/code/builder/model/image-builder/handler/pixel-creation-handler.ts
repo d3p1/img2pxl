@@ -6,9 +6,9 @@
  *              create the pixel and/or allow the customization of the pixel
  *              color)
  */
-import { Color, IPixel } from "../../../../core/api/data/particle/pixel";
-import Pixel from "../../../../core/model/particle/pixel";
-import IPixelCreationHandler from "../../../api/image-builder/handler/pixel-creation-handler";
+import {Color, IPixel} from '../../../../core/api/data/particle/pixel'
+import Pixel from '../../../../core/model/particle/pixel'
+import IPixelCreationHandler from '../../../api/image-builder/handler/pixel-creation-handler'
 
 export default class PixelCreationHandler implements IPixelCreationHandler {
   /**
@@ -20,7 +20,7 @@ export default class PixelCreationHandler implements IPixelCreationHandler {
     vx: number,
     vy: number,
     x: number,
-    y: number
+    y: number,
   ): IPixel {
     return new Pixel(size, color, vx, vy, x, y)
   }

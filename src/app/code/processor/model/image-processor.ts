@@ -17,7 +17,7 @@ export default class ImageProcessor implements IImageProcessor {
   constructor(
     protected _context: CanvasRenderingContext2D,
     protected _pixels: IPixel[],
-    protected _pixelUpdateHandler: IPixelUpdateHandler
+    protected _pixelUpdateHandler: IPixelUpdateHandler,
   ) {}
 
   /**
@@ -59,12 +59,7 @@ export default class ImageProcessor implements IImageProcessor {
    */
   #refresh(): void {
     const canvas = this._context.canvas
-    this._context.clearRect(
-      0,
-      0,
-      canvas.width,
-      canvas.height,
-    )
+    this._context.clearRect(0, 0, canvas.width, canvas.height)
   }
 
   /**

@@ -6,17 +6,17 @@
  *              create the pixel and/or allow the customization of the pixel
  *              color)
  */
-import { Color, IPixel } from "../../../../core/api/data/particle/pixel";
+import {Color, IPixel} from '../../../../core/api/data/particle/pixel'
 
 export default interface IPixelCreationHandler {
   /**
    * Init pixel
-   * 
-   * @param   {number}   size 
-   * @param   {number[]} color 
-   * @param   {number}   vx 
-   * @param   {number}   vy 
-   * @param   {number}   x 
+   *
+   * @param   {number}   size
+   * @param   {number[]} color
+   * @param   {number}   vx
+   * @param   {number}   vy
+   * @param   {number}   x
    * @param   {number}   y
    * @returns {Object}
    */
@@ -26,6 +26,6 @@ export default interface IPixelCreationHandler {
     vx: number,
     vy: number,
     x: number,
-    y: number
+    y: number,
   ): IPixel
 }

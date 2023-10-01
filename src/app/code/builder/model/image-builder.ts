@@ -19,7 +19,7 @@ export default class ImageBuilder implements IImageBuilder {
     protected _context: CanvasRenderingContext2D,
     protected _image: HTMLImageElement,
     protected _imagePixelSize: number,
-    protected _pixelCreationHandler: IPixelCreationHandler
+    protected _pixelCreationHandler: IPixelCreationHandler,
   ) {}
 
   /**
@@ -48,7 +48,7 @@ export default class ImageBuilder implements IImageBuilder {
               imageData.data[x + 3],
             ],
             x,
-            y
+            y,
           ),
         )
       }
@@ -68,13 +68,14 @@ export default class ImageBuilder implements IImageBuilder {
    * @param   {number}   y
    * @returns {Object}
    */
-  protected _createPixel(
-    color: Color, 
-    x: number, 
-    y: number
-  ): IPixel {
+  protected _createPixel(color: Color, x: number, y: number): IPixel {
     return this._pixelCreationHandler.initPixel(
-      this._imagePixelSize, color, 0, 0, x, y
+      this._imagePixelSize,
+      color,
+      0,
+      0,
+      x,
+      y,
     )
   }
 
@@ -85,7 +86,7 @@ export default class ImageBuilder implements IImageBuilder {
    * @note    It is considered that the image and canvas
    *          have the same dimensions to avoid creating a distorted image, and
    *          that the canvas origin is configured at the top left corner
-   *          so the image occupies all the canvas 
+   *          so the image occupies all the canvas
    */
   protected _loadImageData(): ImageData {
     this._context.drawImage(this._image, 0, 0)
