@@ -1,5 +1,5 @@
 /**
- * @description Pixel interface
+ * @description Color type & Pixel interface
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  * @note        A pixel is a particle with size and RGBA color
  */

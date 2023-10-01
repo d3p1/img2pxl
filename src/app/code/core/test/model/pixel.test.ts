@@ -2,7 +2,6 @@
  * @description Pixel unit test
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
-import {Point} from '../../api/data/particle'
 import {IPixel} from '../../api/data/particle/pixel'
 import Pixel from '../../model/particle/pixel'
 
@@ -10,12 +9,9 @@ import Pixel from '../../model/particle/pixel'
  * @note Init data set
  */
 type DataSet = Array<
-  Omit<IPixel, 'update' | 'checkAndHandleCollision'> & {
+  Omit<IPixel, 'update'> & {
     updatedX: number
     updatedY: number
-    collisionData: Point & {
-      isExpectedCollision: boolean
-    }
   }
 >
 const dataSet: DataSet = [
@@ -27,12 +23,7 @@ const dataSet: DataSet = [
     x: 0,
     y: 0,
     updatedX: 1,
-    updatedY: 1,
-    collisionData: {
-      x: 1,
-      y: 1,
-      isExpectedCollision: true,
-    },
+    updatedY: 1
   },
   {
     size: 10,
@@ -42,12 +33,7 @@ const dataSet: DataSet = [
     x: 0,
     y: 0,
     updatedX: -1,
-    updatedY: -1,
-    collisionData: {
-      x: 0,
-      y: 0,
-      isExpectedCollision: false,
-    },
+    updatedY: -1
   },
 ]
 
@@ -60,34 +46,19 @@ describe.each(dataSet)(
     'x: $x -' +
     'y: $y -' +
     'updatedX: $updatedX -' +
-    'updatedY: $updatedY -' +
-    'collisionData.x: $collisionData.x -' +
-    'collisionData.y: $collisionData.y -' +
-    'collisionData.isExpectedCollision: $collisionData.isExpectedCollision' +
+    'updatedY: $updatedY' +
     ')',
-  ({size, color, vx, vy, x, y, updatedX, updatedY, collisionData}) => {
+  ({size, color, vx, vy, x, y, updatedX, updatedY}) => {
     let pixel: IPixel
 
     beforeEach(() => {
       pixel = new Pixel(size, color, vx, vy, x, y)
     })
 
-    it('Update pixel: move pixel coordinates taking velocity into account', () => {
+    it('Update pixel: move pixel taking velocity into account', () => {
       pixel.update()
       expect(pixel.x).toBe(updatedX)
       expect(pixel.y).toBe(updatedY)
-    })
-
-    it('Check and handle collision: execute callback if collision occur', () => {
-      const callback = jest.fn()
-      pixel.update()
-      pixel.checkAndHandleCollision(
-        {x: collisionData.x, y: collisionData.y},
-        callback,
-      )
-      expect(callback).toHaveBeenCalledTimes(
-        collisionData.isExpectedCollision ? 1 : 0,
-      )
     })
   },
 )

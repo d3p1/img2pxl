@@ -27,7 +27,7 @@ export default class PixelPoolManager {
    *
    * @param   {number}   imgWidth
    * @param   {number}   imgHeight
-   * @returns {IPixel[]}
+   * @returns {Object[]}
    * @note    To calculate pixel coordinates, it is used the pixel index and
    *          it is divided by the image width to get
    *          the number of row/y and it is used
@@ -64,7 +64,7 @@ export default class PixelPoolManager {
    *
    * @param   {number} x
    * @param   {number} y
-   * @returns {IPixel}
+   * @returns {Object}
    */
   protected _generatePixelObject(x: number, y: number): IPixel {
     const pixel = new Pixel(

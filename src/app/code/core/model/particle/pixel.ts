@@ -3,7 +3,6 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  * @note        A pixel is a particle with size and RGBA color
  */
-import {Point} from '../../api/data/particle'
 import {Color, IPixel} from '../../api/data/particle/pixel'
 
 export default class Pixel implements IPixel {
@@ -32,17 +31,5 @@ export default class Pixel implements IPixel {
   public update(): void {
     this.x += this.vx
     this.y += this.vy
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public checkAndHandleCollision(
-    point: Point,
-    handleCollision: (instance: this) => void,
-  ): void {
-    if (this.x === point.x && this.y === point.y) {
-      handleCollision(this)
-    }
   }
 }
