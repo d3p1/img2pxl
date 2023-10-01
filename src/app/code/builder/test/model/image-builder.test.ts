@@ -2,8 +2,9 @@
  * @description Image builder unit test
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
-import PixelPoolManager from '../../../core/test/model/particle/pixel-pool-manager'
 import CanvasManager from '../../../core/test/model/canvas-manager'
+import PixelPoolManager from '../../../core/test/model/particle/pixel-pool-manager'
+import PixelCreationHandler from '../../model/image-builder/handler/pixel-creation-handler'
 import IImageBuilder from '../../api/image-builder'
 import ImageBuilder from '../../model/image-builder'
 
@@ -14,12 +15,12 @@ type DataSet = Array<{
   pixelSize: number
   width: number
   height: number
-  numPixels: number
+  expectedNumPixels: number
 }>
 const dataSet: DataSet = [
-  {pixelSize: 1, width: 100, height: 100, numPixels: 10000},
-  {pixelSize: 2, width: 100, height: 100, numPixels: 2500},
-  {pixelSize: 2, width: 1, height: 1, numPixels: 1},
+  {pixelSize: 1, width: 100, height: 100, expectedNumPixels: 10000},
+  {pixelSize: 2, width: 100, height: 100, expectedNumPixels: 2500},
+  {pixelSize: 2, width: 1, height: 1, expectedNumPixels: 1},
 ]
 
 /**
@@ -33,10 +34,11 @@ describe.each(dataSet)(
     'pixelSize: $pixelSize - ' +
     'width: $width - ' +
     'height: $height - ' +
-    'numPixels: $numPixels' +
+    'expectedNumPixels: $expectedNumPixels' +
     ')',
-  ({pixelSize, width, height, numPixels}) => {
+  ({pixelSize, width, height, expectedNumPixels}) => {
     let context: CanvasRenderingContext2D
+    let pixelCreationHandler: PixelCreationHandler
     let imageBuilder: IImageBuilder
 
     beforeEach(() => {
@@ -47,11 +49,13 @@ describe.each(dataSet)(
         height,
         pixelPoolManager.generateRawPixels(width, height),
       )
+      pixelCreationHandler = new PixelCreationHandler()
       context = canvas.getContext('2d') as CanvasRenderingContext2D
       imageBuilder = new ImageBuilder(
         context,
         document.createElement('img'),
         pixelSize,
+        pixelCreationHandler
       )
     })
 
@@ -59,7 +63,8 @@ describe.each(dataSet)(
       const pixels = imageBuilder.build()
       const imageData = context.getImageData(0, 0, width, height)
       expect(context.drawImage).toHaveBeenCalledTimes(1)
-      expect(pixels.length).toBe(numPixels)
+      expect(pixelCreationHandler.initPixel).toHaveBeenCalledTimes(1)
+      expect(pixels.length).toBe(expectedNumPixels)
       expect(pixels[0].color).toEqual([
         imageData?.data[0],
         imageData?.data[1],
