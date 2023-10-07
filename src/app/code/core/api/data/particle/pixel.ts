@@ -1,7 +1,7 @@
 /**
  * @description Color type & Pixel interface
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
- * @note        A pixel is a particle with size and RGBA color
+ * @note        A pixel is a particle with RGBA color
  */
 import {IParticle} from '../particle'
 
@@ -15,12 +15,7 @@ export type Color = [number, number, number, number]
  */
 export interface IPixel extends IParticle {
   /**
-   * @type {number}
-   */
-  size: number
-
-  /**
    * @type {number[]}
    */
-  color: Color
+  readonly color: Color
 }
