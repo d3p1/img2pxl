@@ -1,7 +1,7 @@
 {
   "clearMocks": true,
-  "preset": "ts-jest",
+  "testEnvironment": "jsdom",
   "roots": ["<rootDir>/src"],
-  "setupFiles": ["jest-canvas-mock"],
-  "testEnvironment": "jsdom"
+  "preset": "ts-jest/presets/default-esm",
+  "setupFiles": ["jest-canvas-mock"]
 }
