@@ -1,19 +1,19 @@
 {
-  "name": "@d3p1/image2pixel.js",
+  "name": "@d3p1/img2pxl.js",
   "version": "0.0.0",
   "description": "A library that implements a particle/pixel effect on a given image",
   "type": "module",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/d3p1/image2pixel.js.git"
+    "url": "git+https://github.com/d3p1/img2pxl.js.git"
   },
   "author": "C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/d3p1/image2pixel.js/issues"
+    "url": "https://github.com/d3p1/img2pxl.js/issues"
   },
-  "homepage": "https://github.com/d3p1/image2pixel.js#readme",
+  "homepage": "https://github.com/d3p1/img2pxl.js#readme",
   "keywords": [
     "particles",
     "particle",
