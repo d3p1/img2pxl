@@ -1,6 +1,6 @@
 {
   "name": "@d3p1/img2pxl.js",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A library that implements a particle/pixel effect on a given image",
   "type": "module",
   "private": false,
