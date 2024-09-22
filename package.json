@@ -24,14 +24,10 @@
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",
     "@d3p1/commitlint-config": "^1.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.7.3",
-    "@typescript-eslint/parser": "^6.7.3",
-    "canvas": "^2.11.2",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "husky": "^8.0.3",
     "prettier": "3.0.3",
-    "typescript": "~5.0.4",
     "write-good": "^1.0.8"
   },
   "scripts": {
@@ -40,7 +36,6 @@
     "lint:code:fix": "npm run lint:code -- --fix",
     "format:code": "prettier --ignore-path .gitignore --check src",
     "format:code:fix": "npm run format:code -- --write",
-    "refactor": "npm run format:code:fix && npm run lint:code:fix",
-    "build": "tsc"
+    "refactor": "npm run format:code:fix && npm run lint:code:fix"
   }
 }
