@@ -1,0 +1,36 @@
+##
+# @description Release automation
+# @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
+# @link        https://semantic-release.gitbook.io/semantic-release/recipes/ci-configurations/github-actions
+##
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name   : Dispatch release
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents     : write
+      issues       : write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Generate release
+        uses: d3p1/semantic-releasify@v1
+        env :
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
