@@ -1,20 +1,11 @@
 /**
- * @description Dev container configuration
+ * @description Dev Container configuration
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 {
   "name": "Node.js",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye",
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "streetsidesoftware.code-spell-checker",
-        "WallabyJs.console-ninja",
-        "dbaeumer.vscode-eslint",
-        "rohit-gohri.format-code-action",
-        "esbenp.prettier-vscode",
-        "yoavbls.pretty-ts-errors"
-      ]
-    }
-  }
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "node"
 }
