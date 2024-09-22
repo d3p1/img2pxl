@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/d3p1/img2pxl.js/compare/v1.0.0...v1.1.0) (2024-09-22)
+
+
+### Features
+
+* init basic logic [[#1](https://github.com/d3p1/img2pxl.js/issues/1)] ([430db60](https://github.com/d3p1/img2pxl.js/commit/430db607c6999c426d74717f819e74079cc1c6bb))
+
 # 1.0.0 (2024-09-22)
 
 
