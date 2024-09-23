@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/d3p1/img2pxl.js/compare/v1.1.0...v1.2.0) (2024-09-23)
+
+
+### Features
+
+* add basic classes to test logic [[#1](https://github.com/d3p1/img2pxl.js/issues/1)] ([a429f92](https://github.com/d3p1/img2pxl.js/commit/a429f92582a64c44f5144daca496cae8cfb31874))
+
 # [1.1.0](https://github.com/d3p1/img2pxl.js/compare/v1.0.0...v1.1.0) (2024-09-22)
 
 
