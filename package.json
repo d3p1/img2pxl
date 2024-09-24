@@ -1,9 +1,9 @@
 {
   "name": "@d3p1/img2pxl.js",
   "version": "1.1.0",
-  "description": "A library that implements a particle/pixel effect on a given image",
+  "description": "A particle effect on images to improve my JS skills",
   "type": "module",
-  "private": false,
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/d3p1/img2pxl.js.git"
@@ -32,9 +32,9 @@
   },
   "scripts": {
     "lint:spelling": "write-good --no-passive",
-    "lint:code": "eslint --ignore-path .gitignore --ext .js,.ts src",
+    "lint:code": "eslint --ignore-path .gitignore --ext .js,.ts docs",
     "lint:code:fix": "npm run lint:code -- --fix",
-    "format:code": "prettier --ignore-path .gitignore --check src",
+    "format:code": "prettier --ignore-path .gitignore --check docs",
     "format:code:fix": "npm run format:code -- --write",
     "refactor": "npm run format:code:fix && npm run lint:code:fix"
   }
