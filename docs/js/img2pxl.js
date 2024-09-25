@@ -1,6 +1,7 @@
 /**
  * @description img2pxl.js
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
+ * @todo        Create pointer object and improve how pixel and pointer interact
  */
 import Pixel from './core/pixel.js'
 
