@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/d3p1/img2pxl.js/compare/v1.2.0...v1.3.0) (2024-09-26)
+
+
+### Features
+
+* replace draw rect by draw image to improve performance [[#1](https://github.com/d3p1/img2pxl.js/issues/1)] ([d1230fc](https://github.com/d3p1/img2pxl.js/commit/d1230fc60794c3d99b7615b62c220b13315d2b68))
+
 # [1.2.0](https://github.com/d3p1/img2pxl.js/compare/v1.1.0...v1.2.0) (2024-09-23)
 
 
