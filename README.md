@@ -10,8 +10,9 @@
 
 ## Introduction
 
-Just studying and practicing my JS skills, creating a particle effect on images from this excellent tutorial:
+Just studying and practicing my JS skills, creating a particle effect on images from these excellent tutorials:
 
+[![Learn Creative Coding: Image Effects](https://img.youtube.com/vi/UeZ1pTg_nMo/maxresdefault.jpg)](https://www.youtube.com/watch?v=UeZ1pTg_nMo)
 [![Image into Interactive Particles - HTML Canvas Animation Tutorial | Advanced Pure Vanilla JavaScript](https://img.youtube.com/vi/afdHgwn1XCY/maxresdefault.jpg)](https://www.youtube.com/watch?v=afdHgwn1XCY)
 
 ## Changelog
