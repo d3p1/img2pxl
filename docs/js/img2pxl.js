@@ -55,13 +55,22 @@ export default class Img2Pxl {
    * Constructor
    *
    * @param {string} imageSrc
+   * @param {number} resolutionWidth
+   * @param {number} resolutionHeight
    * @param {number} pixelForce
    * @param {number} pointerForce
    * @param {number} pointerRadius
    */
-  constructor(imageSrc, pixelForce, pointerForce, pointerRadius) {
+  constructor(
+    imageSrc,
+    resolutionWidth,
+    resolutionHeight,
+    pixelForce,
+    pointerForce,
+    pointerRadius,
+  ) {
     this.#initCanvas()
-    this.#initImage(imageSrc)
+    this.#initImage(imageSrc, resolutionWidth, resolutionHeight)
     this.#initPointer()
     this.#pixelForce = pixelForce
     this.#pointerForce = pointerForce
@@ -131,42 +140,44 @@ export default class Img2Pxl {
    * Init image
    *
    * @param   {string} src
+   * @param   {number} resolutionWidth
+   * @param   {number} resolutionHeight
    * @returns {void}
    */
-  #initImage(src) {
+  #initImage(src, resolutionWidth, resolutionHeight) {
     const img = new Image()
     img.src = src
     img.onload = () => {
       this.#canvas.width = img.width
       this.#canvas.height = img.height
-      this.#ctx.drawImage(img, 0, 0)
-
-      this.#initPixels()
+      this.#initPixels(img, resolutionWidth, resolutionHeight)
     }
   }
 
   /**
    * Init image pixels
    *
+   * @param   {HTMLImageElement} img
+   * @param   {number}           resolutionWidth
+   * @param   {number}           resolutionHeight
    * @returns {void}
    */
-  #initPixels() {
-    const imageData = this.#ctx.getImageData(
-      0,
-      0,
-      this.#canvas.width,
-      this.#canvas.height,
-    )
+  #initPixels(img, resolutionWidth, resolutionHeight) {
+    const pixelWidth = img.width / resolutionWidth
+    const pixelHeight = img.height / resolutionHeight
 
-    const data = imageData.data
-    for (let i = 0; i < data.length; i += 4) {
-      if (data[i + 3] > 0) {
-        const x = Math.floor((i % (imageData.width * 4)) / 4)
-        const y = Math.floor(i / (imageData.width * 4))
-        this.#pixels.push(
-          new Pixel(x, y, data[i], data[i + 1], data[i + 2], this.#pixelForce),
-        )
-      }
+    for (let i = 0; i < resolutionWidth * resolutionHeight; i++) {
+      const xDisplacement = pixelWidth * i
+      this.#pixels.push(
+        new Pixel(
+          img,
+          xDisplacement % img.width,
+          pixelHeight * (xDisplacement / img.width),
+          pixelWidth,
+          pixelHeight,
+          this.#pixelForce,
+        ),
+      )
     }
   }
 }

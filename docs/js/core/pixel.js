@@ -16,17 +16,27 @@ export default class Pixel {
   /**
    * @type {number}
    */
-  red
+  width
 
   /**
    * @type {number}
    */
-  green
+  height
+
+  /**
+   * @param {HTMLImageElement}
+   */
+  #img
 
   /**
    * @type {number}
    */
-  blue
+  #imgX
+
+  /**
+   * @type {number}
+   */
+  #imgY
 
   /**
    * @type {number}
@@ -34,34 +44,24 @@ export default class Pixel {
   #force
 
   /**
-   * @type {number}
-   */
-  #originX
-
-  /**
-   * @type {number}
-   */
-  #originY
-
-  /**
    * Constructor
    *
-   * @param {number} x
-   * @param {number} y
-   * @param {number} red
-   * @param {number} green
-   * @param {number} blue
-   * @param {number} force
+   * @param {HTMLImageElement} img
+   * @param {number}           x
+   * @param {number}           y
+   * @param {number}           width
+   * @param {number}           height
+   * @param {number}           force
    */
-  constructor(x, y, red, green, blue, force) {
+  constructor(img, x, y, width, height, force) {
     this.x = x
     this.y = y
-    this.red = red
-    this.green = green
-    this.blue = blue
+    this.width = width
+    this.height = height
+    this.#img = img
+    this.#imgX = x
+    this.#imgY = y
     this.#force = force
-    this.#originX = x
-    this.#originY = y
   }
 
   /**
@@ -69,17 +69,19 @@ export default class Pixel {
    *
    * @param   {CanvasRenderingContext2D} ctx
    * @returns {void}
-   * @note   It is used a rect instead of a circle as pixel shape for
-   *         performance reasons
-   * @note   The save and restore of drawing state is delegate to caller logic
-   *         for performance reasons.
-   *         It is very important to restore drawing
-   *         state after this method execution, to avoid pixel styles being
-   *         applied to other rendered shapes
    */
   draw(ctx) {
-    ctx.fillStyle = `rgb(${this.red}, ${this.green}, ${this.blue})`
-    ctx.fillRect(this.x, this.y, 1, 1)
+    ctx.drawImage(
+      this.#img,
+      this.#imgX,
+      this.#imgY,
+      this.width,
+      this.height,
+      this.x,
+      this.y,
+      this.width,
+      this.height,
+    )
   }
 
   /**
@@ -90,12 +92,12 @@ export default class Pixel {
    * @todo    Use integer values for pixel coordinates to avoid antti-aliasing
    */
   update(t) {
-    if (this.x === this.#originX && this.y === this.#originY) {
+    if (this.x === this.#imgX && this.y === this.#imgY) {
       return
     }
 
-    const xDistance = this.x - this.#originX
-    const yDistance = this.y - this.#originY
+    const xDistance = this.x - this.#imgX
+    const yDistance = this.y - this.#imgY
     this.x -= xDistance * this.#force * (t / 250)
     this.y -= yDistance * this.#force * (t / 250)
   }
