@@ -4,8 +4,5 @@
  */
 {
   "name": "Node.js",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-  "remoteUser": "node"
+  "image": "d3p1/devcontainer-node:18"
 }
