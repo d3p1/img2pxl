@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/d3p1/img2pxl.js/compare/v1.3.0...v1.4.0) (2025-02-25)
+
+
+### Features
+
+* add Three.js [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([70e4e0f](https://github.com/d3p1/img2pxl.js/commit/70e4e0f3dbf3a48e9d735208712a5ae097e7a8e6))
+
 # [1.3.0](https://github.com/d3p1/img2pxl.js/compare/v1.2.0...v1.3.0) (2024-09-26)
 
 
