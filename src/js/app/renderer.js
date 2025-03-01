@@ -23,17 +23,15 @@ export default class Renderer {
   #camera
 
   /**
-   * @type {Function}
-   */
-  #boundResizeRenderer
-
-  /**
    * Constructor
+   *
+   * @param {number} width
+   * @param {number} height
    */
-  constructor() {
+  constructor(width, height) {
     this.#initScene()
     this.#initCamera()
-    this.#initRenderer()
+    this.#initRenderer(width, height)
   }
 
   /**
@@ -110,7 +108,6 @@ export default class Renderer {
    */
   #disposeRenderer() {
     this.#self.dispose()
-    window.removeEventListener('resize', this.#boundResizeRenderer)
   }
 
   /**
@@ -138,9 +135,11 @@ export default class Renderer {
   /**
    * Init renderer
    *
+   * @param   {number} width
+   * @param   {number} height
    * @returns {void}
    */
-  #initRenderer() {
+  #initRenderer(width, height) {
     const canvas = document.createElement('canvas')
     document.body.append(canvas)
 
@@ -151,18 +150,6 @@ export default class Renderer {
     }
     this.#self = new THREE.WebGLRenderer({canvas: canvas, antialias: antialias})
     this.#self.setPixelRatio(Math.min(pr, 2))
-
-    this.#resizeRenderer()
-    this.#boundResizeRenderer = this.#resizeRenderer.bind(this)
-    window.addEventListener('resize', this.#boundResizeRenderer)
-  }
-
-  /**
-   * Resize renderer
-   *
-   * @returns {void}
-   */
-  #resizeRenderer() {
-    this.#self.setSize(window.innerWidth, window.innerHeight)
+    this.#self.setSize(width, height)
   }
 }
