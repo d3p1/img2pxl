@@ -19,20 +19,20 @@ export default class Img2Pxl {
   /**
    * Constructor
    *
+   * @param {string}   src
    * @param {number}   width
    * @param {number}   height
+   * @param {number}   pixelCount
    * @param {Renderer} renderer
    */
-  constructor(width, height, renderer = new Renderer(width, height)) {
+  constructor(
+    src,
+    width,
+    height,
+    pixelCount = 128,
+    renderer = new Renderer(src, width, height, pixelCount),
+  ) {
     this.#renderer = renderer
-
-    /**
-     * @todo Remove this test code
-     */
-    this.#renderer.add(new THREE.Mesh(
-      new THREE.BoxGeometry(1.5, 1.5, 1),
-      new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: true})
-    ))
   }
 
   /**

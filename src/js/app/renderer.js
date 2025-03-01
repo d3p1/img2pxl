@@ -6,6 +6,11 @@ import * as THREE from 'three'
 
 export default class Renderer {
   /**
+   * @type {THREE.Mesh}
+   */
+  #image
+
+  /**
    * @type {THREE.WebGLRenderer}
    */
   #self
@@ -25,12 +30,15 @@ export default class Renderer {
   /**
    * Constructor
    *
+   * @param {string} src
    * @param {number} width
    * @param {number} height
+   * @param {number} pixelCount
    */
-  constructor(width, height) {
+  constructor(src, width, height, pixelCount) {
     this.#initScene()
     this.#initCamera()
+    this.#initImageMesh(src, pixelCount)
     this.#initRenderer(width, height)
   }
 
@@ -41,16 +49,6 @@ export default class Renderer {
    */
   render() {
     this.#self.render(this.#scene, this.#camera)
-  }
-
-  /**
-   * Add mesh to render
-   *
-   * @param   {THREE.Mesh} mesh
-   * @returns {void}
-   */
-  add(mesh) {
-    this.#scene.add(mesh)
   }
 
   /**
@@ -130,6 +128,38 @@ export default class Renderer {
     this.#scene.add(this.#camera)
 
     this.#camera.position.z = far
+  }
+
+  /**
+   * Init image mesh
+   *
+   * @param   {string} src
+   * @param   {number} pixelCount
+   * @returns {void}
+   * @note    The total image size that will be shown will go from
+   *          camera left position to camera right position for the width,
+   *          and from camera bottom position to camera top position for the
+   *          height.
+   *          It is used an image factor to give a little margin to the image
+   * @todo    Improve how texture loader is created.
+   *          Add loader manager to handle loading time
+   */
+  #initImageMesh(src, pixelCount) {
+    const textureLoader = new THREE.TextureLoader()
+    const texture = textureLoader.load(src)
+
+    const imageFactor = 0.8
+    const imageWidth = (-this.#camera.left + this.#camera.right) * imageFactor
+    const imageHeight = (-this.#camera.bottom + this.#camera.top) * imageFactor
+    const imageGeometry = new THREE.PlaneGeometry(
+      imageWidth,
+      imageHeight,
+      pixelCount,
+      pixelCount,
+    )
+    const imageMaterial = new THREE.MeshBasicMaterial({map: texture})
+    this.#image = new THREE.Mesh(imageGeometry, imageMaterial)
+    this.#scene.add(this.#image)
   }
 
   /**
