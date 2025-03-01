@@ -1,3 +1,12 @@
+# [1.5.0](https://github.com/d3p1/img2pxl.js/compare/v1.4.0...v1.5.0) (2025-03-01)
+
+
+### Features
+
+* improve renderer size management [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([8911cff](https://github.com/d3p1/img2pxl.js/commit/8911cff18f50c549d03e1a5fd2cdd6a2b09c220f))
+* init image render [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([559c5dd](https://github.com/d3p1/img2pxl.js/commit/559c5ddae6dd9a485a151b8933889cad0516147c))
+* init Three.js renderer [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([86886aa](https://github.com/d3p1/img2pxl.js/commit/86886aaddba575896566ee1a4066a9f938a8e178))
+
 # [1.4.0](https://github.com/d3p1/img2pxl.js/compare/v1.3.0...v1.4.0) (2025-02-25)
 
 
