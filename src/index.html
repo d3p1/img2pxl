@@ -1,7 +1,9 @@
 <!doctype html>
 <!--
+/**
  * @description img2pxl.js
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
+ */
 -->
 <html lang="en">
 <head>
@@ -14,7 +16,8 @@
   <script type="module">
     import Img2Pxl from './js/img2pxl.js'
 
-    new Img2Pxl('./images/logo.png', 70, 70, 0.3, 0.6, 40).animate()
+    const app = new Img2Pxl()
+    app.run()
   </script>
 </body>
 </html>
