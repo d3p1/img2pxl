@@ -3,6 +3,7 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 import * as THREE from 'three'
+import DisplacementTexture from './utils/displacement-texture.js'
 import imageVertexShader from './shader/vertex.glsl'
 import imageFragmentShader from './shader/fragment.glsl'
 
@@ -15,7 +16,12 @@ export default class Image {
   /**
    * @type {THREE.Texture}
    */
-  #texture
+  #imageTexture
+
+  /**
+   * @type {DisplacementTexture}
+   */
+  #displacementTexture
 
   /**
    * Constructor
@@ -24,6 +30,7 @@ export default class Image {
    * @param {number} pixelCount
    */
   constructor(src, pixelCount) {
+    this.#initDisplacementTexture(pixelCount)
     this.#initPoints(src, pixelCount)
   }
 
@@ -34,7 +41,9 @@ export default class Image {
    * @param   {number} deltaTime
    * @returns {void}
    */
-  update(elapsedTime, deltaTime) {}
+  update(elapsedTime, deltaTime) {
+    this.#displacementTexture.update(elapsedTime, deltaTime)
+  }
 
   /**
    * Dispose
@@ -44,7 +53,8 @@ export default class Image {
   dispose() {
     this.points.geometry.dispose()
 
-    this.#texture.dispose()
+    this.#imageTexture.dispose()
+    this.#displacementTexture.dispose()
     this.points.material.dispose()
   }
 
@@ -62,17 +72,30 @@ export default class Image {
    */
   #initPoints(src, pixelCount) {
     const textureLoader = new THREE.TextureLoader()
-    this.#texture = textureLoader.load(src)
+    this.#imageTexture = textureLoader.load(src)
 
     const imageGeometry = new THREE.PlaneGeometry(1, 1, pixelCount, pixelCount)
     const imageMaterial = new THREE.ShaderMaterial({
       vertexShader: imageVertexShader,
       fragmentShader: imageFragmentShader,
       uniforms: {
-        uImageTexture: new THREE.Uniform(this.#texture),
+        uImageTexture: new THREE.Uniform(this.#imageTexture),
+        uDisplacementTexture: new THREE.Uniform(
+          this.#displacementTexture.texture,
+        ),
         uPointSize: 0.01,
       },
     })
     this.points = new THREE.Points(imageGeometry, imageMaterial)
+  }
+
+  /**
+   * Init displacement texture
+   *
+   * @param   {number} pixelCount
+   * @returns {void}
+   */
+  #initDisplacementTexture(pixelCount) {
+    this.#displacementTexture = new DisplacementTexture(pixelCount)
   }
 }
