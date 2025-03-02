@@ -37,12 +37,11 @@ export default class Image {
   /**
    * Update
    *
-   * @param   {number} elapsedTime
-   * @param   {number} deltaTime
+   * @param   {number[]|null} intersection
    * @returns {void}
    */
-  update(elapsedTime, deltaTime) {
-    this.#displacementTexture.update(elapsedTime, deltaTime)
+  update(intersection) {
+    this.#displacementTexture.update(intersection)
   }
 
   /**
@@ -75,6 +74,8 @@ export default class Image {
     this.#imageTexture = textureLoader.load(src)
 
     const imageGeometry = new THREE.PlaneGeometry(1, 1, pixelCount, pixelCount)
+    this.#addAttributesToImageGeometry(imageGeometry)
+
     const imageMaterial = new THREE.ShaderMaterial({
       vertexShader: imageVertexShader,
       fragmentShader: imageFragmentShader,
@@ -87,6 +88,38 @@ export default class Image {
       },
     })
     this.points = new THREE.Points(imageGeometry, imageMaterial)
+  }
+
+  /**
+   * Add attributes to image geometry
+   *
+   * @param   {THREE.BufferGeometry} imageGeometry
+   * @returns {void}
+   */
+  #addAttributesToImageGeometry(imageGeometry) {
+    const vertices = imageGeometry.attributes.position.count
+    const pointSizeArray = new Float32Array(vertices)
+    const angleArray = new Float32Array(vertices)
+    const displacementFactorArray = new Float32Array(vertices)
+
+    for (let i = 0; i < vertices; i++) {
+      pointSizeArray[i] = Math.random()
+      angleArray[i] = Math.random() * 2 * Math.PI
+      displacementFactorArray[i] = Math.random()
+    }
+
+    imageGeometry.setAttribute(
+      'aPointSize',
+      new THREE.BufferAttribute(pointSizeArray, 1),
+    )
+    imageGeometry.setAttribute(
+      'aAngle',
+      new THREE.BufferAttribute(angleArray, 1),
+    )
+    imageGeometry.setAttribute(
+      'aDisplacementFactor',
+      new THREE.BufferAttribute(displacementFactorArray, 1),
+    )
   }
 
   /**

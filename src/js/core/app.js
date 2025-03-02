@@ -11,6 +11,21 @@ import Image from './app/image.js'
 
 export default class App {
   /**
+   * @type {THREE.Mesh}
+   */
+  #raycasterPlane
+
+  /**
+   * @type {THREE.Raycaster}
+   */
+  #raycaster
+
+  /**
+   * @type {THREE.Vector2}
+   */
+  #pointer
+
+  /**
    * @type {Image}
    */
   #image
@@ -33,6 +48,11 @@ export default class App {
   #scene
 
   /**
+   * @type {Function}
+   */
+  #boundPointerMove
+
+  /**
    * Constructor
    *
    * @param {Image}  image
@@ -45,17 +65,19 @@ export default class App {
     this.#initCamera()
     this.#initImage(image, imageFactor)
     this.#initRenderer(width, height)
+    this.#initRaycaster()
   }
 
   /**
    * Update
    *
-   * @param   {number} elapsedTime
-   * @param   {number} deltaTime
    * @returns {void}
    */
-  update(elapsedTime, deltaTime) {
-    this.#image.update(elapsedTime, deltaTime)
+  update() {
+    if (this.#pointer.x && this.#pointer.y) {
+      this.#image.update(this.#processRaycaster())
+    }
+
     this.#renderer.render(this.#scene, this.#camera)
   }
 
@@ -68,6 +90,35 @@ export default class App {
     this.#image.dispose()
     this.#disposeScene()
     this.#disposeRenderer()
+  }
+
+  /**
+   * Process raycaster
+   *
+   * @returns {number[]|null}
+   */
+  #processRaycaster() {
+    this.#raycaster.setFromCamera(this.#pointer, this.#camera)
+    const intersections = this.#raycaster.intersectObject(this.#raycasterPlane)
+    if (intersections.length) {
+      return [intersections[0].uv.x, intersections[0].uv.y]
+    }
+    return null
+  }
+
+  /**
+   * Process pointer
+   *
+   * @param   {PointerEvent} event
+   * @returns {void}
+   * @note    Pointer coordinates are normalized to clip space to
+   *          be able to use it for raycasting
+   */
+  #processPointer(event) {
+    this.#pointer.x =
+      (event.offsetX / this.#renderer.domElement.width - 0.5) * 2
+    this.#pointer.y =
+      -(event.offsetY / this.#renderer.domElement.height - 0.5) * 2
   }
 
   /**
@@ -87,7 +138,39 @@ export default class App {
    * @returns {void}
    */
   #disposeRenderer() {
+    this.#renderer.domElement.removeEventListener(
+      'pointermove',
+      this.#boundPointerMove,
+    )
     this.#renderer.dispose()
+  }
+
+  /**
+   * Init raycaster
+   *
+   * @returns {void}
+   * @note    It will be used a low poly plane in front of the image
+   *          to avoid performance issues that could arise while
+   *          working between the raycaster and image points
+   */
+  #initRaycaster() {
+    this.#raycaster = new THREE.Raycaster()
+    this.#pointer = new THREE.Vector2(null, null)
+
+    this.#boundPointerMove = this.#processPointer.bind(this)
+    this.#renderer.domElement.addEventListener(
+      'pointermove',
+      this.#boundPointerMove,
+    )
+
+    this.#raycasterPlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(),
+      new THREE.MeshBasicMaterial({color: 0xffffff}),
+    )
+    this.#raycasterPlane.position.copy(this.#image.points.position)
+    this.#raycasterPlane.position.z += 0.1
+    this.#raycasterPlane.visible = false
+    this.#scene.add(this.#raycasterPlane)
   }
 
   /**
