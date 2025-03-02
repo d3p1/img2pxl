@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/d3p1/img2pxl.js/compare/v1.6.0...v1.7.0) (2025-03-02)
+
+
+### Features
+
+* improve displacement effect [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([d4ba199](https://github.com/d3p1/img2pxl.js/commit/d4ba199cf081ca2dfa22c3b8140e92b8093e0252))
+
 # [1.6.0](https://github.com/d3p1/img2pxl.js/compare/v1.5.0...v1.6.0) (2025-03-02)
 
 
