@@ -71,11 +71,12 @@ export default class App {
   /**
    * Update
    *
+   * @param   {number} delta
    * @returns {void}
    */
-  update() {
+  update(delta) {
     if (this.#pointer.x && this.#pointer.y) {
-      this.#image.update(this.#processRaycaster())
+      this.#image.update(this.#processRaycaster(), delta)
     }
 
     this.#renderer.render(this.#scene, this.#camera)

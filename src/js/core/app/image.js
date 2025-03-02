@@ -38,10 +38,11 @@ export default class Image {
    * Update
    *
    * @param   {number[]|null} intersection
+   * @param   {number}        delta
    * @returns {void}
    */
-  update(intersection) {
-    this.#displacementTexture.update(intersection)
+  update(intersection, delta) {
+    this.#displacementTexture.update(intersection, delta)
   }
 
   /**
@@ -105,7 +106,7 @@ export default class Image {
     for (let i = 0; i < vertices; i++) {
       pointSizeArray[i] = Math.random()
       angleArray[i] = Math.random() * 2 * Math.PI
-      displacementFactorArray[i] = Math.random()
+      displacementFactorArray[i] = Math.random() * 0.3
     }
 
     imageGeometry.setAttribute(

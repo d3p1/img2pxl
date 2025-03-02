@@ -45,7 +45,7 @@ export default class Img2Pxl {
   render(t = 0) {
     this.#timer.update(t)
 
-    this.#app.update()
+    this.#app.update(this.#timer.getDelta())
 
     this.#requestAnimationId = requestAnimationFrame(this.render.bind(this))
   }

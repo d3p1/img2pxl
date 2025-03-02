@@ -32,6 +32,11 @@ export default class DisplacementTexture {
   #displacementFactor
 
   /**
+   * @type {number}
+   */
+  #decay = 1
+
+  /**
    * @type {number|null}
    */
   #dx = null
@@ -57,18 +62,19 @@ export default class DisplacementTexture {
    * Update
    *
    * @param   {number[]|null} intersection
+   * @param   {number}        delta
    * @returns {void}
    * @note    It is given the UV coordinates of the pointer intersection.
    *          It is required to convert them to canvas coordinate
    *          to draw glow image correctly
    */
-  update(intersection) {
+  update(intersection, delta) {
     this.#clearCanvas()
 
     if (intersection) {
       const dx = intersection[0] * this.#canvas.width
       const dy = (1 - intersection[1]) * this.#canvas.height
-      this.#drawCanvas(dx, dy)
+      this.#drawCanvas(dx, dy, delta)
     }
 
     this.texture.needsUpdate = true
@@ -88,14 +94,28 @@ export default class DisplacementTexture {
    *
    * @param   {number} dx
    * @param   {number} dy
+   * @param   {number} delta
    * @returns {void}
    */
-  #drawCanvas(dx, dy) {
+  #drawCanvas(dx, dy, delta) {
     const size = this.#canvas.width * this.#displacementFactor
-    this.#dx = dx - size / 2
-    this.#dy = dy - size / 2
+    dx -= size / 2
+    dy -= size / 2
 
-    this.#context.drawImage(this.#image, this.#dx, this.#dy, size, size)
+    const distance = Math.hypot(dx - this.#dx, dy - this.#dy)
+
+    const decayMultiplier = 2
+    const decayMinifier = 0.5
+    this.#decay +=
+      decayMultiplier *
+        (distance / Math.hypot(this.#canvas.width, this.#canvas.height)) -
+      decayMinifier * delta
+    this.#decay = Math.max(0, Math.min(1, this.#decay))
+    this.#context.globalAlpha = this.#decay
+    this.#context.drawImage(this.#image, dx, dy, size, size)
+
+    this.#dx = dx
+    this.#dy = dy
   }
 
   /**
@@ -107,6 +127,7 @@ export default class DisplacementTexture {
    *          That is why it is required to clear the canvas with black color
    */
   #clearCanvas() {
+    this.#context.globalAlpha = 1
     this.#context.fillStyle = '#000'
     this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height)
   }

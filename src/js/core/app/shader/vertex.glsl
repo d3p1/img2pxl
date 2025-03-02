@@ -16,6 +16,7 @@ varying vec4 vColor;
 void main() {
     vec3  displacedPosition     = position;
     float displacementFactor    = texture(uDisplacementTexture, uv).r;
+          displacementFactor    = smoothstep(0.0, 1.0, displacementFactor);
           displacementFactor   *= aDisplacementFactor;
     float displacementX         = cos(aAngle) * displacementFactor;
     float displacementY         = sin(aAngle) * displacementFactor;
