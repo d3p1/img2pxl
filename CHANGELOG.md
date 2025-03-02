@@ -1,3 +1,13 @@
+# [1.6.0](https://github.com/d3p1/img2pxl.js/compare/v1.5.0...v1.6.0) (2025-03-02)
+
+
+### Features
+
+* add displacement logic [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([3c56261](https://github.com/d3p1/img2pxl.js/commit/3c56261a28e835e91c15fa8288357a71ca7e3b99))
+* init displacement texture [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([1473767](https://github.com/d3p1/img2pxl.js/commit/1473767eacb9bbef03d3ad19d0341f4e993e271c))
+* init point effect [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([5b1d68d](https://github.com/d3p1/img2pxl.js/commit/5b1d68df8f6b8aae5c9590b1ae1954c536b07231))
+* init update displacement texture logic [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([1ded512](https://github.com/d3p1/img2pxl.js/commit/1ded512a507a1562519dd66ced751525deed778e))
+
 # [1.5.0](https://github.com/d3p1/img2pxl.js/compare/v1.4.0...v1.5.0) (2025-03-01)
 
 
