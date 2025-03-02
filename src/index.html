@@ -17,7 +17,11 @@
     import Img2Pxl from './js/img2pxl.js'
 
     const app = new Img2Pxl('/img2pxl.js/media/images/logo.png', 280, 280)
-    app.run()
+    app.render()
+
+    window.addEventListener('keydown', e => {
+      e.key === 'Escape' && app.dispose()
+    })
   </script>
 </body>
 </html>

@@ -2,14 +2,20 @@
  * @description img2pxl.js
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
-import * as THREE from 'three'
-import Renderer from './app/renderer.js'
+import {Timer} from 'three/addons'
+import App from './core/app.js'
+import Image from './core/app/image.js'
 
 export default class Img2Pxl {
   /**
-   * @type Renderer
+   * @type {App}
    */
-  #renderer
+  #app
+
+  /**
+   * @type {Timer}
+   */
+  #timer
 
   /**
    * @type {number}
@@ -19,31 +25,29 @@ export default class Img2Pxl {
   /**
    * Constructor
    *
-   * @param {string}   src
-   * @param {number}   width
-   * @param {number}   height
-   * @param {number}   pixelCount
-   * @param {Renderer} renderer
+   * @param {string} src
+   * @param {number} width
+   * @param {number} height
+   * @param {number} pixelCount
    */
-  constructor(
-    src,
-    width,
-    height,
-    pixelCount = 128,
-    renderer = new Renderer(src, width, height, pixelCount),
-  ) {
-    this.#renderer = renderer
+  constructor(src, width, height, pixelCount = 128) {
+    this.#initApp(src, width, height, pixelCount)
+
+    this.#timer = new Timer()
   }
 
   /**
-   * Run
+   * Render
    *
    * @params  {number} t
    * @returns {void}
    */
-  run(t = 0) {
-    this.#renderer.render()
-    this.#requestAnimationId = requestAnimationFrame(this.run.bind(this))
+  render(t = 0) {
+    this.#timer.update(t)
+
+    this.#app.update(this.#timer.getElapsed(), this.#timer.getDelta())
+
+    this.#requestAnimationId = requestAnimationFrame(this.render.bind(this))
   }
 
   /**
@@ -53,6 +57,20 @@ export default class Img2Pxl {
    */
   dispose() {
     cancelAnimationFrame(this.#requestAnimationId)
-    this.#renderer.dispose()
+    this.#app.dispose()
+  }
+
+  /**
+   * Init app
+   *
+   * @param   {string} src
+   * @param   {number} width
+   * @param   {number} height
+   * @param   {number} pixelCount
+   * @returns {void}
+   */
+  #initApp(src, width, height, pixelCount) {
+    const image = new Image(src, pixelCount)
+    this.#app = new App(image, width, height, pixelCount)
   }
 }
