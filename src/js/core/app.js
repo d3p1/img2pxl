@@ -1,6 +1,10 @@
 /**
  * @description App
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
+ * @todo        Analyze to add orbit controls to zoom-in/zoom-out the image.
+ *              Take into consideration that this could required to use
+ *              a perspective camera and handle point size relative to
+ *              `z` distance in the image vertex shader
  */
 import * as THREE from 'three'
 import Image from './app/image.js'
@@ -125,10 +129,10 @@ export default class App {
   #initImage(image, imageFactor) {
     const imageWidth = (-this.#camera.left + this.#camera.right) * imageFactor
     const imageHeight = (-this.#camera.bottom + this.#camera.top) * imageFactor
-    image.mesh.geometry.width = imageWidth
-    image.mesh.geometry.height = imageHeight
+    image.points.geometry.width = imageWidth
+    image.points.geometry.height = imageHeight
     this.#image = image
-    this.#scene.add(this.#image.mesh)
+    this.#scene.add(this.#image.points)
   }
 
   /**
