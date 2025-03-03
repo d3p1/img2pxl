@@ -106,7 +106,7 @@ export default class Image {
     for (let i = 0; i < vertices; i++) {
       pointSizeArray[i] = Math.random()
       angleArray[i] = Math.random() * 2 * Math.PI
-      displacementFactorArray[i] = Math.random() * 0.3
+      displacementFactorArray[i] = Math.random() * 0.1
     }
 
     imageGeometry.setAttribute(
