@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/d3p1/img2pxl.js/compare/v1.7.0...v1.7.1) (2025-03-03)
+
+
+### Bug Fixes
+
+* add build [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([874355d](https://github.com/d3p1/img2pxl.js/commit/874355d3c6016b8ef6005f5b20355a8546090aca))
+
 # [1.7.0](https://github.com/d3p1/img2pxl.js/compare/v1.6.0...v1.7.0) (2025-03-02)
 
 
