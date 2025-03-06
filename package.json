@@ -1,6 +1,6 @@
 {
   "name": "@d3p1/img2pxl.js",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "A particle effect on images to improve my JS skills",
   "private": true,
   "type": "module",
