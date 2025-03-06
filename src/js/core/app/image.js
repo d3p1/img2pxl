@@ -3,9 +3,9 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 import * as THREE from 'three'
-import DisplacementTexture from './utils/displacement-texture.js'
-import imageVertexShader from './shader/vertex.glsl'
-import imageFragmentShader from './shader/fragment.glsl'
+import DisplacementProcessor from './image/processor/displacement-processor.js'
+import imageVertexShader from './image/shader/vertex.glsl'
+import imageFragmentShader from './image/shader/fragment.glsl'
 
 export default class Image {
   /**
@@ -19,30 +19,58 @@ export default class Image {
   #imageTexture
 
   /**
-   * @type {DisplacementTexture}
+   * @type {DisplacementProcessor}
    */
-  #displacementTexture
+  #displacementProcessor
 
   /**
    * Constructor
    *
-   * @param {string} src
-   * @param {number} pixelCount
+   * @param {string} imageSrc
+   * @param {number} width
+   * @param {number} height
+   * @param {number} resolutionWidth
+   * @param {number} resolutionHeight
+   * @param {string} displacementImageSrc
+   * @param {number} displacementFrequency
+   * @param {number} pointSize
    */
-  constructor(src, pixelCount) {
-    this.#initDisplacementTexture(pixelCount)
-    this.#initPoints(src, pixelCount)
+  constructor(
+    imageSrc,
+    width,
+    height,
+    resolutionWidth,
+    resolutionHeight,
+    displacementImageSrc,
+    displacementFrequency = 5,
+    pointSize = 3,
+  ) {
+    this.#initDisplacementProcessor(
+      resolutionWidth,
+      resolutionHeight,
+      displacementImageSrc,
+    )
+    this.#initPoints(
+      imageSrc,
+      width,
+      height,
+      resolutionWidth,
+      resolutionHeight,
+      displacementFrequency,
+      pointSize,
+    )
   }
 
   /**
    * Update
    *
    * @param   {number[]|null} intersection
-   * @param   {number}        delta
+   * @param   {number}        elapsed
    * @returns {void}
    */
-  update(intersection, delta) {
-    this.#displacementTexture.update(intersection, delta)
+  update(intersection, elapsed) {
+    this.points.material.uniforms.uTime.value = elapsed
+    this.#displacementProcessor.update(intersection)
   }
 
   /**
@@ -54,39 +82,57 @@ export default class Image {
     this.points.geometry.dispose()
 
     this.#imageTexture.dispose()
-    this.#displacementTexture.dispose()
+    this.#displacementProcessor.dispose()
     this.points.material.dispose()
   }
 
   /**
    * Init points
    *
-   * @param   {string} src
-   * @param   {number} pixelCount
+   * @param   {string} imageSrc
+   * @param   {number} width
+   * @param   {number} height
+   * @param   {number} resolutionWidth
+   * @param   {number} resolutionHeight
+   * @param   {number} displacementFrequency
+   * @param   {number} pointSize
    * @returns {void}
-   * @note    The renderer will update geometry dimensions (width and height)
-   *          so the image occupies the full render size. It is set
-   *          a default value of `1` for the width and the height
-   * @todo    Improve how texture loader is created.
-   *          Add loader manager to handle loading time
    */
-  #initPoints(src, pixelCount) {
+  #initPoints(
+    imageSrc,
+    width,
+    height,
+    resolutionWidth,
+    resolutionHeight,
+    displacementFrequency,
+    pointSize,
+  ) {
     const textureLoader = new THREE.TextureLoader()
-    this.#imageTexture = textureLoader.load(src)
+    this.#imageTexture = textureLoader.load(imageSrc)
 
-    const imageGeometry = new THREE.PlaneGeometry(1, 1, pixelCount, pixelCount)
+    const imageGeometry = new THREE.PlaneGeometry(
+      width,
+      height,
+      resolutionWidth,
+      resolutionHeight,
+    )
+    imageGeometry.setIndex(null)
+    imageGeometry.deleteAttribute('normal')
     this.#addAttributesToImageGeometry(imageGeometry)
 
     const imageMaterial = new THREE.ShaderMaterial({
       vertexShader: imageVertexShader,
       fragmentShader: imageFragmentShader,
       uniforms: {
+        uTime: new THREE.Uniform(0),
+        uDisFrequency: new THREE.Uniform(displacementFrequency),
+        uDisAmplitude: new THREE.Uniform(50),
         uImageTexture: new THREE.Uniform(this.#imageTexture),
-        uDisplacementTexture: new THREE.Uniform(
-          this.#displacementTexture.texture,
-        ),
-        uPointSize: 0.01,
+        uDisTexture: new THREE.Uniform(this.#displacementProcessor.texture),
+        uPointSize: new THREE.Uniform(pointSize),
       },
+      transparent: true,
+      depthWrite: false,
     })
     this.points = new THREE.Points(imageGeometry, imageMaterial)
   }
@@ -99,37 +145,41 @@ export default class Image {
    */
   #addAttributesToImageGeometry(imageGeometry) {
     const vertices = imageGeometry.attributes.position.count
-    const pointSizeArray = new Float32Array(vertices)
-    const angleArray = new Float32Array(vertices)
-    const displacementFactorArray = new Float32Array(vertices)
+    const disAngleArray = new Float32Array(vertices)
+    const disAmplitudeArray = new Float32Array(vertices)
 
     for (let i = 0; i < vertices; i++) {
-      pointSizeArray[i] = Math.random()
-      angleArray[i] = Math.random() * 2 * Math.PI
-      displacementFactorArray[i] = Math.random() * 0.1
+      disAngleArray[i] = Math.random() * 2 * Math.PI
+      disAmplitudeArray[i] = Math.random()
     }
 
     imageGeometry.setAttribute(
-      'aPointSize',
-      new THREE.BufferAttribute(pointSizeArray, 1),
+      'aDisAngle',
+      new THREE.BufferAttribute(disAngleArray, 1),
     )
     imageGeometry.setAttribute(
-      'aAngle',
-      new THREE.BufferAttribute(angleArray, 1),
-    )
-    imageGeometry.setAttribute(
-      'aDisplacementFactor',
-      new THREE.BufferAttribute(displacementFactorArray, 1),
+      'aDisAmplitude',
+      new THREE.BufferAttribute(disAmplitudeArray, 1),
     )
   }
 
   /**
-   * Init displacement texture
+   * Init displacement processor
    *
-   * @param   {number} pixelCount
+   * @param   {number} resolutionWidth
+   * @param   {number} resolutionHeight
+   * @param   {string} displacementImageSrc
    * @returns {void}
    */
-  #initDisplacementTexture(pixelCount) {
-    this.#displacementTexture = new DisplacementTexture(pixelCount)
+  #initDisplacementProcessor(
+    resolutionWidth,
+    resolutionHeight,
+    displacementImageSrc,
+  ) {
+    this.#displacementProcessor = new DisplacementProcessor(
+      resolutionWidth,
+      resolutionHeight,
+      displacementImageSrc,
+    )
   }
 }

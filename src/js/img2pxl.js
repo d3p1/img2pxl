@@ -4,7 +4,9 @@
  */
 import {Timer} from 'three/addons'
 import App from './core/app.js'
+import RendererManager from './core/renderer-manager.js'
 import Image from './core/app/image.js'
+import glowImage from './media/processor/displacement/glow.png'
 
 export default class Img2Pxl {
   /**
@@ -25,13 +27,32 @@ export default class Img2Pxl {
   /**
    * Constructor
    *
-   * @param {string} src
+   * @param {string} imageSrc
    * @param {number} width
    * @param {number} height
-   * @param {number} pixelCount
+   * @param {number} resolutionWidth
+   * @param {number} resolutionHeight
+   * @param {string} displacementImageSrc
    */
-  constructor(src, width, height, pixelCount = 128) {
-    this.#initApp(src, width, height, pixelCount)
+  constructor(
+    imageSrc,
+    width,
+    height,
+    resolutionWidth = 128,
+    resolutionHeight = 128,
+    displacementImageSrc = glowImage,
+  ) {
+    this.#app = new App(
+      new RendererManager(width, height),
+      new Image(
+        imageSrc,
+        width,
+        height,
+        resolutionWidth,
+        resolutionHeight,
+        displacementImageSrc,
+      ),
+    )
 
     this.#timer = new Timer()
   }
@@ -45,7 +66,7 @@ export default class Img2Pxl {
   render(t = 0) {
     this.#timer.update(t)
 
-    this.#app.update(this.#timer.getDelta())
+    this.#app.update(this.#timer.getElapsed(), this.#timer.getDelta())
 
     this.#requestAnimationId = requestAnimationFrame(this.render.bind(this))
   }
@@ -58,19 +79,5 @@ export default class Img2Pxl {
   dispose() {
     cancelAnimationFrame(this.#requestAnimationId)
     this.#app.dispose()
-  }
-
-  /**
-   * Init app
-   *
-   * @param   {string} src
-   * @param   {number} width
-   * @param   {number} height
-   * @param   {number} pixelCount
-   * @returns {void}
-   */
-  #initApp(src, width, height, pixelCount) {
-    const image = new Image(src, pixelCount)
-    this.#app = new App(image, width, height, pixelCount)
   }
 }
