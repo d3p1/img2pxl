@@ -49,10 +49,10 @@ export default class Img2Pxl {
     resolutionHeight,
     pointSize = 1,
     displacementImageSrc = glowImage,
-    displacementSize = 0.2,
+    displacementSize = 0.15,
     displacementTrailingFactor = 0.1,
-    displacementFrequency = 6,
-    displacementAmplitude = 55,
+    displacementFrequency = 5,
+    displacementAmplitude = 40,
   ) {
     const rendererManager = new RendererManager(width, height)
 

@@ -61,14 +61,18 @@ export default class Pointer {
    * @returns {void}
    */
   update() {
-    this.raycaster.setFromCamera(this.coord, this.#rendererManager.camera)
-    const intersections = this.raycaster.intersectObject(this.raycasterPlane)
     let dx = null
     let dy = null
-    if (intersections.length) {
-      dx = intersections[0].uv.x * this.canvas.element.width
-      dy = (1 - intersections[0].uv.y) * this.canvas.element.height
+
+    if (this.coord.x && this.coord.y) {
+      this.raycaster.setFromCamera(this.coord, this.#rendererManager.camera)
+      const intersections = this.raycaster.intersectObject(this.raycasterPlane)
+      if (intersections.length) {
+        dx = intersections[0].uv.x * this.canvas.element.width
+        dy = (1 - intersections[0].uv.y) * this.canvas.element.height
+      }
     }
+
     this.canvas.update(dx, dy)
   }
 
