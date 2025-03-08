@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/d3p1/img2pxl.js/compare/v1.9.0...v1.9.1) (2025-03-08)
+
+
+### Bug Fixes
+
+* add build for debug feature version [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([76c76ab](https://github.com/d3p1/img2pxl.js/commit/76c76ab72df76e28ee6691b095f3b24a59d9db96))
+
 # [1.9.0](https://github.com/d3p1/img2pxl.js/compare/v1.8.1...v1.9.0) (2025-03-08)
 
 
