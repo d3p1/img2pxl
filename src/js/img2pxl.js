@@ -114,7 +114,10 @@ export default class Img2Pxl {
    * @returns {void}
    */
   debug(e) {
-    e.key === 'd' && this.#debugManager.show() && this.#app.debug()
+    e.key === 'd' &&
+      this.#debugManager._hidden &&
+      this.#debugManager.show() &&
+      this.#app.debug()
   }
 
   /**
@@ -194,7 +197,7 @@ export default class Img2Pxl {
   #initDebugManager() {
     this.#debugManager = new GUI()
 
-    this.#debugManager.show(false)
+    this.#debugManager.hide()
     this.#boundDebug = this.debug.bind(this)
     window.addEventListener('keydown', this.#boundDebug)
   }
