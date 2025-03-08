@@ -2,6 +2,7 @@
  * @description Pointer
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
+import GUI from 'lil-gui'
 import * as THREE from 'three'
 import RendererManager from '../lib/renderer-manager.js'
 import Canvas from './pointer/canvas.js'
@@ -33,6 +34,11 @@ export default class Pointer {
   #rendererManager
 
   /**
+   * @type {GUI}
+   */
+  #debugManager
+
+  /**
    * @type {Function}
    */
   #boundPointerMove
@@ -46,12 +52,14 @@ export default class Pointer {
    * Constructor
    *
    * @param {RendererManager} rendererManager
+   * @param {GUI}             debugManager
    * @param {Canvas}          canvas
    */
-  constructor(rendererManager, canvas) {
+  constructor(rendererManager, debugManager, canvas) {
     this.canvas = canvas
     this.coord = new THREE.Vector2(null, null)
     this.#rendererManager = rendererManager
+    this.#debugManager = debugManager
     this.#initRaycaster()
   }
 
@@ -74,6 +82,15 @@ export default class Pointer {
     }
 
     this.canvas.update(dx, dy)
+  }
+
+  /**
+   * Enable debug mode
+   *
+   * @returns {void}
+   */
+  debug() {
+    this.canvas.debug()
   }
 
   /**

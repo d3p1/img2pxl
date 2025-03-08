@@ -2,6 +2,7 @@
  * @description App
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
+import GUI from 'lil-gui'
 import * as THREE from 'three'
 import RendererManager from './lib/renderer-manager.js'
 import Image from './app/image.js'
@@ -26,11 +27,17 @@ export default class App {
   #rendererManager
 
   /**
+   * @type {GUI}
+   */
+  #debugManager
+
+  /**
    * Constructor
    *
    * @param {Image}           image
    * @param {Pointer}         pointer
    * @param {RendererManager} rendererManager
+   * @param {GUI}             debugManager
    * @param {number}          displacementFrequency
    * @param {number}          displacementAmplitude
    */
@@ -38,12 +45,14 @@ export default class App {
     image,
     pointer,
     rendererManager,
+    debugManager,
     displacementFrequency = 5,
     displacementAmplitude = 50,
   ) {
     this.#image = image
     this.#pointer = pointer
     this.#rendererManager = rendererManager
+    this.#debugManager = debugManager
     this.#initImage(displacementFrequency, displacementAmplitude)
     this.#initPointer()
   }
@@ -67,6 +76,49 @@ export default class App {
   }
 
   /**
+   * Enable debug mode
+   *
+   * @returns {void}
+   */
+  debug() {
+    const folder = this.#debugManager.addFolder('General')
+
+    folder
+      .add(
+        {
+          displacementFrequency:
+            this.#image.points.material.uniforms.uDisFrequency.value,
+        },
+        'displacementFrequency',
+      )
+      .min(0)
+      .max(10 * 2 * Math.PI)
+      .step(0.01)
+      .onChange(
+        (value) =>
+          (this.#image.points.material.uniforms.uDisFrequency.value = value),
+      )
+    folder
+      .add(
+        {
+          displacementAmplitude:
+            this.#image.points.material.uniforms.uDisAmplitude.value,
+        },
+        'displacementAmplitude',
+      )
+      .min(1)
+      .max(this.#rendererManager.width)
+      .step(1)
+      .onChange(
+        (value) =>
+          (this.#image.points.material.uniforms.uDisAmplitude.value = value),
+      )
+
+    this.#image.debug()
+    this.#pointer.debug()
+  }
+
+  /**
    * Dispose
    *
    * @returns {void}
@@ -75,6 +127,7 @@ export default class App {
     this.#image.dispose()
     this.#pointer.dispose()
     this.#rendererManager.dispose()
+    this.#debugManager.destroy()
   }
 
   /**

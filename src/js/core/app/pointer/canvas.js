@@ -7,6 +7,7 @@
  *              It that way, it allows to select which vertices/points/pixels
  *              should be displaced
  */
+import GUI from 'lil-gui'
 import * as THREE from 'three'
 
 export default class Canvas {
@@ -46,8 +47,14 @@ export default class Canvas {
   #displacementTrailingFactor
 
   /**
+   * @type {GUI}
+   */
+  #debugManager
+
+  /**
    * Constructor
    *
+   * @param {GUI}    debugManager
    * @param {number} resolutionWidth
    * @param {number} resolutionHeight
    * @param {string} displacementImageSrc
@@ -55,12 +62,14 @@ export default class Canvas {
    * @param {number} displacementTrailingFactor
    */
   constructor(
+    debugManager,
     resolutionWidth,
     resolutionHeight,
     displacementImageSrc,
     displacementSize = 0.1,
     displacementTrailingFactor = 0.05,
   ) {
+    this.#debugManager = debugManager
     this.#displacementTrailingFactor = displacementTrailingFactor
     this.#initCanvasTexture(resolutionWidth, resolutionHeight)
     this.#initDisplacementImage(displacementImageSrc, displacementSize)
@@ -81,6 +90,47 @@ export default class Canvas {
     }
 
     this.texture.needsUpdate = true
+  }
+
+  /**
+   * Enable debug mode
+   *
+   * @returns {void}
+   */
+  debug() {
+    const folder = this.#debugManager.addFolder('Pointer Canvas')
+    folder
+      .add(
+        {displacementSize: this.#displacementImageSize / this.element.width},
+        'displacementSize',
+      )
+      .min(0.01)
+      .max(1)
+      .step(0.01)
+      .onChange(
+        (value) => (this.#displacementImageSize = this.element.width * value),
+      )
+    folder
+      .add(
+        {displacementTrailingFactor: this.#displacementTrailingFactor},
+        'displacementTrailingFactor',
+      )
+      .min(0.01)
+      .max(1)
+      .step(0.01)
+      .onChange((value) => this.#processDisplacementImageSize(value))
+
+    folder.add({isCanvasShown: false}, 'isCanvasShown').onChange((value) => {
+      if (value) {
+        document.body.appendChild(this.element)
+        this.element.style.position = 'fixed'
+        this.element.style.top = '0'
+        this.element.style.left = '0'
+        this.element.style.border = '1px solid #fff'
+      } else {
+        document.body.removeChild(this.element)
+      }
+    })
   }
 
   /**
@@ -161,15 +211,25 @@ export default class Canvas {
    * @returns {void}
    * @note    It is considered that the displacement image will be
    *          a white image that will indicate which pixels should be displaced
+   */
+  #initDisplacementImage(displacementImageSrc, displacementSize) {
+    this.#displacementImage = new Image()
+    this.#displacementImage.src = displacementImageSrc
+    this.#processDisplacementImageSize(displacementSize)
+  }
+
+  /**
+   * Process displacement image size
+   *
+   * @param   {number} displacementSize
+   * @returns {void}
    * @note    The aspect ratio of the image is always square
    *          (the same size is used for the width and the height of the image).
    *          It is proportional to the canvas width.
    *          This approach is considered correct because web elements
    *          adjust only their width to fit in the page
    */
-  #initDisplacementImage(displacementImageSrc, displacementSize) {
-    this.#displacementImage = new Image()
-    this.#displacementImage.src = displacementImageSrc
+  #processDisplacementImageSize(displacementSize) {
     this.#displacementImageSize = displacementSize * this.element.width
   }
 }
