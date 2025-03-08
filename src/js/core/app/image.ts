@@ -14,22 +14,22 @@ export default class Image {
   /**
    * @type {THREE.Points}
    */
-  points
+  points: THREE.Points<THREE.PlaneGeometry, THREE.ShaderMaterial>
 
   /**
    * @type {THREE.Texture}
    */
-  #imageTexture
+  #imageTexture: THREE.Texture
 
   /**
    * @type {RendererManager}
    */
-  #rendererManager
+  #rendererManager: RendererManager
 
   /**
    * @type {GUI}
    */
-  #debugManager
+  #debugManager: GUI
 
   /**
    * Constructor
@@ -42,12 +42,12 @@ export default class Image {
    * @param {number}          pointSize
    */
   constructor(
-    rendererManager,
-    debugManager,
-    imageSrc,
-    resolutionWidth,
-    resolutionHeight,
-    pointSize = 1,
+    rendererManager: RendererManager,
+    debugManager: GUI,
+    imageSrc: string,
+    resolutionWidth: number,
+    resolutionHeight: number,
+    pointSize: number = 1,
   ) {
     this.#rendererManager = rendererManager
     this.#debugManager = debugManager
@@ -59,7 +59,7 @@ export default class Image {
    *
    * @returns {void}
    */
-  debug() {
+  debug(): void {
     const folder = this.#debugManager.addFolder('Image')
 
     folder
@@ -70,7 +70,7 @@ export default class Image {
       .min(0)
       .max(this.points.geometry.parameters.width)
       .step(1)
-      .onFinishChange((value) => {
+      .onFinishChange((value: number) => {
         this.#replaceImageGeometry(
           value,
           this.points.geometry.parameters.heightSegments,
@@ -85,7 +85,7 @@ export default class Image {
       .min(0)
       .max(this.points.geometry.parameters.height)
       .step(1)
-      .onFinishChange((value) => {
+      .onFinishChange((value: number) => {
         this.#replaceImageGeometry(
           this.points.geometry.parameters.widthSegments,
           value,
@@ -100,7 +100,7 @@ export default class Image {
       .min(1)
       .max(100)
       .step(1)
-      .onFinishChange((value) => {
+      .onFinishChange((value: number) => {
         this.points.material.uniforms.uPointSize.value = value
       })
   }
@@ -110,7 +110,7 @@ export default class Image {
    *
    * @returns {void}
    */
-  dispose() {
+  dispose(): void {
     this.points.geometry.dispose()
     this.points.material.dispose()
     this.#imageTexture.dispose()
@@ -125,7 +125,12 @@ export default class Image {
    * @param   {number} pointSize
    * @returns {void}
    */
-  #initPoints(imageSrc, resolutionWidth, resolutionHeight, pointSize) {
+  #initPoints(
+    imageSrc: string,
+    resolutionWidth: number,
+    resolutionHeight: number,
+    pointSize: number,
+  ): void {
     const textureLoader = new THREE.TextureLoader()
     this.#imageTexture = textureLoader.load(imageSrc)
 
@@ -158,7 +163,10 @@ export default class Image {
    *          New generated geometry attributes will replace old ones if
    *          they exist in the old geometry
    */
-  #replaceImageGeometry(resolutionWidth, resolutionHeight) {
+  #replaceImageGeometry(
+    resolutionWidth: number,
+    resolutionHeight: number,
+  ): void {
     const attributes = this.points.geometry.attributes
     this.points.geometry.dispose()
     this.points.geometry = this.#createImageGeometry(
@@ -171,9 +179,9 @@ export default class Image {
   /**
    * Create image geometry
    *
-   * @param   {number}      resolutionWidth
-   * @param   {number}      resolutionHeight
-   * @param   {object|null} attributes
+   * @param   {number}                            resolutionWidth
+   * @param   {number}                            resolutionHeight
+   * @param   {THREE.NormalBufferAttributes|null} attributes
    * @returns {THREE.PlaneGeometry}
    * @note    It is removed the index and normals from the geometry
    *          to improve performance.
@@ -181,7 +189,11 @@ export default class Image {
    *          The index could cause the draw of multiple points/pixels in the
    *          same place. That is why it is required to remove it
    */
-  #createImageGeometry(resolutionWidth, resolutionHeight, attributes = null) {
+  #createImageGeometry(
+    resolutionWidth: number,
+    resolutionHeight: number,
+    attributes: THREE.NormalBufferAttributes | null = null,
+  ): THREE.PlaneGeometry {
     const geometry = new THREE.PlaneGeometry(
       this.#rendererManager.width,
       this.#rendererManager.height,

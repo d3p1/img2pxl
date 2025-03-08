@@ -2,64 +2,56 @@
  * @description Pointer
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
-import GUI from 'lil-gui'
 import * as THREE from 'three'
 import RendererManager from '../lib/renderer-manager.js'
 import Canvas from './pointer/canvas.js'
 
 export default class Pointer {
   /**
-   * @type {THREE.Vector2}
+   * @type {THREE.Vector2|{x: number|undefined, y: number|undefined}}
    */
-  coord
+  coord: THREE.Vector2 | {x: number | undefined; y: number | undefined}
 
   /**
    * @type {Canvas}
    */
-  canvas
+  canvas: Canvas
 
   /**
    * @type {THREE.Raycaster}
    */
-  raycaster
+  raycaster: THREE.Raycaster
 
   /**
    * @type {THREE.Mesh}
    */
-  raycasterPlane
+  raycasterPlane: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>
 
   /**
    * @type {RendererManager}
    */
-  #rendererManager
-
-  /**
-   * @type {GUI}
-   */
-  #debugManager
+  #rendererManager: RendererManager
 
   /**
    * @type {Function}
    */
-  #boundPointerMove
+  #boundPointerMove: (e: PointerEvent) => void
 
   /**
    * @type {Function}
    */
-  #boundPointerLeave
+  #boundPointerLeave: (e: PointerEvent) => void
 
   /**
    * Constructor
    *
    * @param {RendererManager} rendererManager
-   * @param {GUI}             debugManager
    * @param {Canvas}          canvas
    */
-  constructor(rendererManager, debugManager, canvas) {
+  constructor(rendererManager: RendererManager, canvas: Canvas) {
     this.canvas = canvas
-    this.coord = new THREE.Vector2(null, null)
+    this.coord = new THREE.Vector2(undefined, undefined)
     this.#rendererManager = rendererManager
-    this.#debugManager = debugManager
     this.#initRaycaster()
   }
 
@@ -68,16 +60,20 @@ export default class Pointer {
    *
    * @returns {void}
    */
-  update() {
-    let dx = null
-    let dy = null
+  update(): void {
+    let dx: number | null = null
+    let dy: number | null = null
 
     if (this.coord.x && this.coord.y) {
-      this.raycaster.setFromCamera(this.coord, this.#rendererManager.camera)
+      this.raycaster.setFromCamera(
+        this.coord as THREE.Vector2,
+        this.#rendererManager.camera,
+      )
       const intersections = this.raycaster.intersectObject(this.raycasterPlane)
       if (intersections.length) {
-        dx = intersections[0].uv.x * this.canvas.element.width
-        dy = (1 - intersections[0].uv.y) * this.canvas.element.height
+        const uv = intersections[0].uv as THREE.Vector2
+        dx = uv.x * this.canvas.element.width
+        dy = (1 - uv.y) * this.canvas.element.height
       }
     }
 
@@ -89,7 +85,7 @@ export default class Pointer {
    *
    * @returns {void}
    */
-  debug() {
+  debug(): void {
     this.canvas.debug()
   }
 
@@ -98,7 +94,7 @@ export default class Pointer {
    *
    * @returns {void}
    */
-  dispose() {
+  dispose(): void {
     this.canvas.dispose()
     this.#disposeRaycaster()
   }
@@ -106,15 +102,16 @@ export default class Pointer {
   /**
    * Process pointer move
    *
-   * @param   {PointerEvent} event
+   * @param   {PointerEvent} e
    * @returns {void}
    * @note    Pointer coordinates are normalized to
    *          clip space (NDC - Normalized Device Coordinate) to
    *          use it for raycasting
    */
-  #processPointerMove(event) {
-    this.coord.x = (event.offsetX / event.target.width - 0.5) * 2
-    this.coord.y = -(event.offsetY / event.target.height - 0.5) * 2
+  #processPointerMove(e: PointerEvent): void {
+    const target = e.target as EventTarget & {width: number; height: number}
+    this.coord.x = (e.offsetX / target.width - 0.5) * 2
+    this.coord.y = -(e.offsetY / target.height - 0.5) * 2
   }
 
   /**
@@ -122,9 +119,9 @@ export default class Pointer {
    *
    * @returns {void}
    */
-  #processPointerLeave() {
-    this.coord.x = null
-    this.coord.y = null
+  #processPointerLeave(): void {
+    this.coord.x = undefined
+    this.coord.y = undefined
   }
 
   /**
@@ -135,7 +132,7 @@ export default class Pointer {
    *          to avoid performance issues that could arise while
    *          working between the raycaster and image points
    */
-  #initRaycaster() {
+  #initRaycaster(): void {
     this.raycaster = new THREE.Raycaster()
 
     this.#boundPointerMove = this.#processPointerMove.bind(this)
@@ -165,7 +162,7 @@ export default class Pointer {
    *
    * @returns {void}
    */
-  #disposeRaycaster() {
+  #disposeRaycaster(): void {
     this.#rendererManager.renderer.domElement.removeEventListener(
       'pointermove',
       this.#boundPointerMove,

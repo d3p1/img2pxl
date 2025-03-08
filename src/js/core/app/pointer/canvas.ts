@@ -12,44 +12,44 @@ import * as THREE from 'three'
 
 export default class Canvas {
   /**
+   * @type {GUI}
+   */
+  #debugManager: GUI
+
+  /**
    * @type {THREE.CanvasTexture}
    */
-  texture
+  texture: THREE.Texture
 
   /**
    * @type {HTMLCanvasElement}
    */
-  element
+  element: HTMLCanvasElement
 
   /**
    * @type {CanvasRenderingContext2D}
    */
-  #context
+  #context: CanvasRenderingContext2D
 
   /**
    * @type {HTMLImageElement}
    * @note Image used to displace pixels
    */
-  #displacementImage
+  #displacementImage: HTMLImageElement
 
   /**
    * @type {number}
    * @note This value defines how many pixels are affected by the effect.
    *       It is defined as a proportion of the image resolution width
    */
-  #displacementImageSize
+  #displacementImageSize: number
 
   /**
    * @type {number}
    * @note This value defines the strength of the trailing effect on the
    *       pixels' displacement
    */
-  #displacementTrailingFactor
-
-  /**
-   * @type {GUI}
-   */
-  #debugManager
+  readonly #displacementTrailingFactor: number
 
   /**
    * Constructor
@@ -62,12 +62,12 @@ export default class Canvas {
    * @param {number} displacementTrailingFactor
    */
   constructor(
-    debugManager,
-    resolutionWidth,
-    resolutionHeight,
-    displacementImageSrc,
-    displacementSize = 0.1,
-    displacementTrailingFactor = 0.05,
+    debugManager: GUI,
+    resolutionWidth: number,
+    resolutionHeight: number,
+    displacementImageSrc: string,
+    displacementSize: number = 0.1,
+    displacementTrailingFactor: number = 0.05,
   ) {
     this.#debugManager = debugManager
     this.#displacementTrailingFactor = displacementTrailingFactor
@@ -82,7 +82,7 @@ export default class Canvas {
    * @param   {number|null} dy
    * @returns {void}
    */
-  update(dx, dy) {
+  update(dx: number | null, dy: number | null): void {
     this.#clear()
 
     if (dx && dy) {
@@ -97,7 +97,7 @@ export default class Canvas {
    *
    * @returns {void}
    */
-  debug() {
+  debug(): void {
     const folder = this.#debugManager.addFolder('Pointer Canvas')
     folder
       .add(
@@ -108,7 +108,8 @@ export default class Canvas {
       .max(1)
       .step(0.01)
       .onChange(
-        (value) => (this.#displacementImageSize = this.element.width * value),
+        (value: number) =>
+          (this.#displacementImageSize = this.element.width * value),
       )
     folder
       .add(
@@ -118,19 +119,21 @@ export default class Canvas {
       .min(0.01)
       .max(1)
       .step(0.01)
-      .onChange((value) => this.#processDisplacementImageSize(value))
+      .onChange((value: number) => this.#processDisplacementImageSize(value))
 
-    folder.add({isCanvasShown: false}, 'isCanvasShown').onChange((value) => {
-      if (value) {
-        document.body.appendChild(this.element)
-        this.element.style.position = 'fixed'
-        this.element.style.top = '0'
-        this.element.style.left = '0'
-        this.element.style.border = '1px solid #fff'
-      } else {
-        document.body.removeChild(this.element)
-      }
-    })
+    folder
+      .add({isCanvasShown: false}, 'isCanvasShown')
+      .onChange((value: number) => {
+        if (value) {
+          document.body.appendChild(this.element)
+          this.element.style.position = 'fixed'
+          this.element.style.top = '0'
+          this.element.style.left = '0'
+          this.element.style.border = '1px solid #fff'
+        } else {
+          document.body.removeChild(this.element)
+        }
+      })
   }
 
   /**
@@ -138,7 +141,7 @@ export default class Canvas {
    *
    * @returns {void}
    */
-  dispose() {
+  dispose(): void {
     this.texture.dispose()
   }
 
@@ -151,7 +154,7 @@ export default class Canvas {
    * @note    The destination of the image is moved half its size
    *          so it is drawn at the center of the destination position
    */
-  #draw(dx, dy) {
+  #draw(dx: number, dy: number): void {
     dx -= this.#displacementImageSize / 2
     dy -= this.#displacementImageSize / 2
 
@@ -175,7 +178,7 @@ export default class Canvas {
    *          indicate how much points inside them will be displaced.
    *          That is why it is required to clear the canvas with black color
    */
-  #clear() {
+  #clear(): void {
     this.#context.save()
     this.#context.globalAlpha = this.#displacementTrailingFactor
     this.#context.fillStyle = '#000'
@@ -194,13 +197,13 @@ export default class Canvas {
    *          image.
    *          That is why it is used the image resolution as its dimensions
    */
-  #initCanvasTexture(resolutionWidth, resolutionHeight) {
+  #initCanvasTexture(resolutionWidth: number, resolutionHeight: number): void {
     this.element = document.createElement('canvas')
     this.element.width = resolutionWidth
     this.element.height = resolutionHeight
     this.texture = new THREE.CanvasTexture(this.element)
 
-    this.#context = this.element.getContext('2d')
+    this.#context = this.element.getContext('2d') as CanvasRenderingContext2D
   }
 
   /**
@@ -212,7 +215,10 @@ export default class Canvas {
    * @note    It is considered that the displacement image will be
    *          a white image that will indicate which pixels should be displaced
    */
-  #initDisplacementImage(displacementImageSrc, displacementSize) {
+  #initDisplacementImage(
+    displacementImageSrc: string,
+    displacementSize: number,
+  ): void {
     this.#displacementImage = new Image()
     this.#displacementImage.src = displacementImageSrc
     this.#processDisplacementImageSize(displacementSize)
@@ -229,7 +235,7 @@ export default class Canvas {
    *          This approach is considered correct because web elements
    *          adjust only their width to fit in the page
    */
-  #processDisplacementImageSize(displacementSize) {
+  #processDisplacementImageSize(displacementSize: number): void {
     this.#displacementImageSize = displacementSize * this.element.width
   }
 }

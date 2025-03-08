@@ -10,35 +10,35 @@ export default class RendererManager {
   /**
    * @type {THREE.Scene}
    */
-  scene
+  scene: THREE.Scene
 
   /**
    * @type {THREE.WebGLRenderer}
    */
-  renderer
+  renderer: THREE.WebGLRenderer
 
   /**
    * @type {THREE.OrthographicCamera}
    * @note It is used an orthographic camera because it is desired
    *       to draw a 2d image without perspective
    */
-  camera
+  camera: THREE.OrthographicCamera
 
   /**
    * @type {number}
    */
-  width
+  width: number
 
   /**
    * @type {number}
    */
-  height
+  height: number
 
   /**
    * @type {number}
    * @note Device pixel ratio
    */
-  dpr
+  dpr: number
 
   /**
    * Constructor
@@ -46,7 +46,7 @@ export default class RendererManager {
    * @param {number} width
    * @param {number} height
    */
-  constructor(width, height) {
+  constructor(width: number, height: number) {
     this.width = width
     this.height = height
     this.#initRenderer()
@@ -59,7 +59,7 @@ export default class RendererManager {
    *
    * @returns {void}
    */
-  update() {
+  update(): void {
     this.renderer.render(this.scene, this.camera)
   }
 
@@ -68,7 +68,7 @@ export default class RendererManager {
    *
    * @returns {void}
    */
-  dispose() {
+  dispose(): void {
     this.#disposeScene()
     this.#disposeRenderer()
   }
@@ -81,7 +81,7 @@ export default class RendererManager {
    *          as a pixel ratio. This is done to improve performance because
    *          this type of device does not require this feature
    */
-  #initRenderer() {
+  #initRenderer(): void {
     const canvas = document.createElement('canvas')
     document.body.append(canvas)
 
@@ -113,7 +113,7 @@ export default class RendererManager {
    *          `1` world unit is `1` pixel, making it easy to position things
    * @link    https://discourse.threejs.org/t/mapping-orthographiccamera-world-units-to-pixels/10142
    */
-  #initCamera() {
+  #initCamera(): void {
     const left = -this.renderer.domElement.width / 2
     const right = this.renderer.domElement.width / 2
     const top = this.renderer.domElement.height / 2
@@ -138,7 +138,7 @@ export default class RendererManager {
    *
    * @returns {void}
    */
-  #initScene() {
+  #initScene(): void {
     this.scene = new THREE.Scene()
   }
 
@@ -147,7 +147,7 @@ export default class RendererManager {
    *
    * @returns {void}
    */
-  #disposeRenderer() {
+  #disposeRenderer(): void {
     this.renderer.dispose()
   }
 
@@ -156,7 +156,7 @@ export default class RendererManager {
    *
    * @returns {void}
    */
-  #disposeScene() {
+  #disposeScene(): void {
     while (this.scene.children.length > 0) {
       this.scene.remove(this.scene.children[0])
     }

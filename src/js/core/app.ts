@@ -14,22 +14,22 @@ export default class App {
   /**
    * @type {Image}
    */
-  #image
+  #image: Image
 
   /**
    * @type {Pointer}
    */
-  #pointer
+  #pointer: Pointer
 
   /**
    * @type {RendererManager}
    */
-  #rendererManager
+  #rendererManager: RendererManager
 
   /**
    * @type {GUI}
    */
-  #debugManager
+  #debugManager: GUI
 
   /**
    * Constructor
@@ -42,12 +42,12 @@ export default class App {
    * @param {number}          displacementAmplitude
    */
   constructor(
-    image,
-    pointer,
-    rendererManager,
-    debugManager,
-    displacementFrequency = 5,
-    displacementAmplitude = 50,
+    image: Image,
+    pointer: Pointer,
+    rendererManager: RendererManager,
+    debugManager: GUI,
+    displacementFrequency: number = 5,
+    displacementAmplitude: number = 50,
   ) {
     this.#image = image
     this.#pointer = pointer
@@ -67,7 +67,7 @@ export default class App {
    *          (which adds this uniform)
    *          only runs after the first render of the scene
    */
-  update(elapsed) {
+  update(elapsed: number): void {
     if (this.#image.points.material.uniforms.uTime) {
       this.#image.points.material.uniforms.uTime.value = elapsed
       this.#pointer.update()
@@ -80,7 +80,7 @@ export default class App {
    *
    * @returns {void}
    */
-  debug() {
+  debug(): void {
     const folder = this.#debugManager.addFolder('General')
 
     folder
@@ -95,7 +95,7 @@ export default class App {
       .max(10 * 2 * Math.PI)
       .step(0.01)
       .onChange(
-        (value) =>
+        (value: number) =>
           (this.#image.points.material.uniforms.uDisFrequency.value = value),
       )
     folder
@@ -110,7 +110,7 @@ export default class App {
       .max(this.#rendererManager.width)
       .step(1)
       .onChange(
-        (value) =>
+        (value: number) =>
           (this.#image.points.material.uniforms.uDisAmplitude.value = value),
       )
 
@@ -123,7 +123,7 @@ export default class App {
    *
    * @returns {void}
    */
-  dispose() {
+  dispose(): void {
     this.#image.dispose()
     this.#pointer.dispose()
     this.#rendererManager.dispose()
@@ -137,7 +137,10 @@ export default class App {
    * @param   {number} displacementAmplitude
    * @returns {void}
    */
-  #initImage(displacementFrequency, displacementAmplitude) {
+  #initImage(
+    displacementFrequency: number,
+    displacementAmplitude: number,
+  ): void {
     this.#addDisplacementAttributesToImage()
     this.#addDisplacementHandlerToImage(
       displacementFrequency,
@@ -151,7 +154,7 @@ export default class App {
    *
    * @returns {void}
    */
-  #initPointer() {
+  #initPointer(): void {
     this.#pointer.raycasterPlane.position.copy(this.#image.points.position)
     this.#pointer.raycasterPlane.position.z += 0.01
 
@@ -165,8 +168,13 @@ export default class App {
    * @param   {number} displacementAmplitude
    * @returns {void}
    */
-  #addDisplacementHandlerToImage(displacementFrequency, displacementAmplitude) {
-    this.#image.points.material.onBeforeCompile = (shader) => {
+  #addDisplacementHandlerToImage(
+    displacementFrequency: number,
+    displacementAmplitude: number,
+  ): void {
+    this.#image.points.material.onBeforeCompile = (
+      shader: THREE.WebGLProgramParametersWithUniforms,
+    ) => {
       shader.uniforms['uTime'] = new THREE.Uniform(0)
       shader.uniforms['uDisFrequency'] = new THREE.Uniform(
         displacementFrequency,
@@ -194,7 +202,7 @@ export default class App {
    *
    * @returns {void}
    */
-  #addDisplacementAttributesToImage() {
+  #addDisplacementAttributesToImage(): void {
     const vertices = this.#image.points.geometry.attributes.position.count
     const disAngle = new Float32Array(vertices)
     const disAmplitude = new Float32Array(vertices)

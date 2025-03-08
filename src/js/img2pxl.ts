@@ -17,34 +17,34 @@ import glowImage from './media/processor/displacement/glow.png'
 
 export default class Img2Pxl {
   /**
-   * @type {App}
-   */
-  #app
-
-  /**
    * @type {RendererManager}
    */
-  #rendererManager
+  readonly #rendererManager: RendererManager
+
+  /**
+   * @type {App}
+   */
+  #app: App
 
   /**
    * @type {GUI}
    */
-  #debugManager
+  #debugManager: GUI
 
   /**
    * @type {Timer}
    */
-  #timer
+  #timer: Timer
 
   /**
    * @type {number}
    */
-  #requestAnimationId
+  #requestAnimationId: number
 
   /**
    * @type {Function}
    */
-  #boundDebug
+  #boundDebug: (e: KeyboardEvent) => void
 
   /**
    * Constructor
@@ -62,17 +62,17 @@ export default class Img2Pxl {
    * @param {number} displacementAmplitude
    */
   constructor(
-    imageSrc,
-    width,
-    height,
-    resolutionWidth,
-    resolutionHeight,
-    pointSize = 1,
-    displacementImageSrc = glowImage,
-    displacementSize = 0.15,
-    displacementTrailingFactor = 0.01,
-    displacementFrequency = 5,
-    displacementAmplitude = 40,
+    imageSrc: string,
+    width: number,
+    height: number,
+    resolutionWidth: number,
+    resolutionHeight: number,
+    pointSize: number = 1,
+    displacementImageSrc: string = glowImage,
+    displacementSize: number = 0.15,
+    displacementTrailingFactor: number = 0.01,
+    displacementFrequency: number = 5,
+    displacementAmplitude: number = 40,
   ) {
     this.#timer = new Timer()
     this.#rendererManager = new RendererManager(width, height)
@@ -80,8 +80,6 @@ export default class Img2Pxl {
     this.#initDebugManager()
     this.#initApp(
       imageSrc,
-      width,
-      height,
       resolutionWidth,
       resolutionHeight,
       pointSize,
@@ -99,7 +97,7 @@ export default class Img2Pxl {
    * @params  {number} t
    * @returns {void}
    */
-  render(t = 0) {
+  render(t = 0): void {
     this.#timer.update(t)
 
     this.#app.update(this.#timer.getElapsed())
@@ -113,11 +111,14 @@ export default class Img2Pxl {
    * @param   {KeyboardEvent} e
    * @returns {void}
    */
-  debug(e) {
-    e.key === 'd' &&
+  debug(e: KeyboardEvent): void {
+    if (
+      e.key === 'd' &&
       this.#debugManager._hidden &&
-      this.#debugManager.show() &&
+      this.#debugManager.show()
+    ) {
       this.#app.debug()
+    }
   }
 
   /**
@@ -125,7 +126,7 @@ export default class Img2Pxl {
    *
    * @returns {void}
    */
-  dispose() {
+  dispose(): void {
     cancelAnimationFrame(this.#requestAnimationId)
     window.removeEventListener('keydown', this.#boundDebug)
     this.#timer.dispose()
@@ -136,8 +137,6 @@ export default class Img2Pxl {
    * Init app
    *
    * @param   {string} imageSrc
-   * @param   {number} width
-   * @param   {number} height
    * @param   {number} resolutionWidth
    * @param   {number} resolutionHeight
    * @param   {number} pointSize
@@ -149,18 +148,16 @@ export default class Img2Pxl {
    * @returns {void}
    */
   #initApp(
-    imageSrc,
-    width,
-    height,
-    resolutionWidth,
-    resolutionHeight,
-    pointSize,
-    displacementImageSrc,
-    displacementSize,
-    displacementTrailingFactor,
-    displacementFrequency,
-    displacementAmplitude,
-  ) {
+    imageSrc: string,
+    resolutionWidth: number,
+    resolutionHeight: number,
+    pointSize: number,
+    displacementImageSrc: string,
+    displacementSize: number,
+    displacementTrailingFactor: number,
+    displacementFrequency: number,
+    displacementAmplitude: number,
+  ): void {
     this.#app = new App(
       new Image(
         this.#rendererManager,
@@ -172,7 +169,6 @@ export default class Img2Pxl {
       ),
       new Pointer(
         this.#rendererManager,
-        this.#debugManager,
         new PointerCanvas(
           this.#debugManager,
           resolutionWidth,
@@ -194,7 +190,7 @@ export default class Img2Pxl {
    *
    * @returns {void}
    */
-  #initDebugManager() {
+  #initDebugManager(): void {
     this.#debugManager = new GUI()
 
     this.#debugManager.hide()
