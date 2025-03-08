@@ -3,8 +3,8 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  * @note        This canvas will be used as a texture that will be sent
  *              to the vertex shader. This texture will be updated
- *              to mark where the pointer is in relation with the image
- *              and to select in that way which vertices/points/pixels
+ *              to mark where the pointer is in relation with the image.
+ *              It that way, it allows to select which vertices/points/pixels
  *              should be displaced
  */
 import * as THREE from 'three'
@@ -99,7 +99,7 @@ export default class Canvas {
    * @param   {number} dy
    * @returns {void}
    * @note    The destination of the image is moved half its size
-   *          so it is drawn at the center of the pointer
+   *          so it is drawn at the center of the destination position
    */
   #draw(dx, dy) {
     dx -= this.#displacementImageSize / 2
@@ -161,10 +161,11 @@ export default class Canvas {
    * @returns {void}
    * @note    It is considered that the displacement image will be
    *          a white image that will indicate which pixels should be displaced
-   * @note    The aspect ratio of the image is always square.
+   * @note    The aspect ratio of the image is always square
+   *          (the same size is used for the width and the height of the image).
    *          It is proportional to the canvas width.
    *          This approach is considered correct because web elements
-   *          adjust their width to fit in the page
+   *          adjust only their width to fit in the page
    */
   #initDisplacementImage(displacementImageSrc, displacementSize) {
     this.#displacementImage = new Image()

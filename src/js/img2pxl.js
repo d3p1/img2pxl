@@ -3,8 +3,8 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 import {Timer} from 'three/addons'
-import RendererManager from './lib/renderer-manager.js'
 import App from './core/app.js'
+import RendererManager from './core/lib/renderer-manager.js'
 import Image from './core/app/image.js'
 import Pointer from './core/app/pointer.js'
 import PointerCanvas from './core/app/pointer/canvas.js'
@@ -36,6 +36,10 @@ export default class Img2Pxl {
    * @param {number} resolutionHeight
    * @param {number} pointSize
    * @param {string} displacementImageSrc
+   * @param {number} displacementSize
+   * @param {number} displacementTrailingFactor
+   * @param {number} displacementFrequency
+   * @param {number} displacementAmplitude
    */
   constructor(
     imageSrc,
@@ -45,6 +49,10 @@ export default class Img2Pxl {
     resolutionHeight,
     pointSize = 1,
     displacementImageSrc = glowImage,
+    displacementSize = 0.2,
+    displacementTrailingFactor = 0.1,
+    displacementFrequency = 6,
+    displacementAmplitude = 55,
   ) {
     const rendererManager = new RendererManager(width, height)
 
@@ -62,9 +70,13 @@ export default class Img2Pxl {
           resolutionWidth,
           resolutionHeight,
           displacementImageSrc,
+          displacementSize,
+          displacementTrailingFactor,
         ),
       ),
       rendererManager,
+      displacementFrequency,
+      displacementAmplitude,
     )
 
     this.#timer = new Timer()
@@ -91,6 +103,7 @@ export default class Img2Pxl {
    */
   dispose() {
     cancelAnimationFrame(this.#requestAnimationId)
+    this.#timer.dispose()
     this.#app.dispose()
   }
 }

@@ -1,9 +1,6 @@
 /**
  * @description Image vertex shader
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
- * @note        It is defined comments with the form `//include <identifier>`
- *              to allow their replacement with custom code to
- *              customize shader logic
  */
 uniform sampler2D uImageTexture;
 uniform float     uPointSize;

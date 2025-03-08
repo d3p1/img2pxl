@@ -1,9 +1,11 @@
 /**
  * @description Image
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
+ * @note        This class handles the logic related to the
+ *              transformation of the image into vertices/points/pixels
  */
 import * as THREE from 'three'
-import RendererManager from '../../lib/renderer-manager.js'
+import RendererManager from '../lib/renderer-manager.js'
 import imageVertexShader from './image/shader/vertex.glsl'
 import imageFragmentShader from './image/shader/fragment.glsl'
 
@@ -40,7 +42,6 @@ export default class Image {
     pointSize = 1,
   ) {
     this.#rendererManager = rendererManager
-
     this.#initPoints(imageSrc, resolutionWidth, resolutionHeight, pointSize)
   }
 

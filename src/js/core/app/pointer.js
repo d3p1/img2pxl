@@ -3,7 +3,7 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 import * as THREE from 'three'
-import RendererManager from '../../lib/renderer-manager.js'
+import RendererManager from '../lib/renderer-manager.js'
 import Canvas from './pointer/canvas.js'
 
 export default class Pointer {
@@ -78,15 +78,8 @@ export default class Pointer {
    * @returns {void}
    */
   dispose() {
-    this.#rendererManager.renderer.domElement.removeEventListener(
-      'pointermove',
-      this.#boundPointerMove,
-    )
-    this.#rendererManager.renderer.domElement.removeEventListener(
-      'pointerleave',
-      this.#boundPointerLeave,
-    )
-    this.#disposeRaycasterPlane()
+    this.canvas.dispose()
+    this.#disposeRaycaster()
   }
 
   /**
@@ -147,11 +140,20 @@ export default class Pointer {
   }
 
   /**
-   * Dispose raycaster plane
+   * Dispose raycaster
    *
    * @returns {void}
    */
-  #disposeRaycasterPlane() {
+  #disposeRaycaster() {
+    this.#rendererManager.renderer.domElement.removeEventListener(
+      'pointermove',
+      this.#boundPointerMove,
+    )
+    this.#rendererManager.renderer.domElement.removeEventListener(
+      'pointerleave',
+      this.#boundPointerLeave,
+    )
+
     this.raycasterPlane.geometry.dispose()
     this.raycasterPlane.material.dispose()
   }
