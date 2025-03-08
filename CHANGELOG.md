@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/d3p1/img2pxl.js/compare/v1.8.0...v1.8.1) (2025-03-08)
+
+
+### Bug Fixes
+
+* adjust displacement effect on pointer leave [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([8804900](https://github.com/d3p1/img2pxl.js/commit/8804900e188d42ff637e9711621aad97d2e74c60))
+
 # [1.8.0](https://github.com/d3p1/img2pxl.js/compare/v1.7.1...v1.8.0) (2025-03-06)
 
 
