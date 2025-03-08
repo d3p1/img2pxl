@@ -3,22 +3,20 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 import * as THREE from 'three'
-import RendererManager from './renderer-manager.js'
+import RendererManager from '../lib/renderer-manager.js'
 import Image from './app/image.js'
+import Pointer from './app/pointer.js'
+import parsVertexShader from './app/shader/pars_vertex.glsl'
+import positionVertexShader from './app/shader/position_vertex.glsl'
 
 export default class App {
   /**
-   * @type {THREE.Mesh}
+   * @type {Image}
    */
-  #raycasterPlane
+  #image
 
   /**
-   * @type {THREE.Raycaster}
-   */
-  #raycaster
-
-  /**
-   * @type {THREE.Vector2}
+   * @type {Pointer}
    */
   #pointer
 
@@ -28,36 +26,31 @@ export default class App {
   #rendererManager
 
   /**
-   * @type {Image}
-   */
-  #image
-
-  /**
-   * @type {Function}
-   */
-  #boundPointerMove
-
-  /**
    * Constructor
    *
-   * @param {RendererManager} rendererManager
    * @param {Image}           image
+   * @param {Pointer}         pointer
+   * @param {RendererManager} rendererManager
    */
-  constructor(rendererManager, image) {
+  constructor(image, pointer, rendererManager) {
+    this.#image = image
+    this.#pointer = pointer
     this.#rendererManager = rendererManager
-    this.#initImage(image)
-    this.#initRaycaster()
+    this.#initImage()
+    this.#initPointer()
   }
 
   /**
    * Update
    *
    * @param   {number} elapsed
-   * @param   {number} delta
    * @returns {void}
    */
-  update(elapsed, delta) {
-    this.#image.update(this.#processRaycaster(), elapsed, delta)
+  update(elapsed) {
+    if (this.#image.points.material.uniforms.uTime) {
+      this.#image.points.material.uniforms.uTime.value = elapsed
+      this.#pointer.update()
+    }
     this.#rendererManager.update()
   }
 
@@ -67,119 +60,63 @@ export default class App {
    * @returns {void}
    */
   dispose() {
-    this.#disposeRaycasterPlane()
     this.#image.dispose()
-    this.#disposeRendererManager()
-  }
-
-  /**
-   * Process raycaster
-   *
-   * @returns {number[]|null}
-   */
-  #processRaycaster() {
-    if (this.#pointer.x && this.#pointer.y) {
-      this.#raycaster.setFromCamera(this.#pointer, this.#rendererManager.camera)
-      const intersections = this.#raycaster.intersectObject(
-        this.#raycasterPlane,
-      )
-      if (intersections.length) {
-        return [intersections[0].uv.x, intersections[0].uv.y]
-      }
-    }
-    return null
-  }
-
-  /**
-   * Process pointer
-   *
-   * @param   {PointerEvent} event
-   * @returns {void}
-   * @note    Pointer coordinates are normalized to clip space to
-   *          be able to use it for raycasting
-   */
-  #processPointer(event) {
-    this.#pointer.x =
-      (event.offsetX / this.#rendererManager.renderer.domElement.width - 0.5) *
-      2
-    this.#pointer.y =
-      -(
-        event.offsetY / this.#rendererManager.renderer.domElement.height -
-        0.5
-      ) * 2
-  }
-
-  /**
-   * Init raycaster
-   *
-   * @returns {void}
-   * @note    It will be used a low poly plane in front of the image
-   *          to avoid performance issues that could arise while
-   *          working between the raycaster and image points
-   */
-  #initRaycaster() {
-    this.#raycaster = new THREE.Raycaster()
-    this.#pointer = new THREE.Vector2(null, null)
-
-    this.#boundPointerMove = this.#processPointer.bind(this)
-    this.#rendererManager.renderer.domElement.addEventListener(
-      'pointermove',
-      this.#boundPointerMove,
-    )
-
-    this.#rendererManager.renderer.domElement.addEventListener(
-      'pointerleave',
-      () => {
-        this.#pointer.x = null
-        this.#pointer.y = null
-      },
-    )
-
-    this.#raycasterPlane = new THREE.Mesh(
-      new THREE.PlaneGeometry(),
-      new THREE.MeshBasicMaterial(),
-    )
-    this.#raycasterPlane.scale.set(
-      this.#image.points.geometry.parameters.width,
-      this.#image.points.geometry.parameters.height,
-    )
-    this.#raycasterPlane.position.copy(this.#image.points.position)
-    this.#raycasterPlane.position.z += 0.01
-    this.#raycasterPlane.visible = false
-    this.#rendererManager.scene.add(this.#raycasterPlane)
+    this.#pointer.dispose()
+    this.#rendererManager.dispose()
   }
 
   /**
    * Init image
    *
-   * @param   {Image} image
    * @returns {void}
    */
-  #initImage(image) {
-    this.#image = image
+  #initImage() {
+    const vertices = this.#image.points.geometry.attributes.position.count
+    const disAngle = new Float32Array(vertices)
+    const disAmplitude = new Float32Array(vertices)
+    for (let i = 0; i < vertices; i++) {
+      disAngle[i] = Math.random() * 2 * Math.PI
+      disAmplitude[i] = Math.random()
+    }
+    this.#image.points.geometry.setAttribute(
+      'aDisAngle',
+      new THREE.BufferAttribute(disAngle, 1),
+    )
+    this.#image.points.geometry.setAttribute(
+      'aDisAmplitude',
+      new THREE.BufferAttribute(disAmplitude, 1),
+    )
+
+    this.#image.points.material.onBeforeCompile = (shader) => {
+      shader.uniforms['uTime'] = new THREE.Uniform(0)
+      shader.uniforms['uDisFrequency'] = new THREE.Uniform(5)
+      shader.uniforms['uDisAmplitude'] = new THREE.Uniform(50)
+      shader.uniforms['uDisTexture'] = new THREE.Uniform(
+        this.#pointer.canvas.texture,
+      )
+
+      shader.vertexShader = shader.vertexShader.replace(
+        'varying vec4 vColor;',
+        parsVertexShader,
+      )
+      shader.vertexShader = shader.vertexShader.replace(
+        'vec3 vertexPosition = position;',
+        positionVertexShader,
+      )
+    }
+
     this.#rendererManager.scene.add(this.#image.points)
   }
 
   /**
-   * Dispose raycaster plane
+   * Init pointer
    *
    * @returns {void}
    */
-  #disposeRaycasterPlane() {
-    this.#raycasterPlane.geometry.dispose()
-    this.#raycasterPlane.material.dispose()
-  }
+  #initPointer() {
+    this.#pointer.raycasterPlane.position.copy(this.#image.points.position)
+    this.#pointer.raycasterPlane.position.z += 0.01
 
-  /**
-   * Dispose renderer manager
-   *
-   * @returns {void}
-   */
-  #disposeRendererManager() {
-    this.#rendererManager.dispose()
-    this.#rendererManager.renderer.domElement.removeEventListener(
-      'pointermove',
-      this.#boundPointerMove,
-    )
+    this.#rendererManager.scene.add(this.#pointer.raycasterPlane)
   }
 }

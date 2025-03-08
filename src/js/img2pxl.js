@@ -3,9 +3,11 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 import {Timer} from 'three/addons'
+import RendererManager from './lib/renderer-manager.js'
 import App from './core/app.js'
-import RendererManager from './core/renderer-manager.js'
 import Image from './core/app/image.js'
+import Pointer from './core/app/pointer.js'
+import PointerCanvas from './core/app/pointer/canvas.js'
 import glowImage from './media/processor/displacement/glow.png'
 
 export default class Img2Pxl {
@@ -32,26 +34,37 @@ export default class Img2Pxl {
    * @param {number} height
    * @param {number} resolutionWidth
    * @param {number} resolutionHeight
+   * @param {number} pointSize
    * @param {string} displacementImageSrc
    */
   constructor(
     imageSrc,
     width,
     height,
-    resolutionWidth = 128,
-    resolutionHeight = 128,
+    resolutionWidth,
+    resolutionHeight,
+    pointSize = 1,
     displacementImageSrc = glowImage,
   ) {
+    const rendererManager = new RendererManager(width, height)
+
     this.#app = new App(
-      new RendererManager(width, height),
       new Image(
+        rendererManager,
         imageSrc,
-        width,
-        height,
         resolutionWidth,
         resolutionHeight,
-        displacementImageSrc,
+        pointSize,
       ),
+      new Pointer(
+        rendererManager,
+        new PointerCanvas(
+          resolutionWidth,
+          resolutionHeight,
+          displacementImageSrc,
+        ),
+      ),
+      rendererManager,
     )
 
     this.#timer = new Timer()
@@ -66,7 +79,7 @@ export default class Img2Pxl {
   render(t = 0) {
     this.#timer.update(t)
 
-    this.#app.update(this.#timer.getElapsed(), this.#timer.getDelta())
+    this.#app.update(this.#timer.getElapsed())
 
     this.#requestAnimationId = requestAnimationFrame(this.render.bind(this))
   }

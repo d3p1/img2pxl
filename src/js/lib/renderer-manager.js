@@ -26,9 +26,19 @@ export default class RendererManager {
 
   /**
    * @type {number}
+   */
+  width
+
+  /**
+   * @type {number}
+   */
+  height
+
+  /**
+   * @type {number}
    * @note Device pixel ratio
    */
-  #dpr
+  dpr
 
   /**
    * Constructor
@@ -37,7 +47,9 @@ export default class RendererManager {
    * @param {number} height
    */
   constructor(width, height) {
-    this.#initRenderer(width, height)
+    this.width = width
+    this.height = height
+    this.#initRenderer()
     this.#initScene()
     this.#initCamera()
   }
@@ -64,29 +76,27 @@ export default class RendererManager {
   /**
    * Init renderer
    *
-   * @param   {number} width  Image width dimension
-   * @param   {number} height Image height dimension
    * @returns {void}
    * @note    The antialias is only enabled for devices with less than `2`
    *          as a pixel ratio. This is done to improve performance because
    *          this type of device does not require this feature
    */
-  #initRenderer(width, height) {
+  #initRenderer() {
     const canvas = document.createElement('canvas')
     document.body.append(canvas)
 
-    this.#dpr = Math.min(window.devicePixelRatio, 2)
+    this.dpr = Math.min(window.devicePixelRatio, 2)
 
     let antialias = false
-    if (this.#dpr <= 1) {
+    if (this.dpr <= 1) {
       antialias = true
     }
     this.renderer = new THREE.WebGLRenderer({
       canvas: canvas,
       antialias: antialias,
     })
-    this.renderer.setPixelRatio(this.#dpr)
-    this.renderer.setSize(width, height)
+    this.renderer.setPixelRatio(this.dpr)
+    this.renderer.setSize(this.width, this.height)
   }
 
   /**
