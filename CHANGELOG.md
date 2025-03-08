@@ -1,3 +1,10 @@
+## [1.9.2](https://github.com/d3p1/img2pxl.js/compare/v1.9.1...v1.9.2) (2025-03-08)
+
+
+### Bug Fixes
+
+* disallow enable debug feature when it is already enabled [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([5606cc4](https://github.com/d3p1/img2pxl.js/commit/5606cc42b9633550bdbe1ffa577ea437692b6c3d))
+
 ## [1.9.1](https://github.com/d3p1/img2pxl.js/compare/v1.9.0...v1.9.1) (2025-03-08)
 
 
