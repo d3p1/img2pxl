@@ -13,7 +13,7 @@ import RendererManager from './core/lib/renderer-manager.js'
 import Image from './core/app/image.js'
 import Pointer from './core/app/pointer.js'
 import PointerCanvas from './core/app/pointer/canvas.js'
-import glowImage from './media/processor/displacement/glow.png'
+import pointerImage from './media/processor/displacement/pointer.png'
 
 export default class Img2Pxl {
   /**
@@ -68,7 +68,7 @@ export default class Img2Pxl {
     resolutionWidth: number,
     resolutionHeight: number,
     pointSize: number = 1,
-    displacementImageSrc: string = glowImage,
+    displacementImageSrc: string = pointerImage,
     displacementSize: number = 0.15,
     displacementTrailingFactor: number = 0.01,
     displacementFrequency: number = 5,
