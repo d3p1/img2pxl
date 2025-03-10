@@ -110,6 +110,7 @@ export default class App {
         (value: number) =>
           (this.#image.points.material.uniforms.uNoiseFrequency.value = value),
       )
+
     folder
       .add(
         {
@@ -125,6 +126,7 @@ export default class App {
         (value: number) =>
           (this.#image.points.material.uniforms.uNoiseAmplitude.value = value),
       )
+
     folder
       .add(
         {
@@ -140,6 +142,7 @@ export default class App {
         (value: number) =>
           (this.#image.points.material.uniforms.uDisFrequency.value = value),
       )
+
     folder
       .add(
         {
@@ -148,7 +151,7 @@ export default class App {
         },
         'displacementAmplitude',
       )
-      .min(1)
+      .min(0)
       .max(this.#rendererManager.width)
       .step(1)
       .onChange(

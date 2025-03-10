@@ -99,24 +99,26 @@ export default class Canvas {
    */
   debug(): void {
     const folder = this.#debugManager.addFolder('Pointer Canvas')
+
     folder
       .add(
         {displacementSize: this.#displacementImageSize / this.element.width},
         'displacementSize',
       )
-      .min(0.01)
+      .min(0)
       .max(1)
       .step(0.01)
       .onChange(
         (value: number) =>
           (this.#displacementImageSize = this.element.width * value),
       )
+
     folder
       .add(
         {displacementTrailingFactor: this.#displacementTrailingFactor},
         'displacementTrailingFactor',
       )
-      .min(0.01)
+      .min(0)
       .max(1)
       .step(0.01)
       .onChange((value: number) => this.#processDisplacementImageSize(value))
