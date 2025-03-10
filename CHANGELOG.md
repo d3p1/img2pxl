@@ -1,3 +1,15 @@
+# [1.10.0](https://github.com/d3p1/img2pxl.js/compare/v1.9.2...v1.10.0) (2025-03-10)
+
+
+### Bug Fixes
+
+* adjust range in debug options [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([4e11f42](https://github.com/d3p1/img2pxl.js/commit/4e11f429459cc6c0c7ffee55b9438076624c43b7))
+
+
+### Features
+
+* add noise effect [[#5](https://github.com/d3p1/img2pxl.js/issues/5)] ([dbdcdc2](https://github.com/d3p1/img2pxl.js/commit/dbdcdc2fa37d06a0ff441ebafd14534516386524))
+
 ## [1.9.2](https://github.com/d3p1/img2pxl.js/compare/v1.9.1...v1.9.2) (2025-03-08)
 
 
