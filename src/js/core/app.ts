@@ -38,6 +38,9 @@ export default class App {
    * @param {Pointer}         pointer
    * @param {RendererManager} rendererManager
    * @param {GUI}             debugManager
+   * @param {string}          noiseImageSrc
+   * @param {number}          noiseFrequency
+   * @param {number}          noiseAmplitude
    * @param {number}          displacementFrequency
    * @param {number}          displacementAmplitude
    */
@@ -46,6 +49,9 @@ export default class App {
     pointer: Pointer,
     rendererManager: RendererManager,
     debugManager: GUI,
+    noiseImageSrc: string,
+    noiseFrequency: number = 0.1,
+    noiseAmplitude: number = 5,
     displacementFrequency: number = 5,
     displacementAmplitude: number = 50,
   ) {
@@ -53,7 +59,13 @@ export default class App {
     this.#pointer = pointer
     this.#rendererManager = rendererManager
     this.#debugManager = debugManager
-    this.#initImage(displacementFrequency, displacementAmplitude)
+    this.#initImage(
+      noiseImageSrc,
+      noiseFrequency,
+      noiseAmplitude,
+      displacementFrequency,
+      displacementAmplitude,
+    )
     this.#initPointer()
   }
 
@@ -83,6 +95,36 @@ export default class App {
   debug(): void {
     const folder = this.#debugManager.addFolder('General')
 
+    folder
+      .add(
+        {
+          noiseFrequency:
+            this.#image.points.material.uniforms.uNoiseFrequency.value,
+        },
+        'noiseFrequency',
+      )
+      .min(0)
+      .max(2 * Math.PI)
+      .step(0.01)
+      .onChange(
+        (value: number) =>
+          (this.#image.points.material.uniforms.uNoiseFrequency.value = value),
+      )
+    folder
+      .add(
+        {
+          noiseAmplitude:
+            this.#image.points.material.uniforms.uNoiseAmplitude.value,
+        },
+        'noiseAmplitude',
+      )
+      .min(0)
+      .max(this.#rendererManager.width)
+      .step(1)
+      .onChange(
+        (value: number) =>
+          (this.#image.points.material.uniforms.uNoiseAmplitude.value = value),
+      )
     folder
       .add(
         {
@@ -133,16 +175,25 @@ export default class App {
   /**
    * Init image
    *
+   * @param   {string} noiseImageSrc
+   * @param   {number} noiseFrequency
+   * @param   {number} noiseAmplitude
    * @param   {number} displacementFrequency
    * @param   {number} displacementAmplitude
    * @returns {void}
    */
   #initImage(
+    noiseImageSrc: string,
+    noiseFrequency: number,
+    noiseAmplitude: number,
     displacementFrequency: number,
     displacementAmplitude: number,
   ): void {
     this.#addDisplacementAttributesToImage()
     this.#addDisplacementHandlerToImage(
+      noiseImageSrc,
+      noiseFrequency,
+      noiseAmplitude,
       displacementFrequency,
       displacementAmplitude,
     )
@@ -164,14 +215,24 @@ export default class App {
   /**
    * Add logic that handles vertex/point/pixel displacement to image
    *
+   * @param   {string} noiseImageSrc
+   * @param   {number} noiseFrequency
+   * @param   {number} noiseAmplitude
    * @param   {number} displacementFrequency
    * @param   {number} displacementAmplitude
    * @returns {void}
    */
   #addDisplacementHandlerToImage(
+    noiseImageSrc: string,
+    noiseFrequency: number,
+    noiseAmplitude: number,
     displacementFrequency: number,
     displacementAmplitude: number,
   ): void {
+    const textureLoader = new THREE.TextureLoader()
+    const noiseTexture = textureLoader.load(noiseImageSrc)
+    noiseTexture.wrapS = THREE.RepeatWrapping
+
     this.#image.points.material.onBeforeCompile = (
       shader: THREE.WebGLProgramParametersWithUniforms,
     ) => {
@@ -185,6 +246,9 @@ export default class App {
       shader.uniforms['uDisTexture'] = new THREE.Uniform(
         this.#pointer.canvas.texture,
       )
+      shader.uniforms['uNoiseFrequency'] = new THREE.Uniform(noiseFrequency)
+      shader.uniforms['uNoiseAmplitude'] = new THREE.Uniform(noiseAmplitude)
+      shader.uniforms['uNoiseTexture'] = new THREE.Uniform(noiseTexture)
 
       shader.vertexShader = shader.vertexShader.replace(
         'varying vec4 vColor;',

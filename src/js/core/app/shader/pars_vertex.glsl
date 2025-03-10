@@ -14,5 +14,8 @@ uniform float     uTime;
 uniform float     uDisFrequency;
 uniform float     uDisAmplitude;
 uniform sampler2D uDisTexture;
+uniform float     uNoiseFrequency;
+uniform float     uNoiseAmplitude;
+uniform sampler2D uNoiseTexture;
 
 varying vec4 vColor;

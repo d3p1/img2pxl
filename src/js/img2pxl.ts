@@ -13,6 +13,7 @@ import RendererManager from './core/lib/renderer-manager.js'
 import Image from './core/app/image.js'
 import Pointer from './core/app/pointer.js'
 import PointerCanvas from './core/app/pointer/canvas.js'
+import noiseImage from './media/processor/displacement/noise.png'
 import pointerImage from './media/processor/displacement/pointer.png'
 
 export default class Img2Pxl {
@@ -55,6 +56,9 @@ export default class Img2Pxl {
    * @param {number} resolutionWidth
    * @param {number} resolutionHeight
    * @param {number} pointSize
+   * @param {string} noiseImageSrc
+   * @param {number} noiseFrequency
+   * @param {number} noiseAmplitude
    * @param {string} displacementImageSrc
    * @param {number} displacementSize
    * @param {number} displacementTrailingFactor
@@ -68,6 +72,9 @@ export default class Img2Pxl {
     resolutionWidth: number,
     resolutionHeight: number,
     pointSize: number = 1,
+    noiseImageSrc: string = noiseImage,
+    noiseFrequency: number = 0.05,
+    noiseAmplitude: number = 3,
     displacementImageSrc: string = pointerImage,
     displacementSize: number = 0.15,
     displacementTrailingFactor: number = 0.01,
@@ -83,6 +90,9 @@ export default class Img2Pxl {
       resolutionWidth,
       resolutionHeight,
       pointSize,
+      noiseImageSrc,
+      noiseFrequency,
+      noiseAmplitude,
       displacementImageSrc,
       displacementSize,
       displacementTrailingFactor,
@@ -140,6 +150,9 @@ export default class Img2Pxl {
    * @param   {number} resolutionWidth
    * @param   {number} resolutionHeight
    * @param   {number} pointSize
+   * @param   {string} noiseImageSrc
+   * @param   {number} noiseFrequency
+   * @param   {number} noiseAmplitude
    * @param   {string} displacementImageSrc
    * @param   {number} displacementSize
    * @param   {number} displacementTrailingFactor
@@ -152,6 +165,9 @@ export default class Img2Pxl {
     resolutionWidth: number,
     resolutionHeight: number,
     pointSize: number,
+    noiseImageSrc: string,
+    noiseFrequency: number,
+    noiseAmplitude: number,
     displacementImageSrc: string,
     displacementSize: number,
     displacementTrailingFactor: number,
@@ -180,6 +196,9 @@ export default class Img2Pxl {
       ),
       this.#rendererManager,
       this.#debugManager,
+      noiseImageSrc,
+      noiseFrequency,
+      noiseAmplitude,
       displacementFrequency,
       displacementAmplitude,
     )
