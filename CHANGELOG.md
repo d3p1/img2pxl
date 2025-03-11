@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/d3p1/img2pxl/compare/v1.10.0...v1.10.1) (2025-03-11)
+
+
+### Bug Fixes
+
+* rename img2pxl.js reference to img2pxl [[#5](https://github.com/d3p1/img2pxl/issues/5)] ([0bc8c8a](https://github.com/d3p1/img2pxl/commit/0bc8c8ac1838ecb0f83e084a7b599b241f76b2c1))
+
 # [1.10.0](https://github.com/d3p1/img2pxl.js/compare/v1.9.2...v1.10.0) (2025-03-10)
 
 
