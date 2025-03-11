@@ -5,10 +5,10 @@ export default {
   base: '/img2pxl.js/',
   publicDir: '../public/',
   server: {
-    host: true
+    host: true,
   },
   build: {
-    outDir: '../docs',
+    outDir: '../../docs',
     emptyOutDir: true,
     sourcemap: true,
   },

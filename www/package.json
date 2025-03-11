@@ -1,7 +1,4 @@
 {
-  "name": "@d3p1/img2pxl.js",
-  "version": "1.10.0",
-  "description": "A cool image to pixel effect",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,7 +7,10 @@
     "lint:code:fix": "npm run lint:code -- --fix",
     "format:code": "prettier --ignore-path .gitignore --check src",
     "format:code:fix": "npm run format:code -- --write",
-    "refactor": "npm run format:code:fix && npm run lint:code:fix"
+    "refactor": "npm run format:code:fix && npm run lint:code:fix",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -22,21 +22,7 @@
     "url": "https://github.com/d3p1/img2pxl.js/issues"
   },
   "homepage": "https://github.com/d3p1/img2pxl.js#readme",
-  "keywords": [
-    "particles",
-    "particle",
-    "particle-physics",
-    "particles-js",
-    "canvas",
-    "three",
-    "threejs",
-    "webgl",
-    "webgl2",
-    "html5"
-  ],
   "devDependencies": {
-    "@commitlint/cli": "^17.7.1",
-    "@d3p1/commitlint-config": "^1.0.0",
     "@eslint/js": "^9.22.0",
     "@types/three": "^0.174.0",
     "eslint": "^8.50.0",
@@ -46,6 +32,8 @@
     "prettier": "3.0.3",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.26.0",
+    "vite": "^6.2.0",
+    "vite-plugin-glsl": "^1.3.1",
     "write-good": "^1.0.8"
   },
   "dependencies": {
