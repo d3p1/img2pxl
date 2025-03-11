@@ -1,5 +1,5 @@
 {
-  "name": "@d3p1/img2pxl.js",
+  "name": "@d3p1/img2pxl",
   "version": "1.10.0",
   "description": "A cool image to pixel effect",
   "private": true,
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/d3p1/img2pxl.js.git"
+    "url": "git+https://github.com/d3p1/img2pxl.git"
   },
   "author": "C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/d3p1/img2pxl.js/issues"
+    "url": "https://github.com/d3p1/img2pxl/issues"
   },
-  "homepage": "https://github.com/d3p1/img2pxl.js#readme",
+  "homepage": "https://github.com/d3p1/img2pxl#readme",
   "keywords": [
     "particles",
     "particle",

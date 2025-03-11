@@ -1,5 +1,5 @@
 /**
- * @description img2pxl.js
+ * @description img2pxl
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  * @note        This class works as the entry point of the library.
  *              It is like a dependency injection manager.

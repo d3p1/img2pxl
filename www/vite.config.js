@@ -2,7 +2,7 @@ import glsl from 'vite-plugin-glsl'
 
 export default {
   root: 'src/',
-  base: '/img2pxl.js/',
+  base: '/img2pxl/',
   publicDir: '../public/',
   server: {
     host: true,

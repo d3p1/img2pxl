@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/d3p1/img2pxl.js.git"
+    "url": "git+https://github.com/d3p1/img2pxl.git"
   },
   "author": "C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/d3p1/img2pxl.js/issues"
+    "url": "https://github.com/d3p1/img2pxl/issues"
   },
-  "homepage": "https://github.com/d3p1/img2pxl.js#readme",
+  "homepage": "https://github.com/d3p1/img2pxl#readme",
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@types/three": "^0.174.0",
