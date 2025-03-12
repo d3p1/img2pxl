@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/d3p1/img2pxl/compare/v1.12.1...v1.13.0) (2025-03-12)
+
+
+### Features
+
+* improve library demo [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([9232c3e](https://github.com/d3p1/img2pxl/commit/9232c3e4b2b817bbf993efc1b5be4cb1dfe90fca))
+
 ## [1.12.1](https://github.com/d3p1/img2pxl/compare/v1.12.0...v1.12.1) (2025-03-12)
 
 
