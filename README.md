@@ -10,10 +10,13 @@
 
 ## Introduction
 
-Just studying and practicing my JS skills, creating a particle effect on images from these excellent tutorials:
+Just a cool image to pixel effect.
 
-[![Learn Creative Coding: Image Effects](https://img.youtube.com/vi/UeZ1pTg_nMo/maxresdefault.jpg)](https://www.youtube.com/watch?v=UeZ1pTg_nMo)
-[![Image into Interactive Particles - HTML Canvas Animation Tutorial | Advanced Pure Vanilla JavaScript](https://img.youtube.com/vi/afdHgwn1XCY/maxresdefault.jpg)](https://www.youtube.com/watch?v=afdHgwn1XCY)
+> [!NOTE]
+> This library was inspired by these excellent tutorials:
+> - [Three.js Journey - Particle Cursor Animation Shader](https://threejs-journey.com/lessons/particles-cursor-animation-shader).
+> - [Learn Creative Coding: Image Effects](https://www.youtube.com/watch?v=UeZ1pTg_nMo).
+> - [Image into Interactive Particles - HTML Canvas Animation Tutorial | Advanced Pure Vanilla JavaScript](https://www.youtube.com/watch?v=afdHgwn1XCY). 
 
 ## Changelog
 
