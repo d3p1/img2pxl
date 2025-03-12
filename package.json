@@ -30,7 +30,7 @@
     "format:code:fix": "npm run format:code -- --write",
     "refactor": "npm run format:code:fix && npm run lint:code:fix",
     "build": "tsc && vite build",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm ci && npm run build"
   },
   "repository": {
     "type": "git",
