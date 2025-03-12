@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/d3p1/img2pxl/compare/v1.11.0...v1.12.0) (2025-03-12)
+
+
+### Features
+
+* init Three.js npm library [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([cf69338](https://github.com/d3p1/img2pxl/commit/cf6933836ed334afd5725081efed037206dfebb3))
+
 # [1.11.0](https://github.com/d3p1/img2pxl/compare/v1.10.1...v1.11.0) (2025-03-12)
 
 
