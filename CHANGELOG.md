@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/d3p1/img2pxl/compare/v1.12.0...v1.12.1) (2025-03-12)
+
+
+### Bug Fixes
+
+* adjust pre-publish script to publish Three.js npm library [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([e211a41](https://github.com/d3p1/img2pxl/commit/e211a41f9d3208ca0ae3832ba7dda5f62522a720))
+
 # [1.12.0](https://github.com/d3p1/img2pxl/compare/v1.11.0...v1.12.0) (2025-03-12)
 
 
