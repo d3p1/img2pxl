@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/d3p1/img2pxl/compare/v1.13.0...v1.13.1) (2025-03-12)
+
+
+### Bug Fixes
+
+* improve dependency defenitions [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([a124795](https://github.com/d3p1/img2pxl/commit/a1247950ffa479d28d293821c26f1041a8308a67))
+
 # [1.13.0](https://github.com/d3p1/img2pxl/compare/v1.12.1...v1.13.0) (2025-03-12)
 
 
