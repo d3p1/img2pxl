@@ -2,7 +2,7 @@
   "name": "@d3p1/img2pxl",
   "version": "1.11.0",
   "description": "A cool image to pixel effect",
-  "private": true,
+  "private": false,
   "type": "module",
   "main": "./dist/img2pxl.umd.cjs",
   "module": "./dist/img2pxl.js",
