@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "lil-gui": "^0.20.0",
-    "three": "^0.173.0"
+    "three": "^0.173.0",
+    "@d3p1/img2pxl": "^1.0"
   }
 }
