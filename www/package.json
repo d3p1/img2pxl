@@ -36,7 +36,6 @@
     "write-good": "^1.0.8"
   },
   "dependencies": {
-    "@d3p1/img2pxl": "^1.0",
     "lil-gui": "^0.20.0",
     "three": "^0.173.0"
   }
