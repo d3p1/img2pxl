@@ -1,6 +1,6 @@
 {
   "name": "@d3p1/img2pxl",
-  "version": "1.10.1",
+  "version": "1.11.0",
   "description": "A cool image to pixel effect",
   "private": true,
   "type": "module",
@@ -8,7 +8,7 @@
   "module": "./dist/img2pxl.js",
   "types": "./dist/img2pxl.d.ts",
   "exports": {
-    "." : {
+    ".": {
       "import": {
         "types": "./dist/img2pxl.d.ts",
         "default": "./dist/img2pxl.js"
