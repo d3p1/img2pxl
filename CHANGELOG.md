@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/d3p1/img2pxl/compare/v1.10.1...v1.11.0) (2025-03-12)
+
+
+### Features
+
+* convert Three.js code as library [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([6f1c50f](https://github.com/d3p1/img2pxl/commit/6f1c50fe9e63c8b11a8f8ae6fabbb7df8e29f284))
+
 ## [1.10.1](https://github.com/d3p1/img2pxl/compare/v1.10.0...v1.10.1) (2025-03-11)
 
 
