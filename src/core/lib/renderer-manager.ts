@@ -97,6 +97,7 @@ export default class RendererManager {
     })
     this.renderer.setPixelRatio(this.dpr)
     this.renderer.setSize(this.width, this.height)
+    this.renderer.setClearAlpha(0)
   }
 
   /**
