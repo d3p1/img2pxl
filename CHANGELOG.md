@@ -1,3 +1,10 @@
+## [1.14.1](https://github.com/d3p1/img2pxl/compare/v1.14.0...v1.14.1) (2025-03-14)
+
+
+### Bug Fixes
+
+* adjust debug tweak names [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([54af337](https://github.com/d3p1/img2pxl/commit/54af33720412d8d3aaeb00013638a485197b4fd5))
+
 # [1.14.0](https://github.com/d3p1/img2pxl/compare/v1.13.1...v1.14.0) (2025-03-14)
 
 
