@@ -1,6 +1,6 @@
 {
   "name": "@d3p1/img2pxl",
-  "version": "1.13.1",
+  "version": "1.14.0",
   "description": "A cool image to pixel effect",
   "private": false,
   "type": "module",

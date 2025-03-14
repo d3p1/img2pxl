@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/d3p1/img2pxl/compare/v1.13.1...v1.14.0) (2025-03-14)
+
+
+### Features
+
+* replace lil-gui by tweakpane [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([0ad4063](https://github.com/d3p1/img2pxl/commit/0ad4063fb4fa5346820cbe0269ae28dde5e3528e))
+
 ## [1.13.1](https://github.com/d3p1/img2pxl/compare/v1.13.0...v1.13.1) (2025-03-12)
 
 
