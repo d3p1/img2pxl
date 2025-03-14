@@ -4,7 +4,7 @@
  * @note        This class handles the logic related to the
  *              transformation of the image into vertices/points/pixels
  */
-import GUI from 'lil-gui'
+import {Pane} from 'tweakpane'
 import * as THREE from 'three'
 import RendererManager from '../lib/renderer-manager.js'
 import imageVertexShader from './image/shader/vertex.glsl'
@@ -27,15 +27,15 @@ export default class Image {
   #rendererManager: RendererManager
 
   /**
-   * @type {GUI}
+   * @type {Pane}
    */
-  #debugManager: GUI
+  #debugManager: Pane
 
   /**
    * Constructor
    *
    * @param {RendererManager} rendererManager
-   * @param {GUI}             debugManager
+   * @param {Pane}            debugManager
    * @param {string}          imageSrc
    * @param {number}          resolutionWidth
    * @param {number}          resolutionHeight
@@ -43,7 +43,7 @@ export default class Image {
    */
   constructor(
     rendererManager: RendererManager,
-    debugManager: GUI,
+    debugManager: Pane,
     imageSrc: string,
     resolutionWidth: number,
     resolutionHeight: number,
@@ -60,48 +60,48 @@ export default class Image {
    * @returns {void}
    */
   debug(): void {
-    const folder = this.#debugManager.addFolder('Image')
+    const folder = this.#debugManager.addFolder({title: 'Image'})
 
     folder
-      .add(
+      .addBinding(
         {resolutionWidth: this.points.geometry.parameters.widthSegments},
         'resolutionWidth',
+        {min: 0, max: this.points.geometry.parameters.width, step: 1},
       )
-      .min(0)
-      .max(this.points.geometry.parameters.width)
-      .step(1)
-      .onFinishChange((value: number) => {
-        this.#replaceImageGeometry(
-          value,
-          this.points.geometry.parameters.heightSegments,
-        )
+      .on('change', (e) => {
+        if (e.last) {
+          this.#replaceImageGeometry(
+            e.value,
+            this.points.geometry.parameters.heightSegments,
+          )
+        }
       })
 
     folder
-      .add(
+      .addBinding(
         {resolutionHeight: this.points.geometry.parameters.heightSegments},
         'resolutionHeight',
+        {min: 0, max: this.points.geometry.parameters.height, step: 1},
       )
-      .min(0)
-      .max(this.points.geometry.parameters.height)
-      .step(1)
-      .onFinishChange((value: number) => {
-        this.#replaceImageGeometry(
-          this.points.geometry.parameters.widthSegments,
-          value,
-        )
+      .on('change', (e) => {
+        if (e.last) {
+          this.#replaceImageGeometry(
+            this.points.geometry.parameters.widthSegments,
+            e.value,
+          )
+        }
       })
 
     folder
-      .add(
+      .addBinding(
         {pointSize: this.points.material.uniforms.uPointSize.value},
         'pointSize',
+        {min: 1, max: 100, step: 1},
       )
-      .min(1)
-      .max(100)
-      .step(1)
-      .onFinishChange((value: number) => {
-        this.points.material.uniforms.uPointSize.value = value
+      .on('change', (e) => {
+        if (e.last) {
+          this.points.material.uniforms.uPointSize.value = e.value
+        }
       })
   }
 

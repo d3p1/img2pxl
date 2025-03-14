@@ -7,14 +7,14 @@
  *              It that way, it allows to select which vertices/points/pixels
  *              should be displaced
  */
-import GUI from 'lil-gui'
+import {Pane} from 'tweakpane'
 import * as THREE from 'three'
 
 export default class Canvas {
   /**
-   * @type {GUI}
+   * @type {Pane}
    */
-  #debugManager: GUI
+  #debugManager: Pane
 
   /**
    * @type {THREE.CanvasTexture}
@@ -54,7 +54,7 @@ export default class Canvas {
   /**
    * Constructor
    *
-   * @param {GUI}    debugManager
+   * @param {Pane}   debugManager
    * @param {number} resolutionWidth
    * @param {number} resolutionHeight
    * @param {string} displacementImageSrc
@@ -62,7 +62,7 @@ export default class Canvas {
    * @param {number} displacementTrailingFactor
    */
   constructor(
-    debugManager: GUI,
+    debugManager: Pane,
     resolutionWidth: number,
     resolutionHeight: number,
     displacementImageSrc: string,
@@ -98,35 +98,31 @@ export default class Canvas {
    * @returns {void}
    */
   debug(): void {
-    const folder = this.#debugManager.addFolder('Pointer Canvas')
+    const folder = this.#debugManager.addFolder({title: 'Pointer Canvas'})
 
     folder
-      .add(
+      .addBinding(
         {displacementSize: this.#displacementImageSize / this.element.width},
         'displacementSize',
+        {min: 0, max: 1, step: 0.01},
       )
-      .min(0)
-      .max(1)
-      .step(0.01)
-      .onChange(
-        (value: number) =>
-          (this.#displacementImageSize = this.element.width * value),
+      .on(
+        'change',
+        (e) => (this.#displacementImageSize = this.element.width * e.value),
       )
 
     folder
-      .add(
+      .addBinding(
         {displacementTrailingFactor: this.#displacementTrailingFactor},
         'displacementTrailingFactor',
+        {min: 0, max: 1, step: 0.01},
       )
-      .min(0)
-      .max(1)
-      .step(0.01)
-      .onChange((value: number) => this.#processDisplacementImageSize(value))
+      .on('change', (e) => this.#processDisplacementImageSize(e.value))
 
     folder
-      .add({isCanvasShown: false}, 'isCanvasShown')
-      .onChange((value: number) => {
-        if (value) {
+      .addBinding({isCanvasShown: false}, 'isCanvasShown')
+      .on('change', (e) => {
+        if (e.value) {
           document.body.appendChild(this.element)
           this.element.style.position = 'fixed'
           this.element.style.top = '0'

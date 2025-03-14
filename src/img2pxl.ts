@@ -6,7 +6,7 @@
  *              Also, it adds features not related to the app/effect itself,
  *              like enable debug to tweak app/effect parameters
  */
-import GUI from 'lil-gui'
+import {Pane} from 'tweakpane'
 import {Timer} from 'three/addons'
 import App from './core/app.js'
 import RendererManager from './core/lib/renderer-manager.js'
@@ -28,9 +28,9 @@ export default class Img2Pxl {
   #app: App
 
   /**
-   * @type {GUI}
+   * @type {Pane}
    */
-  #debugManager: GUI
+  #debugManager: Pane
 
   /**
    * @type {Timer}
@@ -122,11 +122,8 @@ export default class Img2Pxl {
    * @returns {void}
    */
   debug(e: KeyboardEvent): void {
-    if (
-      e.key === 'd' &&
-      this.#debugManager._hidden &&
-      this.#debugManager.show()
-    ) {
+    if (e.key === 'd' && this.#debugManager.element.style.display === 'none') {
+      this.#debugManager.element.style.display = 'block'
       this.#app.debug()
     }
   }
@@ -210,9 +207,9 @@ export default class Img2Pxl {
    * @returns {void}
    */
   #initDebugManager(): void {
-    this.#debugManager = new GUI()
+    this.#debugManager = new Pane()
 
-    this.#debugManager.hide()
+    this.#debugManager.element.style.display = 'none'
     this.#boundDebug = this.debug.bind(this)
     window.addEventListener('keydown', this.#boundDebug)
   }

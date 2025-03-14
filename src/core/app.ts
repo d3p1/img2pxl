@@ -2,7 +2,7 @@
  * @description App
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
-import GUI from 'lil-gui'
+import {Pane} from 'tweakpane'
 import * as THREE from 'three'
 import RendererManager from './lib/renderer-manager.js'
 import Image from './app/image.js'
@@ -27,9 +27,9 @@ export default class App {
   #rendererManager: RendererManager
 
   /**
-   * @type {GUI}
+   * @type {Pane}
    */
-  #debugManager: GUI
+  #debugManager: Pane
 
   /**
    * Constructor
@@ -37,7 +37,7 @@ export default class App {
    * @param {Image}           image
    * @param {Pointer}         pointer
    * @param {RendererManager} rendererManager
-   * @param {GUI}             debugManager
+   * @param {Pane}            debugManager
    * @param {string}          noiseImageSrc
    * @param {number}          noiseFrequency
    * @param {number}          noiseAmplitude
@@ -48,7 +48,7 @@ export default class App {
     image: Image,
     pointer: Pointer,
     rendererManager: RendererManager,
-    debugManager: GUI,
+    debugManager: Pane,
     noiseImageSrc: string,
     noiseFrequency: number = 0.1,
     noiseAmplitude: number = 5,
@@ -93,70 +93,68 @@ export default class App {
    * @returns {void}
    */
   debug(): void {
-    const folder = this.#debugManager.addFolder('General')
+    const folder = this.#debugManager.addFolder({title: 'General'})
 
     folder
-      .add(
+      .addBinding(
         {
           noiseFrequency:
             this.#image.points.material.uniforms.uNoiseFrequency.value,
         },
         'noiseFrequency',
+        {min: 0, max: 2 * Math.PI, step: 0.01},
       )
-      .min(0)
-      .max(2 * Math.PI)
-      .step(0.01)
-      .onChange(
-        (value: number) =>
-          (this.#image.points.material.uniforms.uNoiseFrequency.value = value),
+      .on(
+        'change',
+        (e) =>
+          (this.#image.points.material.uniforms.uNoiseFrequency.value =
+            e.value),
       )
 
     folder
-      .add(
+      .addBinding(
         {
           noiseAmplitude:
             this.#image.points.material.uniforms.uNoiseAmplitude.value,
         },
         'noiseAmplitude',
+        {min: 0, max: this.#rendererManager.width, step: 1},
       )
-      .min(0)
-      .max(this.#rendererManager.width)
-      .step(1)
-      .onChange(
-        (value: number) =>
-          (this.#image.points.material.uniforms.uNoiseAmplitude.value = value),
+      .on(
+        'change',
+        (e) =>
+          (this.#image.points.material.uniforms.uNoiseAmplitude.value =
+            e.value),
       )
 
     folder
-      .add(
+      .addBinding(
         {
           displacementFrequency:
             this.#image.points.material.uniforms.uDisFrequency.value,
         },
         'displacementFrequency',
+        {min: 0, max: 10 * 2 * Math.PI, step: 0.01},
       )
-      .min(0)
-      .max(10 * 2 * Math.PI)
-      .step(0.01)
-      .onChange(
-        (value: number) =>
-          (this.#image.points.material.uniforms.uDisFrequency.value = value),
+      .on(
+        'change',
+        (e) =>
+          (this.#image.points.material.uniforms.uDisFrequency.value = e.value),
       )
 
     folder
-      .add(
+      .addBinding(
         {
           displacementAmplitude:
             this.#image.points.material.uniforms.uDisAmplitude.value,
         },
         'displacementAmplitude',
+        {min: 0, max: this.#rendererManager.width, step: 1},
       )
-      .min(0)
-      .max(this.#rendererManager.width)
-      .step(1)
-      .onChange(
-        (value: number) =>
-          (this.#image.points.material.uniforms.uDisAmplitude.value = value),
+      .on(
+        'change',
+        (e) =>
+          (this.#image.points.material.uniforms.uDisAmplitude.value = e.value),
       )
 
     this.#image.debug()
@@ -172,7 +170,7 @@ export default class App {
     this.#image.dispose()
     this.#pointer.dispose()
     this.#rendererManager.dispose()
-    this.#debugManager.destroy()
+    this.#debugManager.dispose()
   }
 
   /**

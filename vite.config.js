@@ -9,7 +9,7 @@ export default {
       name: 'img2pxl',
     },
     rollupOptions: {
-      external: ['three', 'lil-gui'],
+      external: ['three', 'tweakpane'],
     },
   },
   plugins: [glsl(), dts()],
