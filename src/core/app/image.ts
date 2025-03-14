@@ -60,12 +60,14 @@ export default class Image {
    * @returns {void}
    */
   debug(): void {
-    const folder = this.#debugManager.addFolder({title: 'Image'})
+    const resolutionFolder = this.#debugManager.addFolder({
+      title: 'Image Resolution',
+    })
 
-    folder
+    resolutionFolder
       .addBinding(
-        {resolutionWidth: this.points.geometry.parameters.widthSegments},
-        'resolutionWidth',
+        {width: this.points.geometry.parameters.widthSegments},
+        'width',
         {min: 0, max: this.points.geometry.parameters.width, step: 1},
       )
       .on('change', (e) => {
@@ -77,10 +79,10 @@ export default class Image {
         }
       })
 
-    folder
+    resolutionFolder
       .addBinding(
-        {resolutionHeight: this.points.geometry.parameters.heightSegments},
-        'resolutionHeight',
+        {height: this.points.geometry.parameters.heightSegments},
+        'height',
         {min: 0, max: this.points.geometry.parameters.height, step: 1},
       )
       .on('change', (e) => {
@@ -92,10 +94,12 @@ export default class Image {
         }
       })
 
-    folder
+    const pixelFolder = this.#debugManager.addFolder({title: 'Image Pixel'})
+
+    pixelFolder
       .addBinding(
-        {pointSize: this.points.material.uniforms.uPointSize.value},
-        'pointSize',
+        {size: this.points.material.uniforms.uPointSize.value},
+        'size',
         {min: 1, max: 100, step: 1},
       )
       .on('change', (e) => {

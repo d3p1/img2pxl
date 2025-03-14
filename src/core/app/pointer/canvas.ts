@@ -98,12 +98,14 @@ export default class Canvas {
    * @returns {void}
    */
   debug(): void {
-    const folder = this.#debugManager.addFolder({title: 'Pointer Canvas'})
+    const pointerEffectFolder = this.#debugManager.addFolder({
+      title: 'Pointer Effect',
+    })
 
-    folder
+    pointerEffectFolder
       .addBinding(
-        {displacementSize: this.#displacementImageSize / this.element.width},
-        'displacementSize',
+        {size: this.#displacementImageSize / this.element.width},
+        'size',
         {min: 0, max: 1, step: 0.01},
       )
       .on(
@@ -111,27 +113,29 @@ export default class Canvas {
         (e) => (this.#displacementImageSize = this.element.width * e.value),
       )
 
-    folder
-      .addBinding(
-        {displacementTrailingFactor: this.#displacementTrailingFactor},
-        'displacementTrailingFactor',
-        {min: 0, max: 1, step: 0.01},
-      )
+    pointerEffectFolder
+      .addBinding({trailing: this.#displacementTrailingFactor}, 'trailing', {
+        min: 0,
+        max: 1,
+        step: 0.01,
+      })
       .on('change', (e) => this.#processDisplacementImageSize(e.value))
 
-    folder
-      .addBinding({isCanvasShown: false}, 'isCanvasShown')
-      .on('change', (e) => {
-        if (e.value) {
-          document.body.appendChild(this.element)
-          this.element.style.position = 'fixed'
-          this.element.style.top = '0'
-          this.element.style.left = '0'
-          this.element.style.border = '1px solid #fff'
-        } else {
-          document.body.removeChild(this.element)
-        }
-      })
+    const pointerCanvasFolder = this.#debugManager.addFolder({
+      title: 'Pointer Canvas',
+    })
+
+    pointerCanvasFolder.addBinding({show: false}, 'show').on('change', (e) => {
+      if (e.value) {
+        document.body.appendChild(this.element)
+        this.element.style.position = 'fixed'
+        this.element.style.top = '0'
+        this.element.style.left = '0'
+        this.element.style.border = '1px solid #fff'
+      } else {
+        document.body.removeChild(this.element)
+      }
+    })
   }
 
   /**

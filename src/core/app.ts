@@ -93,15 +93,46 @@ export default class App {
    * @returns {void}
    */
   debug(): void {
-    const folder = this.#debugManager.addFolder({title: 'General'})
+    const pixelDynFolder = this.#debugManager.addFolder({
+      title: 'Pixel Dynamics',
+    })
 
-    folder
+    pixelDynFolder
       .addBinding(
         {
-          noiseFrequency:
-            this.#image.points.material.uniforms.uNoiseFrequency.value,
+          frequency: this.#image.points.material.uniforms.uDisFrequency.value,
         },
-        'noiseFrequency',
+        'frequency',
+        {min: 0, max: 10 * 2 * Math.PI, step: 0.01},
+      )
+      .on(
+        'change',
+        (e) =>
+          (this.#image.points.material.uniforms.uDisFrequency.value = e.value),
+      )
+
+    pixelDynFolder
+      .addBinding(
+        {
+          amplitude: this.#image.points.material.uniforms.uDisAmplitude.value,
+        },
+        'amplitude',
+        {min: 0, max: this.#rendererManager.width, step: 1},
+      )
+      .on(
+        'change',
+        (e) =>
+          (this.#image.points.material.uniforms.uDisAmplitude.value = e.value),
+      )
+
+    const noiseFolder = this.#debugManager.addFolder({title: 'Noise'})
+
+    noiseFolder
+      .addBinding(
+        {
+          frequency: this.#image.points.material.uniforms.uNoiseFrequency.value,
+        },
+        'frequency',
         {min: 0, max: 2 * Math.PI, step: 0.01},
       )
       .on(
@@ -111,13 +142,12 @@ export default class App {
             e.value),
       )
 
-    folder
+    noiseFolder
       .addBinding(
         {
-          noiseAmplitude:
-            this.#image.points.material.uniforms.uNoiseAmplitude.value,
+          amplitude: this.#image.points.material.uniforms.uNoiseAmplitude.value,
         },
-        'noiseAmplitude',
+        'amplitude',
         {min: 0, max: this.#rendererManager.width, step: 1},
       )
       .on(
@@ -125,36 +155,6 @@ export default class App {
         (e) =>
           (this.#image.points.material.uniforms.uNoiseAmplitude.value =
             e.value),
-      )
-
-    folder
-      .addBinding(
-        {
-          displacementFrequency:
-            this.#image.points.material.uniforms.uDisFrequency.value,
-        },
-        'displacementFrequency',
-        {min: 0, max: 10 * 2 * Math.PI, step: 0.01},
-      )
-      .on(
-        'change',
-        (e) =>
-          (this.#image.points.material.uniforms.uDisFrequency.value = e.value),
-      )
-
-    folder
-      .addBinding(
-        {
-          displacementAmplitude:
-            this.#image.points.material.uniforms.uDisAmplitude.value,
-        },
-        'displacementAmplitude',
-        {min: 0, max: this.#rendererManager.width, step: 1},
-      )
-      .on(
-        'change',
-        (e) =>
-          (this.#image.points.material.uniforms.uDisAmplitude.value = e.value),
       )
 
     this.#image.debug()
