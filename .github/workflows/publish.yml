@@ -27,28 +27,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout️
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name : Setup base directory
-        shell: bash
-        run  : cd www
-
-      - name: Setup Node.js
-        uses: ./.github/workflows/utils/setup-node
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
         with:
           static_site_generator: next
 
-      - name: Build Next.js️
-        run : npm run build
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            www/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - name             : Install dependencies
+        working-directory: www
+        run              : npm ci
+
+      - name             : Build with Next.js
+        working-directory: www
+        run              : npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./www/out
 
   deploy:
     environment:
@@ -60,6 +72,6 @@ jobs:
     needs: build
 
     steps:
-      - name: Publish to GitHub Pages
+      - name: Deploy to GitHub Pages
         id  : deployment
         uses: actions/deploy-pages@v4
