@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+:root {
+  --primary-color: hsl(0, 0%, 0%);
+  --secondary-color: hsl(0, 0%, 100%);
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+}
