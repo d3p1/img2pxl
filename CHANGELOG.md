@@ -1,3 +1,10 @@
+## [1.14.2](https://github.com/d3p1/img2pxl/compare/v1.14.1...v1.14.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* make webgl canvas transparent [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([fbe255c](https://github.com/d3p1/img2pxl/commit/fbe255c7861c00cb4ff80f5438e2efa49f249b33))
+
 ## [1.14.1](https://github.com/d3p1/img2pxl/compare/v1.14.0...v1.14.1) (2025-03-14)
 
 
