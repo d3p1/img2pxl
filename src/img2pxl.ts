@@ -50,20 +50,21 @@ export default class Img2Pxl {
   /**
    * Constructor
    *
-   * @param {string} imageSrc
-   * @param {number} width
-   * @param {number} height
-   * @param {number} resolutionWidth
-   * @param {number} resolutionHeight
-   * @param {number} pointSize
-   * @param {string} noiseImageSrc
-   * @param {number} noiseFrequency
-   * @param {number} noiseAmplitude
-   * @param {string} displacementImageSrc
-   * @param {number} displacementSize
-   * @param {number} displacementTrailingFactor
-   * @param {number} displacementFrequency
-   * @param {number} displacementAmplitude
+   * @param {string}      imageSrc
+   * @param {number}      width
+   * @param {number}      height
+   * @param {number}      resolutionWidth
+   * @param {number}      resolutionHeight
+   * @param {number}      pointSize
+   * @param {string|null} element
+   * @param {string}      noiseImageSrc
+   * @param {number}      noiseFrequency
+   * @param {number}      noiseAmplitude
+   * @param {string}      displacementImageSrc
+   * @param {number}      displacementSize
+   * @param {number}      displacementTrailingFactor
+   * @param {number}      displacementFrequency
+   * @param {number}      displacementAmplitude
    */
   constructor(
     imageSrc: string,
@@ -72,6 +73,7 @@ export default class Img2Pxl {
     resolutionWidth: number,
     resolutionHeight: number,
     pointSize: number = 1,
+    element: string | null = null,
     noiseImageSrc: string = noiseImage,
     noiseFrequency: number = 0.05,
     noiseAmplitude: number = 3,
@@ -99,6 +101,12 @@ export default class Img2Pxl {
       displacementFrequency,
       displacementAmplitude,
     )
+
+    if (element) {
+      const node = document.querySelector(element)
+      node?.appendChild(this.#rendererManager.renderer.domElement)
+      node?.appendChild(this.#debugManager.element)
+    }
   }
 
   /**
