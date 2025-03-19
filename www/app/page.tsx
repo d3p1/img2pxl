@@ -7,7 +7,7 @@
 import {useEffect} from 'react'
 import Img2Pxl from '@d3p1/img2pxl'
 
-export default function Home() {
+export default function HomePage() {
   useEffect(() => {
     const app = new Img2Pxl(
       '/img2pxl/media/images/logo.png',
@@ -16,6 +16,7 @@ export default function Home() {
       64,
       64,
       3,
+      '#img2pxl',
     )
 
     window.addEventListener('keydown', (e) => {
@@ -27,5 +28,5 @@ export default function Home() {
     app.render()
   }, [])
 
-  return null
+  return <div id="img2pxl"></div>
 }

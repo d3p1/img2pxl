@@ -15,3 +15,21 @@ body {
   width: 100vw;
   height: 100vh;
 }
+
+#img2pxl {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  height: 90vh;
+  border: 5px solid var(--secondary-color);
+  box-shadow: 10px 10px var(--secondary-color);
+}
+
+.tp-rotv {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
