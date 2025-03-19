@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/d3p1/img2pxl/compare/v1.14.2...v1.15.0) (2025-03-19)
+
+
+### Features
+
+* add possibility of creating effect inside a parent container [[#4](https://github.com/d3p1/img2pxl/issues/4)] ([e3de4ca](https://github.com/d3p1/img2pxl/commit/e3de4ca9f8416d2990c793a4fc2b6661d83b60cb))
+
 ## [1.14.2](https://github.com/d3p1/img2pxl/compare/v1.14.1...v1.14.2) (2025-03-18)
 
 
