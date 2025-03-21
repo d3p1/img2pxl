@@ -1,3 +1,17 @@
+# [1.16.0](https://github.com/d3p1/img2pxl/compare/v1.15.0...v1.16.0) (2025-03-21)
+
+
+### Bug Fixes
+
+* avoid enable debugger multiple times [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([6b18891](https://github.com/d3p1/img2pxl/commit/6b188914b9cd68a00461a06c963129acee09f374))
+
+
+### Features
+
+* implement on demand debug feature [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([9c300ac](https://github.com/d3p1/img2pxl/commit/9c300ac73479627ac4a4d3db32493e503fcde0ec))
+* improve how params are defined in entry point class, image class, pointer and pointer canvas class [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([1d43719](https://github.com/d3p1/img2pxl/commit/1d437194d9234be45c76492f4f9a5127f2d93daa))
+* make renderer manager and debug manager public to allow use it by consumer [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([0029eb0](https://github.com/d3p1/img2pxl/commit/0029eb089c03ebc3a8c93e72b186c49b39815d0e))
+
 # [1.15.0](https://github.com/d3p1/img2pxl/compare/v1.14.2...v1.15.0) (2025-03-19)
 
 
