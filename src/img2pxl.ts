@@ -2,9 +2,10 @@
  * @description img2pxl
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  * @note        This class works as the entry point of the library.
- *              It is like a dependency injection manager.
+ *              It is like a dependency injection manager (DI container).
  *              Also, it adds features not related to the app/effect itself,
- *              like enable debug to tweak app/effect parameters
+ *              like enable debug to tweak app/effect parameters or
+ *              effect parent container
  */
 import {Pane} from 'tweakpane'
 import {Timer} from 'three/addons'

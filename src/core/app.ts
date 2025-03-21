@@ -1,6 +1,9 @@
 /**
  * @description App
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
+ * @note        This class will manage how the renderer manager,
+ *              debug manager, the image and the pointer
+ *              interact between each other
  */
 import {Pane} from 'tweakpane'
 import * as THREE from 'three'
