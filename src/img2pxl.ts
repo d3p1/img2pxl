@@ -39,6 +39,11 @@ export default class Img2Pxl {
   #timer: Timer
 
   /**
+   * @type {boolean}
+   */
+  #isDebugging = false
+
+  /**
    * @type {number}
    */
   #requestAnimationId: number
@@ -169,8 +174,11 @@ export default class Img2Pxl {
    * @returns {void}
    */
   debug(): void {
-    this.debugManager.element.style.display = 'block'
-    this.#app.debug()
+    if (!this.#isDebugging) {
+      this.debugManager.element.style.display = 'block'
+      this.#app.debug()
+      this.#isDebugging = true
+    }
   }
 
   /**
