@@ -123,16 +123,13 @@ export default class Img2Pxl {
   }
 
   /**
-   * Enable debug mode
+   * Debug
    *
-   * @param   {KeyboardEvent} e
    * @returns {void}
    */
-  debug(e: KeyboardEvent): void {
-    if (e.key === 'd' && this.debugManager.element.style.display === 'none') {
-      this.debugManager.element.style.display = 'block'
-      this.#app.debug()
-    }
+  debug(): void {
+    this.debugManager.element.style.display = 'block'
+    this.#app.debug()
   }
 
   /**
@@ -145,6 +142,18 @@ export default class Img2Pxl {
     window.removeEventListener('keydown', this.#boundDebug)
     this.#timer.dispose()
     this.#app.dispose()
+  }
+
+  /**
+   * Handle debug
+   *
+   * @param   {KeyboardEvent} e
+   * @returns {void}
+   */
+  #handleDebug(e: KeyboardEvent): void {
+    if (e.key === 'd') {
+      this.debug()
+    }
   }
 
   /**
@@ -217,7 +226,7 @@ export default class Img2Pxl {
     this.debugManager = new Pane()
 
     this.debugManager.element.style.display = 'none'
-    this.#boundDebug = this.debug.bind(this)
+    this.#boundDebug = this.#handleDebug.bind(this)
     window.addEventListener('keydown', this.#boundDebug)
   }
 
