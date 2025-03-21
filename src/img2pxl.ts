@@ -20,17 +20,17 @@ export default class Img2Pxl {
   /**
    * @type {RendererManager}
    */
-  readonly #rendererManager: RendererManager
+  rendererManager: RendererManager
+
+  /**
+   * @type {Pane}
+   */
+  debugManager: Pane
 
   /**
    * @type {App}
    */
   #app: App
-
-  /**
-   * @type {Pane}
-   */
-  #debugManager: Pane
 
   /**
    * @type {Timer}
@@ -84,7 +84,7 @@ export default class Img2Pxl {
     displacementAmplitude: number = 40,
   ) {
     this.#timer = new Timer()
-    this.#rendererManager = new RendererManager(width, height)
+    this.rendererManager = new RendererManager(width, height)
 
     this.#initDebugManager()
     this.#initApp(
@@ -104,8 +104,8 @@ export default class Img2Pxl {
 
     if (element) {
       const node = document.querySelector(element)
-      node?.appendChild(this.#rendererManager.renderer.domElement)
-      node?.appendChild(this.#debugManager.element)
+      node?.appendChild(this.rendererManager.renderer.domElement)
+      node?.appendChild(this.debugManager.element)
     }
   }
 
@@ -130,8 +130,8 @@ export default class Img2Pxl {
    * @returns {void}
    */
   debug(e: KeyboardEvent): void {
-    if (e.key === 'd' && this.#debugManager.element.style.display === 'none') {
-      this.#debugManager.element.style.display = 'block'
+    if (e.key === 'd' && this.debugManager.element.style.display === 'none') {
+      this.debugManager.element.style.display = 'block'
       this.#app.debug()
     }
   }
@@ -181,17 +181,17 @@ export default class Img2Pxl {
   ): void {
     this.#app = new App(
       new Image(
-        this.#rendererManager,
-        this.#debugManager,
+        this.rendererManager,
+        this.debugManager,
         imageSrc,
         resolutionWidth,
         resolutionHeight,
         pointSize,
       ),
       new Pointer(
-        this.#rendererManager,
+        this.rendererManager,
         new PointerCanvas(
-          this.#debugManager,
+          this.debugManager,
           resolutionWidth,
           resolutionHeight,
           displacementImageSrc,
@@ -199,8 +199,8 @@ export default class Img2Pxl {
           displacementTrailingFactor,
         ),
       ),
-      this.#rendererManager,
-      this.#debugManager,
+      this.rendererManager,
+      this.debugManager,
       noiseImageSrc,
       noiseFrequency,
       noiseAmplitude,
@@ -215,9 +215,9 @@ export default class Img2Pxl {
    * @returns {void}
    */
   #initDebugManager(): void {
-    this.#debugManager = new Pane()
+    this.debugManager = new Pane()
 
-    this.#debugManager.element.style.display = 'none'
+    this.debugManager.element.style.display = 'none'
     this.#boundDebug = this.debug.bind(this)
     window.addEventListener('keydown', this.#boundDebug)
   }
