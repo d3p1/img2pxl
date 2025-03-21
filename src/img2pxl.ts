@@ -56,7 +56,7 @@ export default class Img2Pxl {
    * @param {number}      resolutionWidth
    * @param {number}      resolutionHeight
    * @param {number}      pointSize
-   * @param {string|null} element
+   * @param {string|null} containerSelector
    * @param {string}      noiseImageSrc
    * @param {number}      noiseFrequency
    * @param {number}      noiseAmplitude
@@ -73,7 +73,7 @@ export default class Img2Pxl {
     resolutionWidth: number,
     resolutionHeight: number,
     pointSize: number = 1,
-    element: string | null = null,
+    containerSelector: string | null = null,
     noiseImageSrc: string = noiseImage,
     noiseFrequency: number = 0.05,
     noiseAmplitude: number = 3,
@@ -83,8 +83,8 @@ export default class Img2Pxl {
     displacementFrequency: number = 5,
     displacementAmplitude: number = 40,
   ) {
-    this.#timer = new Timer()
     this.rendererManager = new RendererManager(width, height)
+    this.#timer = new Timer()
 
     this.#initDebugManager()
     this.#initApp(
@@ -102,10 +102,8 @@ export default class Img2Pxl {
       displacementAmplitude,
     )
 
-    if (element) {
-      const node = document.querySelector(element)
-      node?.appendChild(this.rendererManager.renderer.domElement)
-      node?.appendChild(this.debugManager.element)
+    if (containerSelector) {
+      this.#initDom(containerSelector)
     }
   }
 
@@ -220,5 +218,17 @@ export default class Img2Pxl {
     this.debugManager.element.style.display = 'none'
     this.#boundDebug = this.debug.bind(this)
     window.addEventListener('keydown', this.#boundDebug)
+  }
+
+  /**
+   * Init DOM
+   *
+   * @param   {string} containerSelector
+   * @returns {void}
+   */
+  #initDom(containerSelector: string): void {
+    const node = document.querySelector(containerSelector)
+    node?.appendChild(this.rendererManager.renderer.domElement)
+    node?.appendChild(this.debugManager.element)
   }
 }
