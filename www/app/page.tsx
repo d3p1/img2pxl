@@ -9,15 +9,21 @@ import Img2Pxl from '@d3p1/img2pxl'
 
 export default function HomePage() {
   useEffect(() => {
-    const app = new Img2Pxl(
-      '/img2pxl/media/images/logo.png',
-      280,
-      280,
-      64,
-      64,
-      3,
-      '#img2pxl',
-    )
+    const app = new Img2Pxl({
+      image: {
+        src: '/img2pxl/media/images/logo.png',
+        width: 280,
+        height: 280,
+        resolution: {
+          width: 64,
+          height: 64,
+        },
+        pixel: {
+          size: 3,
+        },
+      },
+      containerSelector: '#img2pxl',
+    })
 
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -26,6 +32,8 @@ export default function HomePage() {
     })
 
     app.render()
+
+    app.debug()
   }, [])
 
   return <div id="img2pxl"></div>

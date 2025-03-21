@@ -3,6 +3,8 @@
 :root {
   --primary-color: hsl(0, 0%, 0%);
   --secondary-color: hsl(0, 0%, 100%);
+  --accent-light-color: hsl(190, 100%, 50%);
+  --accent-dark-color: hsl(230, 100%, 62%);
 }
 
 body {
