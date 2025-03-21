@@ -183,9 +183,9 @@ export default class Image {
   /**
    * Create image geometry
    *
-   * @param   {number}                            resolutionWidth
-   * @param   {number}                            resolutionHeight
-   * @param   {THREE.NormalBufferAttributes|null} attributes
+   * @param   {number}                              resolutionWidth
+   * @param   {number}                              resolutionHeight
+   * @param   {THREE.NormalBufferAttributes | null} attributes
    * @returns {THREE.PlaneGeometry}
    * @note    It is removed the index and normals from the geometry
    *          to improve performance.

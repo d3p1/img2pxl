@@ -33,23 +33,28 @@ export default class Canvas {
 
   /**
    * @type {HTMLImageElement}
-   * @note Image used to displace pixels
+   * @note Image that will represent the pointer.
+   *       This image is used to
+   *       select which vertices/points/pixels
+   *       should be displaced
    */
-  #displacementImage: HTMLImageElement
+  #pointerImage: HTMLImageElement
 
   /**
    * @type {number}
-   * @note This value defines how many pixels are affected by the effect.
+   * @note This value defines how many pixels are affected by the
+   *       pointer effect.
    *       It is defined as a proportion of the image resolution width
    */
-  #displacementImageSize: number
+  #pointerImageSize: number
 
   /**
    * @type {number}
-   * @note This value defines the strength of the trailing effect on the
+   * @note This value defines the strength of the
+   *       pointer trailing effect on the
    *       pixels' displacement
    */
-  readonly #displacementTrailingFactor: number
+  readonly #pointerTrailingFactor: number
 
   /**
    * Constructor
@@ -57,29 +62,29 @@ export default class Canvas {
    * @param {Pane}   debugManager
    * @param {number} resolutionWidth
    * @param {number} resolutionHeight
-   * @param {string} displacementImageSrc
-   * @param {number} displacementSize
-   * @param {number} displacementTrailingFactor
+   * @param {string} pointerImageSrc
+   * @param {number} pointerImageSize
+   * @param {number} pointerTrailingFactor
    */
   constructor(
     debugManager: Pane,
     resolutionWidth: number,
     resolutionHeight: number,
-    displacementImageSrc: string,
-    displacementSize: number = 0.1,
-    displacementTrailingFactor: number = 0.05,
+    pointerImageSrc: string,
+    pointerImageSize: number = 0.1,
+    pointerTrailingFactor: number = 0.05,
   ) {
     this.#debugManager = debugManager
-    this.#displacementTrailingFactor = displacementTrailingFactor
+    this.#pointerTrailingFactor = pointerTrailingFactor
     this.#initCanvasTexture(resolutionWidth, resolutionHeight)
-    this.#initDisplacementImage(displacementImageSrc, displacementSize)
+    this.#initPointerImage(pointerImageSrc, pointerImageSize)
   }
 
   /**
    * Update
    *
-   * @param   {number|null} dx
-   * @param   {number|null} dy
+   * @param   {number | null} dx
+   * @param   {number | null} dy
    * @returns {void}
    */
   update(dx: number | null, dy: number | null): void {
@@ -98,28 +103,27 @@ export default class Canvas {
    * @returns {void}
    */
   debug(): void {
-    const pointerEffectFolder = this.#debugManager.addFolder({
-      title: 'Pointer Effect',
+    const pointerMotionFolder = this.#debugManager.addFolder({
+      title: 'Pointer Motion',
     })
 
-    pointerEffectFolder
-      .addBinding(
-        {size: this.#displacementImageSize / this.element.width},
-        'size',
-        {min: 0, max: 1, step: 0.01},
-      )
-      .on(
-        'change',
-        (e) => (this.#displacementImageSize = this.element.width * e.value),
-      )
-
-    pointerEffectFolder
-      .addBinding({trailing: this.#displacementTrailingFactor}, 'trailing', {
+    pointerMotionFolder
+      .addBinding({size: this.#pointerImageSize / this.element.width}, 'size', {
         min: 0,
         max: 1,
         step: 0.01,
       })
-      .on('change', (e) => this.#processDisplacementImageSize(e.value))
+      .on('change', (e) => this.#processPointerImageSize(e.value))
+
+    pointerMotionFolder.addBinding(
+      {trailing: this.#pointerTrailingFactor},
+      'trailing',
+      {
+        min: 0,
+        max: 1,
+        step: 0.01,
+      },
+    )
 
     const pointerCanvasFolder = this.#debugManager.addFolder({
       title: 'Pointer Canvas',
@@ -157,17 +161,17 @@ export default class Canvas {
    *          so it is drawn at the center of the destination position
    */
   #draw(dx: number, dy: number): void {
-    dx -= this.#displacementImageSize / 2
-    dy -= this.#displacementImageSize / 2
+    dx -= this.#pointerImageSize / 2
+    dy -= this.#pointerImageSize / 2
 
     this.#context.save()
     this.#context.globalCompositeOperation = 'lighten'
     this.#context.drawImage(
-      this.#displacementImage,
+      this.#pointerImage,
       dx,
       dy,
-      this.#displacementImageSize,
-      this.#displacementImageSize,
+      this.#pointerImageSize,
+      this.#pointerImageSize,
     )
     this.#context.restore()
   }
@@ -176,13 +180,13 @@ export default class Canvas {
    * Clear
    *
    * @returns {void}
-   * @note    The idea is to draw a white displacement image that will
+   * @note    The idea is to draw a white image that will
    *          indicate how much points inside them will be displaced.
    *          That is why it is required to clear the canvas with black color
    */
   #clear(): void {
     this.#context.save()
-    this.#context.globalAlpha = this.#displacementTrailingFactor
+    this.#context.globalAlpha = this.#pointerTrailingFactor
     this.#context.fillStyle = '#000'
     this.#context.fillRect(0, 0, this.element.width, this.element.height)
     this.#context.restore()
@@ -209,27 +213,24 @@ export default class Canvas {
   }
 
   /**
-   * Init displacement image
+   * Init pointer image
    *
-   * @param   {string} displacementImageSrc
-   * @param   {number} displacementSize
+   * @param   {string} pointerImageSrc
+   * @param   {number} pointerImageSize
    * @returns {void}
-   * @note    It is considered that the displacement image will be
+   * @note    It is considered that the pointer image will be
    *          a white image that will indicate which pixels should be displaced
    */
-  #initDisplacementImage(
-    displacementImageSrc: string,
-    displacementSize: number,
-  ): void {
-    this.#displacementImage = new Image()
-    this.#displacementImage.src = displacementImageSrc
-    this.#processDisplacementImageSize(displacementSize)
+  #initPointerImage(pointerImageSrc: string, pointerImageSize: number): void {
+    this.#pointerImage = new Image()
+    this.#pointerImage.src = pointerImageSrc
+    this.#processPointerImageSize(pointerImageSize)
   }
 
   /**
-   * Process displacement image size
+   * Process pointer image size
    *
-   * @param   {number} displacementSize
+   * @param   {number} pointerImageSize
    * @returns {void}
    * @note    The aspect ratio of the image is always square
    *          (the same size is used for the width and the height of the image).
@@ -237,7 +238,7 @@ export default class Canvas {
    *          This approach is considered correct because web elements
    *          adjust only their width to fit in the page
    */
-  #processDisplacementImageSize(displacementSize: number): void {
-    this.#displacementImageSize = displacementSize * this.element.width
+  #processPointerImageSize(pointerImageSize: number): void {
+    this.#pointerImageSize = pointerImageSize * this.element.width
   }
 }

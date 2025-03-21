@@ -5,7 +5,7 @@
  *              It is like a dependency injection manager (DI container).
  *              Also, it adds features not related to the app/effect itself,
  *              like enable debug to tweak app/effect parameters or
- *              effect parent container
+ *              effect parent container configuration
  */
 import {Pane} from 'tweakpane'
 import {Timer} from 'three/addons'
@@ -14,8 +14,8 @@ import RendererManager from './core/lib/renderer-manager.js'
 import Image from './core/app/image.js'
 import Pointer from './core/app/pointer.js'
 import PointerCanvas from './core/app/pointer/canvas.js'
-import noiseImage from './media/processor/displacement/noise.png'
 import pointerImage from './media/processor/displacement/pointer.png'
+import noiseImage from './media/processor/displacement/noise.png'
 
 export default class Img2Pxl {
   /**
@@ -51,60 +51,101 @@ export default class Img2Pxl {
   /**
    * Constructor
    *
-   * @param {string}      imageSrc
-   * @param {number}      width
-   * @param {number}      height
-   * @param {number}      resolutionWidth
-   * @param {number}      resolutionHeight
-   * @param {number}      pointSize
-   * @param {string|null} containerSelector
-   * @param {string}      noiseImageSrc
-   * @param {number}      noiseFrequency
-   * @param {number}      noiseAmplitude
-   * @param {string}      displacementImageSrc
-   * @param {number}      displacementSize
-   * @param {number}      displacementTrailingFactor
-   * @param {number}      displacementFrequency
-   * @param {number}      displacementAmplitude
+   * @param {{
+   *   containerSelector?: string;
+   *   image: {
+   *     src: string;
+   *     width: number;
+   *     height: number;
+   *     resolution: {
+   *       width: number;
+   *       height: number;
+   *     };
+   *     pixel?: {
+   *       size?: number;
+   *       motion?: {
+   *         displacement?: {
+   *           frequency?: number;
+   *           amplitude?: number;
+   *         }
+   *       }
+   *     };
+   *     motion?: {
+   *       noise?: {
+   *         src?: string;
+   *         frequency?: number;
+   *         amplitude?: number;
+   *       }
+   *     }
+   *   };
+   *   pointer?: {
+   *     src?: string;
+   *     size?: number;
+   *     trailing?: {
+   *       factor?: number;
+   *     }
+   *   }
+   * }} config
    */
-  constructor(
-    imageSrc: string,
-    width: number,
-    height: number,
-    resolutionWidth: number,
-    resolutionHeight: number,
-    pointSize: number = 1,
-    containerSelector: string | null = null,
-    noiseImageSrc: string = noiseImage,
-    noiseFrequency: number = 0.05,
-    noiseAmplitude: number = 3,
-    displacementImageSrc: string = pointerImage,
-    displacementSize: number = 0.15,
-    displacementTrailingFactor: number = 0.01,
-    displacementFrequency: number = 5,
-    displacementAmplitude: number = 40,
-  ) {
-    this.rendererManager = new RendererManager(width, height)
+  constructor(config: {
+    containerSelector?: string
+    image: {
+      src: string
+      width: number
+      height: number
+      resolution: {
+        width: number
+        height: number
+      }
+      pixel?: {
+        size?: number
+        motion?: {
+          displacement?: {
+            frequency?: number
+            amplitude?: number
+          }
+        }
+      }
+      motion?: {
+        noise?: {
+          src?: string
+          frequency?: number
+          amplitude?: number
+        }
+      }
+    }
+    pointer?: {
+      src?: string
+      size?: number
+      trailing?: {
+        factor?: number
+      }
+    }
+  }) {
+    this.rendererManager = new RendererManager(
+      config.image.width,
+      config.image.height,
+    )
     this.#timer = new Timer()
 
     this.#initDebugManager()
     this.#initApp(
-      imageSrc,
-      resolutionWidth,
-      resolutionHeight,
-      pointSize,
-      noiseImageSrc,
-      noiseFrequency,
-      noiseAmplitude,
-      displacementImageSrc,
-      displacementSize,
-      displacementTrailingFactor,
-      displacementFrequency,
-      displacementAmplitude,
+      config.image.src,
+      config.image.resolution.width,
+      config.image.resolution.height,
+      config.image.pixel?.size,
+      config.image.motion?.noise?.src,
+      config.image.motion?.noise?.frequency,
+      config.image.motion?.noise?.amplitude,
+      config.pointer?.src,
+      config.pointer?.size,
+      config.pointer?.trailing?.factor,
+      config.image.pixel?.motion?.displacement?.frequency,
+      config.image.pixel?.motion?.displacement?.amplitude,
     )
 
-    if (containerSelector) {
-      this.#initDom(containerSelector)
+    if (config.containerSelector) {
+      this.#initDom(config.containerSelector)
     }
   }
 
@@ -166,9 +207,9 @@ export default class Img2Pxl {
    * @param   {string} noiseImageSrc
    * @param   {number} noiseFrequency
    * @param   {number} noiseAmplitude
-   * @param   {string} displacementImageSrc
-   * @param   {number} displacementSize
-   * @param   {number} displacementTrailingFactor
+   * @param   {string} pointerImageSrc
+   * @param   {number} pointerImageSize
+   * @param   {number} pointerTrailingFactor
    * @param   {number} displacementFrequency
    * @param   {number} displacementAmplitude
    * @returns {void}
@@ -177,15 +218,15 @@ export default class Img2Pxl {
     imageSrc: string,
     resolutionWidth: number,
     resolutionHeight: number,
-    pointSize: number,
-    noiseImageSrc: string,
-    noiseFrequency: number,
-    noiseAmplitude: number,
-    displacementImageSrc: string,
-    displacementSize: number,
-    displacementTrailingFactor: number,
-    displacementFrequency: number,
-    displacementAmplitude: number,
+    pointSize: number = 1,
+    noiseImageSrc: string = noiseImage,
+    noiseFrequency: number = 0.05,
+    noiseAmplitude: number = 3,
+    pointerImageSrc: string = pointerImage,
+    pointerImageSize: number = 0.15,
+    pointerTrailingFactor: number = 0.01,
+    displacementFrequency: number = 5,
+    displacementAmplitude: number = 40,
   ): void {
     this.#app = new App(
       new Image(
@@ -202,9 +243,9 @@ export default class Img2Pxl {
           this.debugManager,
           resolutionWidth,
           resolutionHeight,
-          displacementImageSrc,
-          displacementSize,
-          displacementTrailingFactor,
+          pointerImageSrc,
+          pointerImageSize,
+          pointerTrailingFactor,
         ),
       ),
       this.rendererManager,

@@ -8,7 +8,7 @@ import Canvas from './pointer/canvas.js'
 
 export default class Pointer {
   /**
-   * @type {THREE.Vector2|{x: number|undefined, y: number|undefined}}
+   * @type {THREE.Vector2 | {x: number | undefined, y: number | undefined}}
    */
   coord: THREE.Vector2 | {x: number | undefined; y: number | undefined}
 
