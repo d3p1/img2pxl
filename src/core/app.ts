@@ -229,6 +229,10 @@ export default class App {
    * @param   {number} displacementFrequency
    * @param   {number} displacementAmplitude
    * @returns {void}
+   * @note    Take into consideration that the pointer canvas/image/texture
+   *          is called `uDisTexture` inside the shader because
+   *          it is considered that the shader does not need to know
+   *          that this texture is related to a pointer
    */
   #addDisplacementHandlerToImage(
     noiseImageSrc: string,
