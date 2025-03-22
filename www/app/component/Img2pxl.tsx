@@ -20,7 +20,22 @@ export default function Img2pxl() {
         },
         pixel: {
           size: 2,
+          motion: {
+            displacement: {
+              frequency: 1,
+              amplitude: 40,
+            },
+          },
         },
+        motion: {
+          noise: {
+            frequency: 0,
+            amplitude: 0,
+          },
+        },
+      },
+      pointer: {
+        size: 0.1,
       },
       containerSelector: '#img2pxl',
     })
