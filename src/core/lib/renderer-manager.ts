@@ -79,7 +79,8 @@ export default class RendererManager {
    * @returns {void}
    * @note    The antialias is only enabled for devices with less than `2`
    *          as a pixel ratio. This is done to improve performance because
-   *          this type of device does not require this feature
+   *          devices with `2` or more as pixel ratio
+   *          do not require this feature
    */
   #initRenderer(): void {
     const canvas = document.createElement('canvas')

@@ -4,7 +4,7 @@
  * @note        This canvas will be used as a texture that will be sent
  *              to the vertex shader. This texture will be updated
  *              to mark where the pointer is in relation with the image.
- *              It that way, it allows to select which vertices/points/pixels
+ *              In that way, it allows selecting which vertices/points/pixels
  *              should be displaced
  */
 import {Pane} from 'tweakpane'

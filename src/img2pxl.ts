@@ -41,7 +41,7 @@ export default class Img2Pxl {
   /**
    * @type {boolean}
    */
-  #isDebugging = false
+  #isDebugging: boolean = false
 
   /**
    * @type {number}
@@ -51,7 +51,7 @@ export default class Img2Pxl {
   /**
    * @type {Function}
    */
-  #boundDebug: (e: KeyboardEvent) => void
+  #boundHandleDebug: (e: KeyboardEvent) => void
 
   /**
    * Constructor
@@ -188,7 +188,7 @@ export default class Img2Pxl {
    */
   dispose(): void {
     cancelAnimationFrame(this.#requestAnimationId)
-    window.removeEventListener('keydown', this.#boundDebug)
+    window.removeEventListener('keydown', this.#boundHandleDebug)
     this.#timer.dispose()
     this.#app.dispose()
   }
@@ -275,8 +275,8 @@ export default class Img2Pxl {
     this.debugManager = new Pane()
 
     this.debugManager.element.style.display = 'none'
-    this.#boundDebug = this.#handleDebug.bind(this)
-    window.addEventListener('keydown', this.#boundDebug)
+    this.#boundHandleDebug = this.#handleDebug.bind(this)
+    window.addEventListener('keydown', this.#boundHandleDebug)
   }
 
   /**
