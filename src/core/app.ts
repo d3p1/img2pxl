@@ -97,11 +97,15 @@ export default class App {
    * @returns {void}
    */
   debug(): void {
-    const pixelDynFolder = this.#debugManager.addFolder({
-      title: 'Pixel Dynamics',
+    this.#pointer.debug()
+
+    this.#image.debug()
+
+    const pixelMotionFolder = this.#debugManager.addFolder({
+      title: 'Image Pixel Motion',
     })
 
-    pixelDynFolder
+    pixelMotionFolder
       .addBinding(
         {
           frequency: this.#image.points.material.uniforms.uDisFrequency.value,
@@ -115,7 +119,7 @@ export default class App {
           (this.#image.points.material.uniforms.uDisFrequency.value = e.value),
       )
 
-    pixelDynFolder
+    pixelMotionFolder
       .addBinding(
         {
           amplitude: this.#image.points.material.uniforms.uDisAmplitude.value,
@@ -129,9 +133,11 @@ export default class App {
           (this.#image.points.material.uniforms.uDisAmplitude.value = e.value),
       )
 
-    const noiseFolder = this.#debugManager.addFolder({title: 'Noise'})
+    const imageMotionFolder = this.#debugManager.addFolder({
+      title: 'Image Motion',
+    })
 
-    noiseFolder
+    imageMotionFolder
       .addBinding(
         {
           frequency: this.#image.points.material.uniforms.uNoiseFrequency.value,
@@ -146,7 +152,7 @@ export default class App {
             e.value),
       )
 
-    noiseFolder
+    imageMotionFolder
       .addBinding(
         {
           amplitude: this.#image.points.material.uniforms.uNoiseAmplitude.value,
@@ -160,9 +166,6 @@ export default class App {
           (this.#image.points.material.uniforms.uNoiseAmplitude.value =
             e.value),
       )
-
-    this.#image.debug()
-    this.#pointer.debug()
   }
 
   /**

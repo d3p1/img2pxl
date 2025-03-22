@@ -103,11 +103,11 @@ export default class Canvas {
    * @returns {void}
    */
   debug(): void {
-    const pointerMotionFolder = this.#debugManager.addFolder({
-      title: 'Pointer Motion',
+    const pointerFolder = this.#debugManager.addFolder({
+      title: 'Pointer',
     })
 
-    pointerMotionFolder
+    pointerFolder
       .addBinding({size: this.#pointerImageSize / this.element.width}, 'size', {
         min: 0,
         max: 1,
@@ -115,7 +115,7 @@ export default class Canvas {
       })
       .on('change', (e) => this.#processPointerImageSize(e.value))
 
-    pointerMotionFolder.addBinding(
+    pointerFolder.addBinding(
       {trailing: this.#pointerTrailingFactor},
       'trailing',
       {
