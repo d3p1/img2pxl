@@ -5,7 +5,7 @@
 import React from 'react'
 import type {Metadata} from 'next'
 import {Audiowide} from 'next/font/google'
-import './globals.css'
+import './css/globals.css'
 
 const audiowide = Audiowide({
   subsets: ['latin'],
