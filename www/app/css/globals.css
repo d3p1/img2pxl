@@ -15,7 +15,7 @@ body {
   background-color: var(--primary-color-800);
   color: var(--secondary-color);
   display: grid;
-  grid-template-columns: 1fr 25fr;
+  grid-template-columns: 1fr 10fr;
   place-items: center;
   width: 100vw;
   height: 100vh;
@@ -30,8 +30,7 @@ main {
 }
 
 .logo {
-  font-size: 1.5rem;
-  writing-mode: sideways-lr;
+  transform: rotate(-90deg)
 }
 
 #img2pxl {

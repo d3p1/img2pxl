@@ -11,7 +11,7 @@ export default function Img2pxl() {
   useEffect(() => {
     const app = new Img2Pxl({
       image: {
-        src: '/img2pxl/media/images/meisje-met-de-parel.png',
+        src: '/img2pxl/media/images/lib/meisje-met-de-parel.png',
         width: 512 * 1.5,
         height: 600 * 1.5,
         resolution: {

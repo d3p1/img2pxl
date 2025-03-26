@@ -6,6 +6,7 @@ import React from 'react'
 import type {Metadata} from 'next'
 import {Audiowide} from 'next/font/google'
 import './css/globals.css'
+import Logo from '@/app/component/logo'
 
 const audiowide = Audiowide({
   subsets: ['latin'],
@@ -24,7 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${audiowide.className} antialiased`}>{children}</body>
+      <body className={`${audiowide.className} antialiased`}>
+        <header>
+          <Logo />
+        </header>
+        <main>{children}</main>
+      </body>
     </html>
   )
 }
