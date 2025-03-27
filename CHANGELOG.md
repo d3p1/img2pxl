@@ -1,3 +1,11 @@
+## [1.17.4](https://github.com/d3p1/img2pxl/compare/v1.17.3...v1.17.4) (2025-03-27)
+
+
+### Bug Fixes
+
+* allow re-init on image resize [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([59a7af1](https://github.com/d3p1/img2pxl/commit/59a7af1ef94df1773ea3eec1dbe2ecb37e1030f5))
+* remove debug manager on dispose [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([461fc12](https://github.com/d3p1/img2pxl/commit/461fc12ccddd1ae1d086038bcfb69a78e5172020))
+
 ## [1.17.3](https://github.com/d3p1/img2pxl/compare/v1.17.2...v1.17.3) (2025-03-27)
 
 
