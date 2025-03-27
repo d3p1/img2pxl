@@ -178,12 +178,18 @@ export default class Img2Pxl {
    */
   dispose(): void {
     cancelAnimationFrame(this.#requestAnimationId)
+
     window.removeEventListener('keydown', this.#boundHandleDebug)
     window.removeEventListener('resize', this.#boundHandleResize)
+
     this.#timer.dispose()
+
     this.#app.dispose()
+
     this.rendererManager.dispose()
+
     this.debugManager.dispose()
+    this.debugManager.element.remove()
   }
 
   /**
