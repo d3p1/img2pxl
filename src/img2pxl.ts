@@ -249,6 +249,14 @@ export default class Img2Pxl {
 
     this.#initApp()
 
+    this.#boundHandleDebug = this.#handleDebug.bind(this)
+    window.addEventListener('keydown', this.#boundHandleDebug)
+    if (this.#isDebugging) {
+      this.#enableDebug()
+    } else {
+      this.#disableDebug()
+    }
+
     if (this.#config.containerSelector) {
       this.#initDom(this.#config.containerSelector)
     }
@@ -309,15 +317,6 @@ export default class Img2Pxl {
    */
   #initDebugManager(): void {
     this.debugManager = new Pane()
-    this.#boundHandleDebug = this.#handleDebug.bind(this)
-
-    if (this.#isDebugging) {
-      this.#enableDebug()
-    } else {
-      this.#disableDebug()
-    }
-
-    window.addEventListener('keydown', this.#boundHandleDebug)
   }
 
   /**
