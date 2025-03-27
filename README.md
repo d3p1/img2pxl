@@ -10,7 +10,7 @@
 
 ## Introduction
 
-Just a cool image to pixel effect.
+An image to pixel transformation with motion effect.
 
 > [!NOTE]
 > This library was inspired by these excellent tutorials:
