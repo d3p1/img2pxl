@@ -149,13 +149,6 @@ export default class Img2Pxl {
     this.#imageManager = new ImageManager(this.#config.images)
 
     this.#init()
-    this.#boundHandleResize = () => {
-      if (this.#imageManager.update()) {
-        this.dispose()
-        this.#init()
-      }
-    }
-    window.addEventListener('resize', this.#boundHandleResize)
   }
 
   /**
@@ -236,6 +229,14 @@ export default class Img2Pxl {
     if (this.#config.containerSelector) {
       this.#initDom(this.#config.containerSelector)
     }
+
+    this.#boundHandleResize = () => {
+      if (this.#imageManager.update()) {
+        this.dispose()
+        this.#init()
+      }
+    }
+    window.addEventListener('resize', this.#boundHandleResize)
 
     this.#render()
   }
