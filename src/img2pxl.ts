@@ -16,6 +16,8 @@ import Pointer from './core/app/pointer.js'
 import PointerCanvas from './core/app/pointer/canvas.js'
 import pointerImage from './media/processor/displacement/pointer.png'
 import noiseImage from './media/processor/displacement/noise.png'
+import {Config} from './types'
+import ImageManager from './core/lib/image-manager.ts'
 
 export default class Img2Pxl {
   /**
@@ -32,6 +34,11 @@ export default class Img2Pxl {
    * @type {App}
    */
   #app: App
+
+  /**
+   * @type {ImageManager}
+   */
+  #imageManager: ImageManager
 
   /**
    * @type {Timer}
@@ -56,97 +63,66 @@ export default class Img2Pxl {
   /**
    * Constructor
    *
-   * @param {{
-   *   containerSelector?: string;
-   *   image: {
-   *     src: string;
-   *     width: number;
-   *     height: number;
-   *     resolution: {
-   *       width: number;
-   *       height: number;
-   *     };
-   *     pixel?: {
-   *       size?: number;
-   *       motion?: {
-   *         displacement?: {
-   *           frequency?: number;
-   *           amplitude?: number;
-   *         }
-   *       }
-   *     };
-   *     motion?: {
-   *       noise?: {
-   *         src?: string;
-   *         frequency?: number;
-   *         amplitude?: number;
-   *       }
-   *     }
-   *   };
-   *   pointer?: {
-   *     src?: string;
-   *     size?: number;
-   *     trailing?: {
-   *       factor?: number;
-   *     }
-   *   }
-   * }} config
+   * @param  {{
+   *             containerSelector?: string;
+   *             image             : {
+   *               src       : string;
+   *               width     : number;
+   *               height    : number;
+   *               resolution: {
+   *                 width : number;
+   *                 height: number;
+   *               };
+   *               pixel?: {
+   *                 size  ?: number;
+   *                 motion?: {
+   *                   displacement?: {
+   *                     frequency?: number;
+   *                     amplitude?: number;
+   *                   }
+   *                 }
+   *               };
+   *               motion?: {
+   *                 noise?: {
+   *                   src      ?: string;
+   *                   frequency?: number;
+   *                   amplitude?: number;
+   *                 }
+   *               }
+   *             }[];
+   *             pointer?: {
+   *               src     ?: string;
+   *               size    ?: number;
+   *               trailing?: {
+   *                 factor?: number;
+   *               }
+   *             }
+   *         }} config
+   * @throws {Error}
    */
-  constructor(config: {
-    containerSelector?: string
-    image: {
-      src: string
-      width: number
-      height: number
-      resolution: {
-        width: number
-        height: number
-      }
-      pixel?: {
-        size?: number
-        motion?: {
-          displacement?: {
-            frequency?: number
-            amplitude?: number
-          }
-        }
-      }
-      motion?: {
-        noise?: {
-          src?: string
-          frequency?: number
-          amplitude?: number
-        }
-      }
-    }
-    pointer?: {
-      src?: string
-      size?: number
-      trailing?: {
-        factor?: number
-      }
-    }
-  }) {
+  constructor(config: Config) {
+    this.#imageManager = new ImageManager(config.images)
+
     this.rendererManager = new RendererManager(
-      config.image.width,
-      config.image.height,
+      this.#imageManager.currentImage.width,
+      this.#imageManager.currentImage.height,
     )
     this.#timer = new Timer()
 
     this.#initDebugManager()
     this.#initApp(
-      config.image.src,
-      config.image.resolution.width,
-      config.image.resolution.height,
-      config.image.pixel?.size,
-      config.image.motion?.noise?.src,
-      config.image.motion?.noise?.frequency,
-      config.image.motion?.noise?.amplitude,
+      this.#imageManager.currentImage.src,
+      this.#imageManager.currentImage.resolution.width,
+      this.#imageManager.currentImage.resolution.height,
+      this.#imageManager.currentImage.pixel?.size,
+      this.#imageManager.currentImage.motion?.noise?.src,
+      this.#imageManager.currentImage.motion?.noise?.frequency,
+      this.#imageManager.currentImage.motion?.noise?.amplitude,
       config.pointer?.src,
       config.pointer?.size,
       config.pointer?.trailing?.factor,
-      config.image.pixel?.motion?.displacement?.frequency,
-      config.image.pixel?.motion?.displacement?.amplitude,
+      this.#imageManager.currentImage.pixel?.motion?.displacement?.frequency,
+      this.#imageManager.currentImage.pixel?.motion?.displacement?.amplitude,
     )
 
     if (config.containerSelector) {
