@@ -1,3 +1,10 @@
+## [1.17.3](https://github.com/d3p1/img2pxl/compare/v1.17.2...v1.17.3) (2025-03-27)
+
+
+### Bug Fixes
+
+* adjust default breakpoint validation [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([8e2ec9b](https://github.com/d3p1/img2pxl/commit/8e2ec9ba940da2d505e288db7c24db33ae1d922f))
+
 ## [1.17.2](https://github.com/d3p1/img2pxl/compare/v1.17.1...v1.17.2) (2025-03-27)
 
 
