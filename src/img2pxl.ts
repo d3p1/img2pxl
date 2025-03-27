@@ -46,6 +46,45 @@ export default class Img2Pxl {
   #timer: Timer
 
   /**
+   * @type {{
+   *   containerSelector?: string;
+   *   image             : {
+   *     src       : string;
+   *     width     : number;
+   *     height    : number;
+   *     resolution: {
+   *       width : number;
+   *       height: number;
+   *     };
+   *     pixel?: {
+   *       size  ?: number;
+   *       motion?: {
+   *         displacement?: {
+   *           frequency?: number;
+   *           amplitude?: number;
+   *         }
+   *       }
+   *     };
+   *     motion?: {
+   *       noise?: {
+   *         src      ?: string;
+   *         frequency?: number;
+   *         amplitude?: number;
+   *       }
+   *     }
+   *   }[];
+   *   pointer?: {
+   *     src     ?: string;
+   *     size    ?: number;
+   *     trailing?: {
+   *       factor?: number;
+   *     }
+   *   }
+   * }}
+   */
+  #config: Config
+
+  /**
    * @type {boolean}
    */
   #isDebugging: boolean = false
@@ -59,6 +98,11 @@ export default class Img2Pxl {
    * @type {Function}
    */
   #boundHandleDebug: (e: KeyboardEvent) => void
+
+  /**
+   * @type {Function}
+   */
+  #boundHandleResize: (e: Event) => void
 
   /**
    * Constructor
@@ -101,47 +145,17 @@ export default class Img2Pxl {
    * @throws {Error}
    */
   constructor(config: Config) {
-    this.#imageManager = new ImageManager(config.images)
+    this.#config = config
+    this.#imageManager = new ImageManager(this.#config.images)
 
-    this.rendererManager = new RendererManager(
-      this.#imageManager.currentImage.width,
-      this.#imageManager.currentImage.height,
-    )
-    this.#timer = new Timer()
-
-    this.#initDebugManager()
-    this.#initApp(
-      this.#imageManager.currentImage.src,
-      this.#imageManager.currentImage.resolution.width,
-      this.#imageManager.currentImage.resolution.height,
-      this.#imageManager.currentImage.pixel?.size,
-      this.#imageManager.currentImage.motion?.noise?.src,
-      this.#imageManager.currentImage.motion?.noise?.frequency,
-      this.#imageManager.currentImage.motion?.noise?.amplitude,
-      config.pointer?.src,
-      config.pointer?.size,
-      config.pointer?.trailing?.factor,
-      this.#imageManager.currentImage.pixel?.motion?.displacement?.frequency,
-      this.#imageManager.currentImage.pixel?.motion?.displacement?.amplitude,
-    )
-
-    if (config.containerSelector) {
-      this.#initDom(config.containerSelector)
+    this.#init()
+    this.#boundHandleResize = () => {
+      if (this.#imageManager.update()) {
+        this.dispose()
+        this.#init()
+      }
     }
-  }
-
-  /**
-   * Render
-   *
-   * @params  {number} t
-   * @returns {void}
-   */
-  render(t = 0): void {
-    this.#timer.update(t)
-
-    this.#app.update(this.#timer.getElapsed())
-
-    this.#requestAnimationId = requestAnimationFrame(this.render.bind(this))
+    window.addEventListener('resize', this.#boundHandleResize)
   }
 
   /**
@@ -165,10 +179,25 @@ export default class Img2Pxl {
   dispose(): void {
     cancelAnimationFrame(this.#requestAnimationId)
     window.removeEventListener('keydown', this.#boundHandleDebug)
+    window.removeEventListener('resize', this.#boundHandleResize)
     this.#timer.dispose()
     this.#app.dispose()
     this.rendererManager.dispose()
     this.debugManager.dispose()
+  }
+
+  /**
+   * Render
+   *
+   * @params  {number} t
+   * @returns {void}
+   */
+  #render(t = 0): void {
+    this.#timer.update(t)
+
+    this.#app.update(this.#timer.getElapsed())
+
+    this.#requestAnimationId = requestAnimationFrame(this.#render.bind(this))
   }
 
   /**
@@ -184,63 +213,62 @@ export default class Img2Pxl {
   }
 
   /**
-   * Init app
+   * Init
    *
-   * @param   {string} imageSrc
-   * @param   {number} resolutionWidth
-   * @param   {number} resolutionHeight
-   * @param   {number} pointSize
-   * @param   {string} noiseImageSrc
-   * @param   {number} noiseFrequency
-   * @param   {number} noiseAmplitude
-   * @param   {string} pointerImageSrc
-   * @param   {number} pointerImageSize
-   * @param   {number} pointerTrailingFactor
-   * @param   {number} displacementFrequency
-   * @param   {number} displacementAmplitude
    * @returns {void}
    */
-  #initApp(
-    imageSrc: string,
-    resolutionWidth: number,
-    resolutionHeight: number,
-    pointSize: number = 1,
-    noiseImageSrc: string = noiseImage,
-    noiseFrequency: number = 0.05,
-    noiseAmplitude: number = 3,
-    pointerImageSrc: string = pointerImage,
-    pointerImageSize: number = 0.15,
-    pointerTrailingFactor: number = 0.01,
-    displacementFrequency: number = 5,
-    displacementAmplitude: number = 40,
-  ): void {
+  #init(): void {
+    this.rendererManager = new RendererManager(
+      this.#imageManager.currentImage.width,
+      this.#imageManager.currentImage.height,
+    )
+    this.#timer = new Timer()
+
+    this.#initDebugManager()
+    this.#initApp()
+
+    if (this.#config.containerSelector) {
+      this.#initDom(this.#config.containerSelector)
+    }
+
+    this.#render()
+  }
+
+  /**
+   * Init app
+   *
+   * @returns {void}
+   */
+  #initApp(): void {
     this.#app = new App(
       new Image(
         this.rendererManager,
         this.debugManager,
-        imageSrc,
-        resolutionWidth,
-        resolutionHeight,
-        pointSize,
+        this.#imageManager.currentImage.src,
+        this.#imageManager.currentImage.resolution.width,
+        this.#imageManager.currentImage.resolution.height,
+        this.#imageManager.currentImage.pixel?.size ?? 1,
       ),
       new Pointer(
         this.rendererManager,
         new PointerCanvas(
           this.debugManager,
-          resolutionWidth,
-          resolutionHeight,
-          pointerImageSrc,
-          pointerImageSize,
-          pointerTrailingFactor,
+          this.#imageManager.currentImage.resolution.width,
+          this.#imageManager.currentImage.resolution.height,
+          this.#config.pointer?.src ?? pointerImage,
+          this.#config.pointer?.size ?? 0.15,
+          this.#config.pointer?.trailing?.factor ?? 0.01,
         ),
       ),
       this.rendererManager,
       this.debugManager,
-      noiseImageSrc,
-      noiseFrequency,
-      noiseAmplitude,
-      displacementFrequency,
-      displacementAmplitude,
+      this.#imageManager.currentImage.motion?.noise?.src ?? noiseImage,
+      this.#imageManager.currentImage.motion?.noise?.frequency ?? 0.05,
+      this.#imageManager.currentImage.motion?.noise?.amplitude ?? 3,
+      this.#imageManager.currentImage.pixel?.motion?.displacement?.frequency ??
+        5,
+      this.#imageManager.currentImage.pixel?.motion?.displacement?.amplitude ??
+        4,
     )
   }
 
