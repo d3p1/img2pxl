@@ -161,8 +161,7 @@ export default class Img2Pxl {
    */
   debug(): void {
     if (!this.#isDebugging) {
-      this.debugManager.element.style.display = 'block'
-      this.#app.debug()
+      this.#enableDebug()
       this.#isDebugging = true
     }
   }
@@ -215,6 +214,25 @@ export default class Img2Pxl {
   }
 
   /**
+   * Enable debug
+   *
+   * @returns {void}
+   */
+  #enableDebug(): void {
+    this.#app.debug()
+    this.debugManager.element.style.display = 'block'
+  }
+
+  /**
+   * Disable debug
+   *
+   * @returns {void}
+   */
+  #disableDebug(): void {
+    this.debugManager.element.style.display = 'none'
+  }
+
+  /**
    * Init
    *
    * @returns {void}
@@ -224,9 +242,11 @@ export default class Img2Pxl {
       this.#imageManager.currentImage.width,
       this.#imageManager.currentImage.height,
     )
+
     this.#timer = new Timer()
 
     this.#initDebugManager()
+
     this.#initApp()
 
     if (this.#config.containerSelector) {
@@ -289,12 +309,14 @@ export default class Img2Pxl {
    */
   #initDebugManager(): void {
     this.debugManager = new Pane()
+    this.#boundHandleDebug = this.#handleDebug.bind(this)
 
-    if (!this.#isDebugging) {
-      this.debugManager.element.style.display = 'none'
+    if (this.#isDebugging) {
+      this.#enableDebug()
+    } else {
+      this.#disableDebug()
     }
 
-    this.#boundHandleDebug = this.#handleDebug.bind(this)
     window.addEventListener('keydown', this.#boundHandleDebug)
   }
 
