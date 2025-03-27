@@ -8,6 +8,7 @@ export default {
       entry: resolve(__dirname, 'src/img2pxl.ts'),
       name: 'img2pxl',
     },
+    sourcemap: true,
     rollupOptions: {
       external: ['three', 'tweakpane'],
     },
