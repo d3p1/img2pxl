@@ -1,3 +1,11 @@
+## [1.17.6](https://github.com/d3p1/img2pxl/compare/v1.17.5...v1.17.6) (2025-03-27)
+
+
+### Bug Fixes
+
+* improve config debugging flag [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([05c2355](https://github.com/d3p1/img2pxl/commit/05c23550a4bb323c839fb42bb2ba5a33cf594ee8))
+* improve enable/disable debug logic [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([fa6bacf](https://github.com/d3p1/img2pxl/commit/fa6bacf55603562ac12792ed0446efd6c4743ce0))
+
 ## [1.17.5](https://github.com/d3p1/img2pxl/compare/v1.17.4...v1.17.5) (2025-03-27)
 
 

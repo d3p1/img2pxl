@@ -1,6 +1,6 @@
 {
   "name": "@d3p1/img2pxl",
-  "version": "1.17.5",
+  "version": "1.17.6",
   "description": "An image to pixel transformation with motion effect",
   "private": false,
   "type": "module",
