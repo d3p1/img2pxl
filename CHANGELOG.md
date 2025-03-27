@@ -1,3 +1,10 @@
+## [1.17.7](https://github.com/d3p1/img2pxl/compare/v1.17.6...v1.17.7) (2025-03-27)
+
+
+### Bug Fixes
+
+* improve enable/disable debug logic [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([0905ea0](https://github.com/d3p1/img2pxl/commit/0905ea04a21d1703578835be4b17b2c08a3ec088))
+
 ## [1.17.6](https://github.com/d3p1/img2pxl/compare/v1.17.5...v1.17.6) (2025-03-27)
 
 
