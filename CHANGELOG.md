@@ -1,3 +1,10 @@
+## [1.17.1](https://github.com/d3p1/img2pxl/compare/v1.17.0...v1.17.1) (2025-03-27)
+
+
+### Bug Fixes
+
+* add source map to library [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([f2f4dc3](https://github.com/d3p1/img2pxl/commit/f2f4dc3823991069c8958412f64881aa3189c307))
+
 # [1.17.0](https://github.com/d3p1/img2pxl/compare/v1.16.0...v1.17.0) (2025-03-27)
 
 
