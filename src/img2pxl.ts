@@ -150,8 +150,46 @@ export default class Img2Pxl {
     this.#config = config
     this.#isDebugging = this.#config.isDebugging ?? false
     this.#imageManager = new ImageManager(this.#config.images)
+  }
 
-    this.#init()
+  /**
+   * Init
+   *
+   * @returns {void}
+   */
+  init(): void {
+    this.rendererManager = new RendererManager(
+      this.#imageManager.currentImage.width,
+      this.#imageManager.currentImage.height,
+    )
+
+    this.#timer = new Timer()
+
+    this.#initDebugManager()
+
+    this.#initApp()
+
+    if (this.#config.containerSelector) {
+      this.#initDom(this.#config.containerSelector)
+    }
+
+    this.#boundHandleDebug = this.#handleDebug.bind(this)
+    window.addEventListener('keydown', this.#boundHandleDebug)
+    if (this.#isDebugging) {
+      this.#enableDebug()
+    } else {
+      this.#disableDebug()
+    }
+
+    this.#boundHandleResize = () => {
+      if (this.#imageManager.update()) {
+        this.dispose()
+        this.init()
+      }
+    }
+    window.addEventListener('resize', this.#boundHandleResize)
+
+    this.#render()
   }
 
   /**
@@ -230,46 +268,6 @@ export default class Img2Pxl {
    */
   #disableDebug(): void {
     this.debugManager.element.style.display = 'none'
-  }
-
-  /**
-   * Init
-   *
-   * @returns {void}
-   */
-  #init(): void {
-    this.rendererManager = new RendererManager(
-      this.#imageManager.currentImage.width,
-      this.#imageManager.currentImage.height,
-    )
-
-    this.#timer = new Timer()
-
-    this.#initDebugManager()
-
-    this.#initApp()
-
-    this.#boundHandleDebug = this.#handleDebug.bind(this)
-    window.addEventListener('keydown', this.#boundHandleDebug)
-    if (this.#isDebugging) {
-      this.#enableDebug()
-    } else {
-      this.#disableDebug()
-    }
-
-    if (this.#config.containerSelector) {
-      this.#initDom(this.#config.containerSelector)
-    }
-
-    this.#boundHandleResize = () => {
-      if (this.#imageManager.update()) {
-        this.dispose()
-        this.#init()
-      }
-    }
-    window.addEventListener('resize', this.#boundHandleResize)
-
-    this.#render()
   }
 
   /**
