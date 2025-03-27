@@ -1,3 +1,11 @@
+# [1.17.0](https://github.com/d3p1/img2pxl/compare/v1.16.0...v1.17.0) (2025-03-27)
+
+
+### Features
+
+* handle image by breakpoint [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([fe73ec7](https://github.com/d3p1/img2pxl/commit/fe73ec7abd16072f71aa8c140da98e1aa5d96be3))
+* update image on window resize [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([679e920](https://github.com/d3p1/img2pxl/commit/679e92031a856980dccb9c09786d37b2d31ba444))
+
 # [1.16.0](https://github.com/d3p1/img2pxl/compare/v1.15.0...v1.16.0) (2025-03-21)
 
 
