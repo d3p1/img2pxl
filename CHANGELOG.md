@@ -1,3 +1,11 @@
+## [1.17.2](https://github.com/d3p1/img2pxl/compare/v1.17.1...v1.17.2) (2025-03-27)
+
+
+### Bug Fixes
+
+* adjust default breakpoint validation [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([9738653](https://github.com/d3p1/img2pxl/commit/973865390d90b28842cd11d1ff05b3791a51a0e8))
+* remove renderer dom element on dispose [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([5211658](https://github.com/d3p1/img2pxl/commit/5211658744a1eb0d3107a24fcd8b24b8e0a17886))
+
 ## [1.17.1](https://github.com/d3p1/img2pxl/compare/v1.17.0...v1.17.1) (2025-03-27)
 
 
