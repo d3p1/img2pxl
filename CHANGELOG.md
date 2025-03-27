@@ -1,3 +1,10 @@
+## [1.17.5](https://github.com/d3p1/img2pxl/compare/v1.17.4...v1.17.5) (2025-03-27)
+
+
+### Bug Fixes
+
+* improve debugger visibility management [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([93e15d1](https://github.com/d3p1/img2pxl/commit/93e15d14fa249c2fa473db8dd8773d06c2a79e98))
+
 ## [1.17.4](https://github.com/d3p1/img2pxl/compare/v1.17.3...v1.17.4) (2025-03-27)
 
 
