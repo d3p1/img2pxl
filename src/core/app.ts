@@ -176,8 +176,6 @@ export default class App {
   dispose(): void {
     this.#image.dispose()
     this.#pointer.dispose()
-    this.#rendererManager.dispose()
-    this.#debugManager.dispose()
   }
 
   /**

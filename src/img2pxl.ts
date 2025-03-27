@@ -167,6 +167,8 @@ export default class Img2Pxl {
     window.removeEventListener('keydown', this.#boundHandleDebug)
     this.#timer.dispose()
     this.#app.dispose()
+    this.rendererManager.dispose()
+    this.debugManager.dispose()
   }
 
   /**
