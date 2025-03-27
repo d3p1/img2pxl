@@ -80,7 +80,7 @@ export default class Img2Pxl {
    *       factor?: number;
    *     }
    *   };
-   *   isDebugging: boolean;
+   *   isDebugging?: boolean;
    * }}
    */
   #config: Config
@@ -142,13 +142,13 @@ export default class Img2Pxl {
    *                 factor?: number;
    *               }
    *             };
-   *             isDebugging: boolean;
+   *             isDebugging?: boolean;
    *         }} config
    * @throws {Error}
    */
   constructor(config: Config) {
     this.#config = config
-    this.#isDebugging = config.isDebugging ?? false
+    this.#isDebugging = this.#config.isDebugging ?? false
     this.#imageManager = new ImageManager(this.#config.images)
 
     this.#init()

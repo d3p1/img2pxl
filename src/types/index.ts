@@ -52,5 +52,5 @@ export interface Config {
       factor?: number
     }
   }
-  isDebugging: boolean
+  isDebugging?: boolean
 }
