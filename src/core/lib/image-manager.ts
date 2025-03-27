@@ -157,7 +157,7 @@ export default class ImageManager {
    */
   #initBreakpointsFromImages(breakpoints: number[]): void {
     if (
-      breakpoints.find((breakpoint) => breakpoint === DEFAULT_IMAGE_BREAKPOINT)
+      !breakpoints.find((breakpoint) => breakpoint === DEFAULT_IMAGE_BREAKPOINT)
     ) {
       throw new Error(
         'The `0` breakpoint is required. It defines the default image that should be used.',
