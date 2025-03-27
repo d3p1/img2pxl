@@ -71,6 +71,7 @@ export default class RendererManager {
   dispose(): void {
     this.#disposeScene()
     this.#disposeRenderer()
+    this.renderer.domElement.remove()
   }
 
   /**
