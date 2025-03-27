@@ -79,7 +79,8 @@ export default class Img2Pxl {
    *     trailing?: {
    *       factor?: number;
    *     }
-   *   }
+   *   };
+   *   isDebugging: boolean;
    * }}
    */
   #config: Config
@@ -87,7 +88,7 @@ export default class Img2Pxl {
   /**
    * @type {boolean}
    */
-  #isDebugging: boolean = false
+  #isDebugging: boolean
 
   /**
    * @type {number}
@@ -140,12 +141,14 @@ export default class Img2Pxl {
    *               trailing?: {
    *                 factor?: number;
    *               }
-   *             }
+   *             };
+   *             isDebugging: boolean;
    *         }} config
    * @throws {Error}
    */
   constructor(config: Config) {
     this.#config = config
+    this.#isDebugging = config.isDebugging ?? false
     this.#imageManager = new ImageManager(this.#config.images)
 
     this.#init()
@@ -287,7 +290,10 @@ export default class Img2Pxl {
   #initDebugManager(): void {
     this.debugManager = new Pane()
 
-    this.debugManager.element.style.display = 'none'
+    if (!this.#isDebugging) {
+      this.debugManager.element.style.display = 'none'
+    }
+
     this.#boundHandleDebug = this.#handleDebug.bind(this)
     window.addEventListener('keydown', this.#boundHandleDebug)
   }
