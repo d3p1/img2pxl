@@ -13,11 +13,11 @@ export default function Img2pxl() {
       images: {
         0: {
           src: '/img2pxl/media/images/lib/emoji.png',
-          width: 140,
-          height: 140,
+          width: 280,
+          height: 280,
           resolution: {
-            width: 140 * 0.25,
-            height: 140 * 0.25,
+            width: 280 * 0.25,
+            height: 280 * 0.25,
           },
           pixel: {
             size: 3,
