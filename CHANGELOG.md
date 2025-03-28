@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/d3p1/img2pxl/compare/v1.18.3...v1.19.0) (2025-03-28)
+
+
+### Features
+
+* init button to export debug settings [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([58109a8](https://github.com/d3p1/img2pxl/commit/58109a8795c22302d7d14e1b0f84d85e0c8d5589))
+
 ## [1.18.3](https://github.com/d3p1/img2pxl/compare/v1.18.2...v1.18.3) (2025-03-28)
 
 
