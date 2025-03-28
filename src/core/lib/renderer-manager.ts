@@ -64,6 +64,16 @@ export default class RendererManager {
   }
 
   /**
+   * Compile shaders
+   *
+   * @returns {void}
+   * {@link   https://github.com/mrdoob/three.js/pull/10960}
+   */
+  compile(): void {
+    this.renderer.compile(this.scene, this.camera)
+  }
+
+  /**
    * Dispose
    *
    * @returns {void}

@@ -78,16 +78,10 @@ export default class App {
    *
    * @param   {number} elapsed
    * @returns {void}
-   * @note    It is required to validate if `uTime` is set
-   *          because the `beforeCompile` image material shader logic
-   *          (which adds this uniform)
-   *          only runs after the first render of the scene
    */
   update(elapsed: number): void {
-    if (this.#image.points.material.uniforms.uTime) {
-      this.#image.points.material.uniforms.uTime.value = elapsed
-      this.#pointer.update()
-    }
+    this.#image.points.material.uniforms.uTime.value = elapsed
+    this.#pointer.update()
     this.#rendererManager.update()
   }
 
@@ -231,6 +225,10 @@ export default class App {
    *          is called `uDisTexture` inside the shader because
    *          it is considered that the shader does not need to know
    *          that this texture is related to a pointer
+   * @note    Force shader compilation with `compile()`.
+   *          If it is not forced the shader compilation, then
+   *          uniforms will be undefined until first render of the scene
+   * {@link   https://github.com/mrdoob/three.js/pull/10960}
    */
   #addDisplacementHandlerToImage(
     noiseImageSrc: string,
@@ -269,6 +267,8 @@ export default class App {
         positionVertexShader,
       )
     }
+
+    this.#rendererManager.compile()
   }
 
   /**
