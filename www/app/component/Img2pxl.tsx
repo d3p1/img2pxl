@@ -1,5 +1,5 @@
 /**
- * @description `img2pxl` component
+ * @description Library component
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 'use client'
@@ -9,28 +9,54 @@ import Img2Pxl from '@d3p1/img2pxl'
 
 export default function Img2pxl() {
   useEffect(() => {
-    const app = new Img2Pxl({
-      image: {
-        src: '/img2pxl/media/images/lib/meisje-met-de-parel.png',
-        width: 512 * 1.5,
-        height: 600 * 1.5,
-        resolution: {
-          width: 512 * 0.5,
-          height: 600 * 0.5,
-        },
-        pixel: {
-          size: 2,
+    new Img2Pxl({
+      images: {
+        0: {
+          src: '/img2pxl/media/images/lib/emoji.png',
+          width: 140,
+          height: 140,
+          resolution: {
+            width: 140 * 0.25,
+            height: 140 * 0.25,
+          },
+          pixel: {
+            size: 3,
+            motion: {
+              displacement: {
+                frequency: 1,
+                amplitude: 40,
+              },
+            },
+          },
           motion: {
-            displacement: {
-              frequency: 1,
-              amplitude: 40,
+            noise: {
+              frequency: 0.1,
+              amplitude: 5,
             },
           },
         },
-        motion: {
-          noise: {
-            frequency: 0,
-            amplitude: 0,
+        768: {
+          src: '/img2pxl/media/images/lib/meisje-met-de-parel.png',
+          width: 512 * 1.3,
+          height: 600 * 1.3,
+          resolution: {
+            width: 512 * 0.5,
+            height: 600 * 0.5,
+          },
+          pixel: {
+            size: 2,
+            motion: {
+              displacement: {
+                frequency: 1,
+                amplitude: 40,
+              },
+            },
+          },
+          motion: {
+            noise: {
+              frequency: 0,
+              amplitude: 0,
+            },
           },
         },
       },
@@ -38,17 +64,8 @@ export default function Img2pxl() {
         size: 0.1,
       },
       containerSelector: '#img2pxl',
+      isDebugging: true,
     })
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        app.dispose()
-      }
-    })
-
-    app.render()
-
-    app.debug()
   }, [])
 
   return <div id="img2pxl"></div>
