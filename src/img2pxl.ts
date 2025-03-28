@@ -162,17 +162,6 @@ export default class Img2Pxl {
   debug(): void {
     if (!this.#isDebugging) {
       this.#enableDebug()
-
-      this.#app.debug()
-
-      const btn = this.debugManager.addButton({
-        title: 'Copy',
-      })
-      btn.on('click', () => {
-        const state = this.debugManager.exportState()
-        console.log(state)
-      })
-
       this.#isDebugging = true
     }
   }
@@ -270,6 +259,16 @@ export default class Img2Pxl {
    * @returns {void}
    */
   #enableDebug(): void {
+    this.#app.debug()
+
+    const btn = this.debugManager.addButton({
+      title: 'Copy',
+    })
+    btn.on('click', () => {
+      const state = this.debugManager.exportState()
+      console.log(state)
+    })
+
     this.debugManager.element.style.display = 'block'
   }
 
