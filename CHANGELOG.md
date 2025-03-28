@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/d3p1/img2pxl/compare/v1.19.0...v1.19.1) (2025-03-28)
+
+
+### Bug Fixes
+
+* adjust enable debug logic [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([a34bc17](https://github.com/d3p1/img2pxl/commit/a34bc17de12bdef34cbdf3026b42534412685042))
+
 # [1.19.0](https://github.com/d3p1/img2pxl/compare/v1.18.3...v1.19.0) (2025-03-28)
 
 
