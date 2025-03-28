@@ -148,48 +148,10 @@ export default class Img2Pxl {
    */
   constructor(config: Config) {
     this.#config = config
-    this.#isDebugging = this.#config.isDebugging ?? false
-    this.#imageManager = new ImageManager(this.#config.images)
-  }
+    this.#isDebugging = config.isDebugging ?? false
+    this.#imageManager = new ImageManager(config.images)
 
-  /**
-   * Init
-   *
-   * @returns {void}
-   */
-  init(): void {
-    this.rendererManager = new RendererManager(
-      this.#imageManager.currentImage.width,
-      this.#imageManager.currentImage.height,
-    )
-
-    this.#timer = new Timer()
-
-    this.#initDebugManager()
-
-    this.#initApp()
-
-    if (this.#config.containerSelector) {
-      this.#initDom(this.#config.containerSelector)
-    }
-
-    this.#boundHandleDebug = this.#handleDebug.bind(this)
-    window.addEventListener('keydown', this.#boundHandleDebug)
-    if (this.#isDebugging) {
-      this.#enableDebug()
-    } else {
-      this.#disableDebug()
-    }
-
-    this.#boundHandleResize = () => {
-      if (this.#imageManager.update()) {
-        this.dispose()
-        this.init()
-      }
-    }
-    window.addEventListener('resize', this.#boundHandleResize)
-
-    this.#render()
+    this.#init()
   }
 
   /**
@@ -223,6 +185,46 @@ export default class Img2Pxl {
 
     this.debugManager.dispose()
     this.debugManager.element.remove()
+  }
+
+  /**
+   * Init
+   *
+   * @returns {void}
+   */
+  #init(): void {
+    this.rendererManager = new RendererManager(
+      this.#imageManager.currentImage.width,
+      this.#imageManager.currentImage.height,
+    )
+
+    this.#timer = new Timer()
+
+    this.#initDebugManager()
+
+    this.#initApp()
+
+    if (this.#config.containerSelector) {
+      this.#initDom(this.#config.containerSelector)
+    }
+
+    this.#boundHandleDebug = this.#handleDebug.bind(this)
+    window.addEventListener('keydown', this.#boundHandleDebug)
+    if (this.#isDebugging) {
+      this.#enableDebug()
+    } else {
+      this.#disableDebug()
+    }
+
+    this.#boundHandleResize = () => {
+      if (this.#imageManager.update()) {
+        this.dispose()
+        this.#init()
+      }
+    }
+    window.addEventListener('resize', this.#boundHandleResize)
+
+    this.#render()
   }
 
   /**
