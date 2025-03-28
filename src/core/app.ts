@@ -189,6 +189,7 @@ export default class App {
     displacementFrequency: number,
     displacementAmplitude: number,
   ): void {
+    this.#rendererManager.scene.add(this.#image.points)
     this.#addDisplacementAttributesToImage()
     this.#addDisplacementHandlerToImage(
       noiseImageSrc,
@@ -197,7 +198,6 @@ export default class App {
       displacementFrequency,
       displacementAmplitude,
     )
-    this.#rendererManager.scene.add(this.#image.points)
   }
 
   /**
