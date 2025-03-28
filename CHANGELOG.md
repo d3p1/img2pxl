@@ -1,3 +1,10 @@
+## [1.18.1](https://github.com/d3p1/img2pxl/compare/v1.18.0...v1.18.1) (2025-03-28)
+
+
+### Bug Fixes
+
+* adjust entry point class initialization [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([fbc8055](https://github.com/d3p1/img2pxl/commit/fbc8055ed9e9651af98e0f1a393c8a1323a41417))
+
 # [1.18.0](https://github.com/d3p1/img2pxl/compare/v1.17.7...v1.18.0) (2025-03-27)
 
 
