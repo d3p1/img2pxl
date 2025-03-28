@@ -1,3 +1,10 @@
+# [1.21.0](https://github.com/d3p1/img2pxl/compare/v1.20.0...v1.21.0) (2025-03-28)
+
+
+### Features
+
+* copy generated debug settings to clipboard [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([9b4de34](https://github.com/d3p1/img2pxl/commit/9b4de34db0cdecd3879f5fd939144de9b3f7f632))
+
 # [1.20.0](https://github.com/d3p1/img2pxl/compare/v1.19.1...v1.20.0) (2025-03-28)
 
 
