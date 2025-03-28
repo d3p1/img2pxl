@@ -1,3 +1,10 @@
+## [1.18.3](https://github.com/d3p1/img2pxl/compare/v1.18.2...v1.18.3) (2025-03-28)
+
+
+### Bug Fixes
+
+* add image to scene before forcing shader compilation [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([38f1bc0](https://github.com/d3p1/img2pxl/commit/38f1bc0945cf4bca8fa858bc30c61363bc5e605c))
+
 ## [1.18.2](https://github.com/d3p1/img2pxl/compare/v1.18.1...v1.18.2) (2025-03-28)
 
 
