@@ -291,7 +291,7 @@ export default class Img2Pxl {
         const imageMotionFrequency = imageMotion.children[0]['binding']['value']
         const imageMotionAmplitude = imageMotion.children[1]['binding']['value']
 
-        console.log(`{
+        const settings = `{
           images: {
             0: {
               src: <image-src>,
@@ -324,7 +324,14 @@ export default class Img2Pxl {
               factor: ${pointerTrailing}
             }
           }
-        }`)
+        }`
+
+        navigator.clipboard.writeText(settings).then(() => {
+          btn.title = 'Copied!'
+          setTimeout(() => {
+            btn.title = 'Copy'
+          }, 1000)
+        })
       }
     })
 
