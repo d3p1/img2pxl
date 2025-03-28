@@ -1,3 +1,10 @@
+## [1.18.2](https://github.com/d3p1/img2pxl/compare/v1.18.1...v1.18.2) (2025-03-28)
+
+
+### Bug Fixes
+
+* force shader compilation to avoid uniform undefined errors until first render [[#4](https://github.com/d3p1/img2pxl/issues/4)][[#5](https://github.com/d3p1/img2pxl/issues/5)] ([4d00298](https://github.com/d3p1/img2pxl/commit/4d00298427be84731f595b03f1299eddfd3524dc))
+
 ## [1.18.1](https://github.com/d3p1/img2pxl/compare/v1.18.0...v1.18.1) (2025-03-28)
 
 
