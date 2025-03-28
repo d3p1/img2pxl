@@ -266,7 +266,66 @@ export default class Img2Pxl {
     })
     btn.on('click', () => {
       const state = this.debugManager.exportState()
-      console.log(state)
+
+      if (state.children && state.children instanceof Array) {
+        const pointer = state.children[0]
+        const pointerSize = pointer.children[0]['binding']['value']
+        const pointerTrailing = pointer.children[1]['binding']['value']
+
+        const imageResolution = state.children[2]
+        const imageResolutionWidth =
+          imageResolution.children[0]['binding']['value']
+        const imageResolutionHeight =
+          imageResolution.children[1]['binding']['value']
+
+        const imagePixel = state.children[3]
+        const imagePixelSize = imagePixel.children[0]['binding']['value']
+
+        const imagePixelMotion = state.children[4]
+        const imagePixelMotionFrequency =
+          imagePixelMotion.children[0]['binding']['value']
+        const imagePixelMotionAmplitude =
+          imagePixelMotion.children[1]['binding']['value']
+
+        const imageMotion = state.children[5]
+        const imageMotionFrequency = imageMotion.children[0]['binding']['value']
+        const imageMotionAmplitude = imageMotion.children[1]['binding']['value']
+
+        console.log(`{
+          images: {
+            0: {
+              src: <image-src>,
+              width: <image-width>,
+              height: <image-height>,
+              resolution: {
+                width: ${imageResolutionWidth},
+                height: ${imageResolutionHeight}
+              },
+              pixel: {
+                size: ${imagePixelSize},
+                motion: {
+                  displacement: {
+                    frequency: ${imagePixelMotionFrequency},
+                    amplitude: ${imagePixelMotionAmplitude}
+                  }
+                }
+              },
+              motion: {
+                noise: {
+                  frequency: ${imageMotionFrequency},
+                  amplitude: ${imageMotionAmplitude}
+                }
+              }
+            }
+          },
+          pointer: {
+            size: ${pointerSize},
+            trailing: {
+              factor: ${pointerTrailing}
+            }
+          }
+        }`)
+      }
     })
 
     this.debugManager.element.style.display = 'block'
