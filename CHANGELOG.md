@@ -1,3 +1,10 @@
+## [1.21.1](https://github.com/d3p1/img2pxl/compare/v1.21.0...v1.21.1) (2025-03-30)
+
+
+### Bug Fixes
+
+* take into consideration device pixel ratio for image geometry generation [[#5](https://github.com/d3p1/img2pxl/issues/5)] ([eaa75dd](https://github.com/d3p1/img2pxl/commit/eaa75dd158d52ae34302067dece53175ac198df6))
+
 # [1.21.0](https://github.com/d3p1/img2pxl/compare/v1.20.0...v1.21.0) (2025-03-28)
 
 
