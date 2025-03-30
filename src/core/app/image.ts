@@ -187,6 +187,10 @@ export default class Image {
    * @param   {number}                              resolutionHeight
    * @param   {THREE.NormalBufferAttributes | null} attributes
    * @returns {THREE.PlaneGeometry}
+   * @note    It is created a plane that occupies all the render
+   * @note    The dom element width and height of the renderer include
+   *          the device pixel ratio, so it is important to use them
+   *          to create a plane that take all the render space/pixels
    * @note    It is removed the index and normals from the geometry
    *          to improve performance.
    *          Normals are not going to be needed.
@@ -199,10 +203,10 @@ export default class Image {
     attributes: THREE.NormalBufferAttributes | null = null,
   ): THREE.PlaneGeometry {
     const geometry = new THREE.PlaneGeometry(
-      this.#rendererManager.width,
-      this.#rendererManager.height,
-      resolutionWidth,
-      resolutionHeight,
+      this.#rendererManager.renderer.domElement.width,
+      this.#rendererManager.renderer.domElement.height,
+      resolutionWidth * this.#rendererManager.dpr,
+      resolutionHeight * this.#rendererManager.dpr,
     )
     geometry.setIndex(null)
     geometry.deleteAttribute('normal')
