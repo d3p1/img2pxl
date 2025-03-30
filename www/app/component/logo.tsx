@@ -9,8 +9,8 @@ export default function Logo() {
     <div className="logo">
       <Image
         src="/img2pxl/media/images/logo.png"
-        width="427"
-        height="112"
+        width="112"
+        height="427"
         alt="img2pxl"
       />
     </div>

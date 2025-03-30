@@ -35,7 +35,7 @@ export default function Img2pxl() {
             },
           },
         },
-        768: {
+        820: {
           src: '/img2pxl/media/images/lib/meisje-met-de-parel.png',
           width: 512 * 1.3,
           height: 600 * 1.3,

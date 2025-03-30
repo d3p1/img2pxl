@@ -21,11 +21,9 @@ body {
   background-color: var(--primary-color-800);
   color: var(--secondary-color);
   display: grid;
-  grid-template-areas:
-          'header'
-          'main';
-  grid-template-rows: 1fr 15fr;
-  grid-template-columns: 1fr;
+  grid-template-areas: 'header main';
+  grid-template-rows: 1fr;
+  grid-template-columns: 60px 1fr;
   place-items: center;
   width: 100vw;
   height: 100vh;
@@ -33,12 +31,7 @@ body {
 
 header {
   grid-area: header;
-  padding: 2rem 1rem;
-}
-
-.logo {
-  min-width: 150px;
-  max-width: 427px;
+  padding: 1rem 0.5rem;
 }
 
 main {
@@ -63,24 +56,20 @@ main {
   display: none !important;
 }
 
-@media (width >= 40rem) {
+@media (width >= 820px) {
+  body {
+    grid-template-columns: 120px 1fr;
+  }
+
+  header {
+    padding: 1rem 2rem;
+  }
+
   .tp-rotv {
     display: block !important;
     position: absolute;
     top: 0;
     right: 0;
-  }
-}
-
-@media (width >= 48rem) {
-  body {
-    grid-template-areas: 'header main';
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 5fr;
-  }
-
-  .logo {
-    transform: rotate(-90deg);
   }
 }
 
