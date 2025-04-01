@@ -12,15 +12,15 @@ export default function Img2pxl() {
     new Img2Pxl({
       images: {
         0: {
-          src: '/img2pxl/media/images/lib/emoji.png',
-          width: 280,
-          height: 280,
+          src: '/img2pxl/media/images/lib/meisje-met-de-parel.png',
+          width: 512 * 0.8,
+          height: 600 * 0.8,
           resolution: {
-            width: 280 * 0.25,
-            height: 280 * 0.25,
+            width: 512 * 0.5,
+            height: 600 * 0.5,
           },
           pixel: {
-            size: 3,
+            size: 2,
             motion: {
               displacement: {
                 frequency: 1,
@@ -30,8 +30,8 @@ export default function Img2pxl() {
           },
           motion: {
             noise: {
-              frequency: 0.1,
-              amplitude: 5,
+              frequency: 0.025,
+              amplitude: 40,
             },
           },
         },
