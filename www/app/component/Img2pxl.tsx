@@ -13,11 +13,11 @@ export default function Img2pxl() {
       images: {
         0: {
           src: '/img2pxl/media/images/lib/meisje-met-de-parel.png',
-          width: 512 * 0.8,
-          height: 600 * 0.8,
+          width: 512 * 0.5,
+          height: 600 * 0.5,
           resolution: {
-            width: 512 * 0.5,
-            height: 600 * 0.5,
+            width: 512 * 0.3,
+            height: 600 * 0.3,
           },
           pixel: {
             size: 2,
@@ -68,5 +68,10 @@ export default function Img2pxl() {
     })
   }, [])
 
-  return <div id="img2pxl"></div>
+  return (
+    <div
+      id="img2pxl"
+      className="w-full h-full flex flex-col justify-center items-center"
+    ></div>
+  )
 }
