@@ -21,6 +21,7 @@ export default function Img2pxl() {
           },
           pixel: {
             size: 2,
+            alphaTest: 0.9,
             motion: {
               displacement: {
                 frequency: 1,
