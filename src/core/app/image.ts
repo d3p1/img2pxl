@@ -159,6 +159,7 @@ export default class Image {
       uniforms: {
         uImageTexture: new THREE.Uniform(this.#imageTexture),
         uPointSize: new THREE.Uniform(pointSize),
+        uAlphaTest: new THREE.Uniform(alphaTest),
       },
       transparent: true,
       depthWrite: false,
