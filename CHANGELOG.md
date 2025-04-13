@@ -1,3 +1,10 @@
+## [1.21.3](https://github.com/d3p1/img2pxl/compare/v1.21.2...v1.21.3) (2025-04-13)
+
+
+### Bug Fixes
+
+* discard pixels considering their alpha value to solve alpha test error on mobile devices [[#5](https://github.com/d3p1/img2pxl/issues/5)] ([ad0ec54](https://github.com/d3p1/img2pxl/commit/ad0ec5403560feabb22a68f34190f0e88dec8f4e))
+
 ## [1.21.2](https://github.com/d3p1/img2pxl/compare/v1.21.1...v1.21.2) (2025-04-13)
 
 
