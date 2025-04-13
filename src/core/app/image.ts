@@ -40,6 +40,7 @@ export default class Image {
    * @param {number}          resolutionWidth
    * @param {number}          resolutionHeight
    * @param {number}          pointSize
+   * @param {number}          alphaTest
    */
   constructor(
     rendererManager: RendererManager,
@@ -48,10 +49,17 @@ export default class Image {
     resolutionWidth: number,
     resolutionHeight: number,
     pointSize: number = 1,
+    alphaTest: number = 0.1,
   ) {
     this.#rendererManager = rendererManager
     this.#debugManager = debugManager
-    this.#initPoints(imageSrc, resolutionWidth, resolutionHeight, pointSize)
+    this.#initPoints(
+      imageSrc,
+      resolutionWidth,
+      resolutionHeight,
+      pointSize,
+      alphaTest,
+    )
   }
 
   /**
@@ -127,6 +135,7 @@ export default class Image {
    * @param   {number} resolutionWidth
    * @param   {number} resolutionHeight
    * @param   {number} pointSize
+   * @param   {number} alphaTest
    * @returns {void}
    */
   #initPoints(
@@ -134,6 +143,7 @@ export default class Image {
     resolutionWidth: number,
     resolutionHeight: number,
     pointSize: number,
+    alphaTest: number,
   ): void {
     const textureLoader = new THREE.TextureLoader()
     this.#imageTexture = textureLoader.load(imageSrc)
@@ -152,6 +162,7 @@ export default class Image {
       },
       transparent: true,
       depthWrite: false,
+      alphaTest: alphaTest,
     })
 
     this.points = new THREE.Points(imageGeometry, imageMaterial)

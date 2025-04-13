@@ -25,8 +25,9 @@ export default class ImageManager {
    *     height: number;
    *   }
    *   pixel?: {
-   *     size  ?: number;
-   *     motion?: {
+   *     size     ?: number;
+   *     alphaTest?: number;
+   *     motion   ?: {
    *       displacement?: {
    *         frequency?: number;
    *         amplitude?: number;
@@ -54,8 +55,9 @@ export default class ImageManager {
    *     height: number;
    *   };
    *   pixel?: {
-   *     size  ?: number;
-   *     motion?: {
+   *     size     ?: number;
+   *     alphaTest?: number;
+   *     motion   ?: {
    *       displacement?: {
    *         frequency?: number;
    *         amplitude?: number;
@@ -95,8 +97,9 @@ export default class ImageManager {
    *               height: number;
    *             };
    *             pixel?: {
-   *               size  ?: number;
-   *               motion?: {
+   *               size     ?: number;
+   *               alphaTest?: number;
+   *               motion   ?: {
    *                 displacement?: {
    *                   frequency?: number;
    *                   amplitude?: number;

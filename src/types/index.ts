@@ -16,6 +16,7 @@ export interface ImgSource {
   }
   pixel?: {
     size?: number
+    alphaTest?: number
     motion?: {
       displacement?: {
         frequency?: number

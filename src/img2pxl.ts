@@ -119,8 +119,9 @@ export default class Img2Pxl {
    *                 height: number;
    *               };
    *               pixel?: {
-   *                 size  ?: number;
-   *                 motion?: {
+   *                 size     ?: number;
+   *                 alphaTest?: number;
+   *                 motion   ?: {
    *                   displacement?: {
    *                     frequency?: number;
    *                     amplitude?: number;
@@ -361,6 +362,7 @@ export default class Img2Pxl {
         this.#imageManager.currentImage.resolution.width,
         this.#imageManager.currentImage.resolution.height,
         this.#imageManager.currentImage.pixel?.size ?? 1,
+        this.#imageManager.currentImage.pixel?.alphaTest ?? 0.1,
       ),
       new Pointer(
         this.rendererManager,
