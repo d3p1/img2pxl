@@ -16,6 +16,6 @@
 
 @layer components {
   .tp-rotv {
-    @apply sm:absolute sm:right-0 sm:top-0;
+    @apply w-full sm:w-auto sm:absolute sm:right-0 sm:top-0;
   }
 }
