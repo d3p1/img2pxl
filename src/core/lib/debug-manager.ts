@@ -128,26 +128,26 @@ export default class DebugManager {
       const state = this.debugger.exportState()
 
       if (state.children && state.children instanceof Array) {
-        const pointer = state.children[0]
+        const pointer = state.children[1]
         const pointerSize = pointer.children[0]['binding']['value']
         const pointerTrailing = pointer.children[1]['binding']['value']
 
-        const imageResolution = state.children[2]
+        const imageResolution = state.children[3]
         const imageResolutionWidth =
           imageResolution.children[0]['binding']['value']
         const imageResolutionHeight =
           imageResolution.children[1]['binding']['value']
 
-        const imagePixel = state.children[3]
+        const imagePixel = state.children[4]
         const imagePixelSize = imagePixel.children[0]['binding']['value']
 
-        const imagePixelMotion = state.children[4]
+        const imagePixelMotion = state.children[5]
         const imagePixelMotionFrequency =
           imagePixelMotion.children[0]['binding']['value']
         const imagePixelMotionAmplitude =
           imagePixelMotion.children[1]['binding']['value']
 
-        const imageMotion = state.children[5]
+        const imageMotion = state.children[6]
         const imageMotionFrequency = imageMotion.children[0]['binding']['value']
         const imageMotionAmplitude = imageMotion.children[1]['binding']['value']
 
