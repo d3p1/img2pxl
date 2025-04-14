@@ -1,3 +1,10 @@
+## [1.22.1](https://github.com/d3p1/img2pxl/compare/v1.22.0...v1.22.1) (2025-04-14)
+
+
+### Bug Fixes
+
+* adjust index of copy button element settings [[#5](https://github.com/d3p1/img2pxl/issues/5)] ([4e1b11f](https://github.com/d3p1/img2pxl/commit/4e1b11ff660746cdd7d625cb87707b9775ba3b67))
+
 # [1.22.0](https://github.com/d3p1/img2pxl/compare/v1.21.3...v1.22.0) (2025-04-14)
 
 
