@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/d3p1/img2pxl/compare/v1.21.3...v1.22.0) (2025-04-14)
+
+
+### Features
+
+* replace debug manager with improved debug manager [[#5](https://github.com/d3p1/img2pxl/issues/5)] ([8152dfc](https://github.com/d3p1/img2pxl/commit/8152dfc9d196b60481f790608c8c2974a8b471eb))
+
 ## [1.21.3](https://github.com/d3p1/img2pxl/compare/v1.21.2...v1.21.3) (2025-04-13)
 
 
