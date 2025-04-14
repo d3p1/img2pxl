@@ -7,14 +7,14 @@
  *              In that way, it allows selecting which vertices/points/pixels
  *              should be displaced
  */
-import {Pane} from 'tweakpane'
 import * as THREE from 'three'
+import DebugManager from '../../lib/debug-manager.js'
 
 export default class Canvas {
   /**
-   * @type {Pane}
+   * @type {DebugManager}
    */
-  #debugManager: Pane
+  #debugManager: DebugManager
 
   /**
    * @type {THREE.CanvasTexture}
@@ -54,20 +54,20 @@ export default class Canvas {
    *       pointer trailing effect on the
    *       pixels' displacement
    */
-  readonly #pointerTrailingFactor: number
+  #pointerTrailingFactor: number
 
   /**
    * Constructor
    *
-   * @param {Pane}   debugManager
-   * @param {number} resolutionWidth
-   * @param {number} resolutionHeight
-   * @param {string} pointerImageSrc
-   * @param {number} pointerImageSize
-   * @param {number} pointerTrailingFactor
+   * @param {DebugManager} debugManager
+   * @param {number}       resolutionWidth
+   * @param {number}       resolutionHeight
+   * @param {string}       pointerImageSrc
+   * @param {number}       pointerImageSize
+   * @param {number}       pointerTrailingFactor
    */
   constructor(
-    debugManager: Pane,
+    debugManager: DebugManager,
     resolutionWidth: number,
     resolutionHeight: number,
     pointerImageSrc: string,
@@ -107,39 +107,49 @@ export default class Canvas {
       title: 'Pointer',
     })
 
-    pointerFolder
-      .addBinding({size: this.#pointerImageSize / this.element.width}, 'size', {
-        min: 0,
-        max: 1,
-        step: 0.01,
-      })
+    this.#debugManager
+      .addBinding(
+        'size',
+        this.#pointerImageSize / this.element.width,
+        {
+          min: 0,
+          max: 1,
+          step: 0.01,
+        },
+        pointerFolder,
+      )
       .on('change', (e) => this.#processPointerImageSize(e.value))
 
-    pointerFolder.addBinding(
-      {trailing: this.#pointerTrailingFactor},
-      'trailing',
-      {
-        min: 0,
-        max: 1,
-        step: 0.01,
-      },
-    )
+    this.#debugManager
+      .addBinding(
+        'trailing',
+        this.#pointerTrailingFactor,
+        {
+          min: 0,
+          max: 1,
+          step: 0.01,
+        },
+        pointerFolder,
+      )
+      .on('change', (e) => (this.#pointerTrailingFactor = e.value))
 
     const pointerCanvasFolder = this.#debugManager.addFolder({
       title: 'Pointer Canvas',
     })
 
-    pointerCanvasFolder.addBinding({show: false}, 'show').on('change', (e) => {
-      if (e.value) {
-        document.body.appendChild(this.element)
-        this.element.style.position = 'fixed'
-        this.element.style.top = '0'
-        this.element.style.left = '0'
-        this.element.style.border = '1px solid #fff'
-      } else {
-        document.body.removeChild(this.element)
-      }
-    })
+    this.#debugManager
+      .addBinding('show', false, undefined, pointerCanvasFolder)
+      .on('change', (e) => {
+        if (e.value) {
+          document.body.appendChild(this.element)
+          this.element.style.position = 'fixed'
+          this.element.style.top = '0'
+          this.element.style.left = '0'
+          this.element.style.border = '1px solid #fff'
+        } else {
+          document.body.removeChild(this.element)
+        }
+      })
   }
 
   /**

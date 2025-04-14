@@ -4,9 +4,9 @@
  * @note        This class handles the logic related to the
  *              transformation of the image into vertices/points/pixels
  */
-import {Pane} from 'tweakpane'
 import * as THREE from 'three'
 import RendererManager from '../lib/renderer-manager.js'
+import DebugManager from '../lib/debug-manager.js'
 import imageVertexShader from './image/shader/vertex.glsl'
 import imageFragmentShader from './image/shader/fragment.glsl'
 
@@ -27,15 +27,15 @@ export default class Image {
   #rendererManager: RendererManager
 
   /**
-   * @type {Pane}
+   * @type {DebugManager}
    */
-  #debugManager: Pane
+  #debugManager: DebugManager
 
   /**
    * Constructor
    *
    * @param {RendererManager} rendererManager
-   * @param {Pane}            debugManager
+   * @param {DebugManager}    debugManager
    * @param {string}          imageSrc
    * @param {number}          resolutionWidth
    * @param {number}          resolutionHeight
@@ -44,7 +44,7 @@ export default class Image {
    */
   constructor(
     rendererManager: RendererManager,
-    debugManager: Pane,
+    debugManager: DebugManager,
     imageSrc: string,
     resolutionWidth: number,
     resolutionHeight: number,
@@ -72,11 +72,12 @@ export default class Image {
       title: 'Image Resolution',
     })
 
-    resolutionFolder
+    this.#debugManager
       .addBinding(
-        {width: this.points.geometry.parameters.widthSegments},
         'width',
+        this.points.geometry.parameters.widthSegments,
         {min: 0, max: this.points.geometry.parameters.width, step: 1},
+        resolutionFolder,
       )
       .on('change', (e) => {
         if (e.last) {
@@ -87,11 +88,12 @@ export default class Image {
         }
       })
 
-    resolutionFolder
+    this.#debugManager
       .addBinding(
-        {height: this.points.geometry.parameters.heightSegments},
         'height',
+        this.points.geometry.parameters.heightSegments,
         {min: 0, max: this.points.geometry.parameters.height, step: 1},
+        resolutionFolder,
       )
       .on('change', (e) => {
         if (e.last) {
@@ -104,11 +106,12 @@ export default class Image {
 
     const pixelFolder = this.#debugManager.addFolder({title: 'Image Pixel'})
 
-    pixelFolder
+    this.#debugManager
       .addBinding(
-        {size: this.points.material.uniforms.uPointSize.value},
         'size',
+        this.points.material.uniforms.uPointSize.value,
         {min: 1, max: 100, step: 1},
+        pixelFolder,
       )
       .on('change', (e) => {
         if (e.last) {

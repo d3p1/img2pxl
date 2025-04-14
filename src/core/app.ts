@@ -6,9 +6,9 @@
  *              and the motion (pixels' default motion, noise, etc.)
  *              interact between each other
  */
-import {Pane} from 'tweakpane'
 import * as THREE from 'three'
 import RendererManager from './lib/renderer-manager.js'
+import DebugManager from './lib/debug-manager.js'
 import Image from './app/image.js'
 import Pointer from './app/pointer.js'
 import parsVertexShader from './app/shader/pars_vertex.glsl'
@@ -31,9 +31,9 @@ export default class App {
   #rendererManager: RendererManager
 
   /**
-   * @type {Pane}
+   * @type {DebugManager}
    */
-  #debugManager: Pane
+  #debugManager: DebugManager
 
   /**
    * Constructor
@@ -41,7 +41,7 @@ export default class App {
    * @param {Image}           image
    * @param {Pointer}         pointer
    * @param {RendererManager} rendererManager
-   * @param {Pane}            debugManager
+   * @param {DebugManager}    debugManager
    * @param {string}          noiseImageSrc
    * @param {number}          noiseFrequency
    * @param {number}          noiseAmplitude
@@ -52,7 +52,7 @@ export default class App {
     image: Image,
     pointer: Pointer,
     rendererManager: RendererManager,
-    debugManager: Pane,
+    debugManager: DebugManager,
     noiseImageSrc: string,
     noiseFrequency: number = 0.1,
     noiseAmplitude: number = 5,
@@ -99,67 +99,41 @@ export default class App {
       title: 'Image Pixel Motion',
     })
 
-    pixelMotionFolder
-      .addBinding(
-        {
-          frequency: this.#image.points.material.uniforms.uDisFrequency.value,
-        },
-        'frequency',
-        {min: 0, max: 10 * 2 * Math.PI, step: 0.01},
-      )
-      .on(
-        'change',
-        (e) =>
-          (this.#image.points.material.uniforms.uDisFrequency.value = e.value),
-      )
+    this.#debugManager.addBindingWithOnChange(
+      this.#image.points.material.uniforms.uDisFrequency,
+      'value',
+      'frequency',
+      {min: 0, max: 10 * 2 * Math.PI, step: 0.01},
+      pixelMotionFolder,
+    )
 
-    pixelMotionFolder
-      .addBinding(
-        {
-          amplitude: this.#image.points.material.uniforms.uDisAmplitude.value,
-        },
-        'amplitude',
-        {min: 0, max: this.#rendererManager.width, step: 1},
-      )
-      .on(
-        'change',
-        (e) =>
-          (this.#image.points.material.uniforms.uDisAmplitude.value = e.value),
-      )
+    this.#debugManager.addBindingWithOnChange(
+      this.#image.points.material.uniforms.uDisAmplitude,
+      'value',
+      'amplitude',
+      {min: 0, max: this.#rendererManager.width, step: 1},
+      pixelMotionFolder,
+    )
 
     const imageMotionFolder = this.#debugManager.addFolder({
       title: 'Image Motion',
     })
 
-    imageMotionFolder
-      .addBinding(
-        {
-          frequency: this.#image.points.material.uniforms.uNoiseFrequency.value,
-        },
-        'frequency',
-        {min: 0, max: 2 * Math.PI, step: 0.01},
-      )
-      .on(
-        'change',
-        (e) =>
-          (this.#image.points.material.uniforms.uNoiseFrequency.value =
-            e.value),
-      )
+    this.#debugManager.addBindingWithOnChange(
+      this.#image.points.material.uniforms.uNoiseFrequency,
+      'value',
+      'frequency',
+      {min: 0, max: 2 * Math.PI, step: 0.01},
+      imageMotionFolder,
+    )
 
-    imageMotionFolder
-      .addBinding(
-        {
-          amplitude: this.#image.points.material.uniforms.uNoiseAmplitude.value,
-        },
-        'amplitude',
-        {min: 0, max: this.#rendererManager.width, step: 1},
-      )
-      .on(
-        'change',
-        (e) =>
-          (this.#image.points.material.uniforms.uNoiseAmplitude.value =
-            e.value),
-      )
+    this.#debugManager.addBindingWithOnChange(
+      this.#image.points.material.uniforms.uNoiseAmplitude,
+      'value',
+      'amplitude',
+      {min: 0, max: this.#rendererManager.width, step: 1},
+      imageMotionFolder,
+    )
   }
 
   /**

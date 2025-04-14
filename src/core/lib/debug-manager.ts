@@ -6,19 +6,19 @@
  */
 import {BindingParams, FolderApi, FolderParams, Pane} from 'tweakpane'
 import {BindingApi} from '@tweakpane/core'
-import {getSettings} from './debug-manager/copy/settings.ts'
+import {getSettings} from './debug-manager/copy/settings.js'
 
 export default class DebugManager {
   /**
    * @type {Pane}
    */
-  #debugger: Pane
+  debugger: Pane
 
   /**
    * Constructor
    */
   constructor() {
-    this.#debugger = new Pane()
+    this.debugger = new Pane()
     this.#addCopyButton()
   }
 
@@ -28,7 +28,7 @@ export default class DebugManager {
    * @returns {void}
    */
   enable(): void {
-    this.#debugger.element.style.display = 'block'
+    this.debugger.element.style.display = 'block'
   }
 
   /**
@@ -37,7 +37,17 @@ export default class DebugManager {
    * @returns {void}
    */
   disable(): void {
-    this.#debugger.element.style.display = 'none'
+    this.debugger.element.style.display = 'none'
+  }
+
+  /**
+   * Dispose
+   *
+   * @returns {void}
+   */
+  dispose(): void {
+    this.debugger.dispose()
+    this.debugger.element.remove()
   }
 
   /**
@@ -48,25 +58,27 @@ export default class DebugManager {
    */
   addFolder(config: FolderParams): FolderApi {
     config = {expanded: false, ...config}
-    return this.#debugger.addFolder(config)
+    return this.debugger.addFolder(config)
   }
 
   /**
    * Add binding with on change handler
    *
-   * @param   {object} object
-   * @param   {string} property
-   * @param   {string} label
-   * @param   {object} config
+   * @param   {object}             object
+   * @param   {string}             property
+   * @param   {string}             label
+   * @param   {object | undefined} config
+   * @param   {object | undefined} folder
    * @returns {object}
    */
-  addBindingWithOnChange<T extends string>(
-    object: {[key in T]: string | number},
-    property: T,
+  addBindingWithOnChange<K extends string, V>(
+    object: {[key in K]: V},
+    property: K,
     label: string,
     config: BindingParams | undefined,
-  ): BindingApi<unknown, string | number> {
-    return this.addBinding(label, object[property], config).on(
+    folder: FolderApi | undefined = undefined,
+  ): BindingApi<unknown, V> {
+    return this.addBinding(label, object[property], config, folder).on(
       'change',
       (e) => {
         object[property] = e.value
@@ -80,14 +92,21 @@ export default class DebugManager {
    * @param   {string}             label
    * @param   {string | number}    value
    * @param   {object | undefined} config
+   * @param   {object | undefined} folder
    * @returns {object}
    */
-  addBinding(
+  addBinding<V>(
     label: string,
-    value: string | number,
+    value: V,
     config: BindingParams | undefined,
-  ): BindingApi<unknown, string | number> {
-    return this.#debugger.addBinding(
+    folder: FolderApi | undefined = undefined,
+  ): BindingApi<unknown, V> {
+    let debuggerObj: Pane | FolderApi = this.debugger
+    if (folder) {
+      debuggerObj = folder
+    }
+
+    return debuggerObj.addBinding(
       {
         [label]: value,
       },
@@ -102,11 +121,11 @@ export default class DebugManager {
    * @returns {void}
    */
   #addCopyButton(): void {
-    const btn = this.#debugger.addButton({
+    const btn = this.debugger.addButton({
       title: 'Copy',
     })
     btn.on('click', () => {
-      const state = this.#debugger.exportState()
+      const state = this.debugger.exportState()
 
       if (state.children && state.children instanceof Array) {
         const pointer = state.children[0]

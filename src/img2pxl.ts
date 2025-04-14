@@ -7,17 +7,17 @@
  *              like enable debug to tweak app/effect parameters or
  *              effect parent container configuration
  */
-import {Pane} from 'tweakpane'
 import {Timer} from 'three/addons'
 import App from './core/app.js'
 import RendererManager from './core/lib/renderer-manager.js'
+import DebugManager from './core/lib/debug-manager.js'
 import Image from './core/app/image.js'
 import Pointer from './core/app/pointer.js'
 import PointerCanvas from './core/app/pointer/canvas.js'
 import pointerImage from './media/processor/displacement/pointer.png'
 import noiseImage from './media/processor/displacement/noise.png'
 import {Config} from './types'
-import ImageManager from './core/lib/image-manager.ts'
+import ImageManager from './core/lib/image-manager.js'
 
 export default class Img2Pxl {
   /**
@@ -26,9 +26,9 @@ export default class Img2Pxl {
   rendererManager: RendererManager
 
   /**
-   * @type {Pane}
+   * @type {DebugManager}
    */
-  debugManager: Pane
+  debugManager: DebugManager
 
   /**
    * @type {App}
@@ -185,7 +185,6 @@ export default class Img2Pxl {
     this.rendererManager.dispose()
 
     this.debugManager.dispose()
-    this.debugManager.element.remove()
   }
 
   /**
@@ -261,82 +260,7 @@ export default class Img2Pxl {
    */
   #enableDebug(): void {
     this.#app.debug()
-
-    const btn = this.debugManager.addButton({
-      title: 'Copy',
-    })
-    btn.on('click', () => {
-      const state = this.debugManager.exportState()
-
-      if (state.children && state.children instanceof Array) {
-        const pointer = state.children[0]
-        const pointerSize = pointer.children[0]['binding']['value']
-        const pointerTrailing = pointer.children[1]['binding']['value']
-
-        const imageResolution = state.children[2]
-        const imageResolutionWidth =
-          imageResolution.children[0]['binding']['value']
-        const imageResolutionHeight =
-          imageResolution.children[1]['binding']['value']
-
-        const imagePixel = state.children[3]
-        const imagePixelSize = imagePixel.children[0]['binding']['value']
-
-        const imagePixelMotion = state.children[4]
-        const imagePixelMotionFrequency =
-          imagePixelMotion.children[0]['binding']['value']
-        const imagePixelMotionAmplitude =
-          imagePixelMotion.children[1]['binding']['value']
-
-        const imageMotion = state.children[5]
-        const imageMotionFrequency = imageMotion.children[0]['binding']['value']
-        const imageMotionAmplitude = imageMotion.children[1]['binding']['value']
-
-        const settings = `{
-          images: {
-            0: {
-              src: <image-src>,
-              width: <image-width>,
-              height: <image-height>,
-              resolution: {
-                width: ${imageResolutionWidth},
-                height: ${imageResolutionHeight}
-              },
-              pixel: {
-                size: ${imagePixelSize},
-                motion: {
-                  displacement: {
-                    frequency: ${imagePixelMotionFrequency},
-                    amplitude: ${imagePixelMotionAmplitude}
-                  }
-                }
-              },
-              motion: {
-                noise: {
-                  frequency: ${imageMotionFrequency},
-                  amplitude: ${imageMotionAmplitude}
-                }
-              }
-            }
-          },
-          pointer: {
-            size: ${pointerSize},
-            trailing: {
-              factor: ${pointerTrailing}
-            }
-          }
-        }`
-
-        navigator.clipboard.writeText(settings).then(() => {
-          btn.title = 'Copied!'
-          setTimeout(() => {
-            btn.title = 'Copy'
-          }, 1000)
-        })
-      }
-    })
-
-    this.debugManager.element.style.display = 'block'
+    this.debugManager.enable()
   }
 
   /**
@@ -345,7 +269,7 @@ export default class Img2Pxl {
    * @returns {void}
    */
   #disableDebug(): void {
-    this.debugManager.element.style.display = 'none'
+    this.debugManager.disable()
   }
 
   /**
@@ -393,7 +317,7 @@ export default class Img2Pxl {
    * @returns {void}
    */
   #initDebugManager(): void {
-    this.debugManager = new Pane()
+    this.debugManager = new DebugManager()
   }
 
   /**
@@ -405,6 +329,6 @@ export default class Img2Pxl {
   #initDom(containerSelector: string): void {
     const node = document.querySelector(containerSelector)
     node?.appendChild(this.rendererManager.renderer.domElement)
-    node?.appendChild(this.debugManager.element)
+    node?.appendChild(this.debugManager.debugger.element)
   }
 }
