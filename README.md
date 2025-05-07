@@ -10,7 +10,13 @@
 
 ## Introduction
 
-An image to pixel transformation with motion effect.
+An image to pixel transformation with motion effect:
+
+<div align="center">
+
+![Demo](https://github.com/d3p1/img2pxl/blob/main/docs/demo.gif?raw=true)
+
+</div>
 
 > [!NOTE]
 > This library was inspired by these excellent tutorials:
