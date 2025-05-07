@@ -10,13 +10,16 @@
 
 ## Introduction
 
-An image to pixel transformation with motion effect:
+An efficient image-to-pixel transformation with motion effects, leveraging WebGL's hardware acceleration through [Three.js](https://threejs.org/):
 
 <div align="center">
 
 ![Demo](https://github.com/d3p1/img2pxl/blob/main/docs/demo.gif?raw=true)
 
 </div>
+
+> [!TIP]
+> The approach of this implementation bypasses the performance limitations of the 2D canvas API, enabling smooth and dynamic visual effects directly on the GPU.
 
 > [!NOTE]
 > This library was inspired by these excellent tutorials:
