@@ -132,12 +132,6 @@ export default class DebugManager {
         const pointerSize = pointer.children[0]['binding']['value']
         const pointerTrailing = pointer.children[1]['binding']['value']
 
-        const imageResolution = state.children[3]
-        const imageResolutionWidth =
-          imageResolution.children[0]['binding']['value']
-        const imageResolutionHeight =
-          imageResolution.children[1]['binding']['value']
-
         const imagePixel = state.children[4]
         const imagePixelSize = imagePixel.children[0]['binding']['value']
 
@@ -152,8 +146,6 @@ export default class DebugManager {
         const imageMotionAmplitude = imageMotion.children[1]['binding']['value']
 
         const settings = getSettings(
-          imageResolutionWidth,
-          imageResolutionHeight,
           imagePixelSize,
           imagePixelMotionFrequency,
           imagePixelMotionAmplitude,

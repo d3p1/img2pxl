@@ -7,8 +7,6 @@
  *              debug manager
  */
 export const getSettings = (
-  imageResolutionWidth: string,
-  imageResolutionHeight: string,
   imagePixelSize: string,
   imagePixelMotionFrequency: string,
   imagePixelMotionAmplitude: string,
@@ -24,8 +22,8 @@ export const getSettings = (
         width: <image-width>,
         height: <image-height>,
         resolution: {
-          width: ${imageResolutionWidth},
-          height: ${imageResolutionHeight}
+          width: <image-resolution-width>,
+          height: <image-resolution-height>
         },
         pixel: {
           size: ${imagePixelSize},
