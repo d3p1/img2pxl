@@ -1,3 +1,10 @@
+## [1.22.2](https://github.com/d3p1/img2pxl/compare/v1.22.1...v1.22.2) (2025-05-08)
+
+
+### Bug Fixes
+
+* adjust copied settings from debug panel [[#5](https://github.com/d3p1/img2pxl/issues/5)] ([c09f31b](https://github.com/d3p1/img2pxl/commit/c09f31b3f6de8a2f1c4f85ab66dd58e0afca943c))
+
 ## [1.22.1](https://github.com/d3p1/img2pxl/compare/v1.22.0...v1.22.1) (2025-04-14)
 
 
