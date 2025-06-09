@@ -1,11 +1,11 @@
 ##
-# @description Publish page automation
+# @description Deploy demo page automation
 # @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
 # @link        https://www.freecodecamp.org/news/how-to-deploy-next-js-app-to-github-pages/
 # @note        The `concurrency` setting allows us to run only one
 #              concurrent deployment, and it does not cancel `in-progress` runs
 ##
-name: Publish
+name: Deploy Demo Page
 
 on:
   push:
