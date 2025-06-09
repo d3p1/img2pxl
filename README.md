@@ -14,7 +14,7 @@ An efficient image-to-pixel transformation with motion effects, leveraging WebGL
 
 <div align="center">
 
-![Demo](https://raw.githubusercontent.com/d3p1/img2pxl/main/docs/demo.gif)
+![Demo](https://raw.githubusercontent.com/d3p1/img2pxl/main/doc/media/demo.gif)
 
 </div>
 
