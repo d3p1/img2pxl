@@ -1,0 +1,82 @@
+<!doctype html>
+<!--
+/**
+ * @description Index page to check development
+ * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
+ */
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./css/styles.css"/>
+  <title>img2pxl</title>
+</head>
+<body class="w-screen h-screen overflow-hidden grid place-items-center bg-primary-800">
+  <div id="img2pxl" class="bg-primary-600 rounded-2xl inset-shadow-[0_0_0.3rem_black]"></div>
+
+  <script type="module">
+    import Img2Pxl from '../src/img2pxl.js'
+    import meisjeMetDeParelImg from './media/images/meisje-met-de-parel.png'
+
+    new Img2Pxl({
+      images: {
+        0: {
+          src: meisjeMetDeParelImg,
+          width: 512 * 0.5,
+          height: 600 * 0.5,
+          resolution: {
+            width: 512 * 0.3,
+            height: 600 * 0.3,
+          },
+          pixel: {
+            size: 2,
+            alphaTest: 0.9,
+            motion: {
+              displacement: {
+                frequency: 1,
+                amplitude: 40,
+              },
+            },
+          },
+          motion: {
+            noise: {
+              frequency: 0.025,
+              amplitude: 40,
+            },
+          },
+        },
+        820: {
+          src: meisjeMetDeParelImg,
+          width: 512 * 1.3,
+          height: 600 * 1.3,
+          resolution: {
+            width: 512 * 0.5,
+            height: 600 * 0.5,
+          },
+          pixel: {
+            size: 2,
+            motion: {
+              displacement: {
+                frequency: 1,
+                amplitude: 40,
+              },
+            },
+          },
+          motion: {
+            noise: {
+              frequency: 0,
+              amplitude: 0,
+            },
+          },
+        },
+      },
+      pointer: {
+        size: 0.1,
+      },
+      containerSelector: '#img2pxl',
+      isDebugging: true,
+    })
+  </script>
+</body>
+</html>
