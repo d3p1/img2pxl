@@ -5,7 +5,7 @@
 # @note        The `concurrency` setting allows us to run only one
 #              concurrent deployment, and it does not cancel `in-progress` runs
 ##
-name: Deploy Demo Page
+name: Deploy Demo
 
 on:
   push:
