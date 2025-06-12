@@ -81,5 +81,8 @@
   "peerDependencies": {
     "three": "^0.173.0",
     "tweakpane": "^4.0.5"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
