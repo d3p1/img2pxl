@@ -21,6 +21,9 @@ An efficient image-to-pixel transformation with motion effects, leveraging WebGL
 > [!TIP]
 > The approach of this implementation bypasses the performance limitations of the 2D canvas API, enabling smooth and dynamic visual effects directly on the GPU.
 
+> [!TIP]
+> If you would like to implement a similar effect on a 3D model, you can use the related library [`d3p1/thr2pxl`](https://github.com/d3p1/thr2pxl), which uses [GPGPU](https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units) to achieve it with high performance.
+
 > [!NOTE]
 > This library was inspired by these excellent tutorials:
 > - [Three.js Journey - Particle Cursor Animation Shader](https://threejs-journey.com/lessons/particles-cursor-animation-shader).
