@@ -7,7 +7,7 @@
 import {useEffect} from 'react'
 import Img2Pxl from '@d3p1/img2pxl'
 
-export default function Img2pxl() {
+export default function Lib() {
   useEffect(() => {
     new Img2Pxl({
       images: {
