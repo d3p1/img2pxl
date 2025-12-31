@@ -1,25 +1,25 @@
 /**
- * @description img2pxl
+ * @description Main
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  * @note        This class works as the entry point of the library.
  *              It is like a dependency injection manager (DI container).
- *              Also, it adds features not related to the app/effect itself,
- *              like enable debug to tweak app/effect parameters or
+ *              Also, it adds features not related to the effect itself,
+ *              like enable debug to tweak effect parameters or
  *              effect parent container configuration
  */
 import {Timer} from 'three/addons'
-import App from './core/app.js'
-import RendererManager from './core/services/renderer-manager.js'
-import DebugManager from './core/services/debug-manager.js'
-import Image from './core/app/image.js'
-import Pointer from './core/app/pointer.js'
-import PointerCanvas from './core/app/pointer/canvas.js'
-import pointerImage from './media/processor/displacement/pointer.png'
-import noiseImage from './media/processor/displacement/noise.png'
-import {Config} from './types'
-import ImageManager from './core/services/image-manager.js'
+import Runner from './main/runner.ts'
+import RendererManager from '../services/renderer-manager.js'
+import DebugManager from '../services/debug-manager.js'
+import Image from './main/runner/image.js'
+import Pointer from './main/runner/pointer.js'
+import PointerCanvas from './main/runner/pointer/canvas.js'
+import pointerImage from '../media/processor/displacement/pointer.png'
+import noiseImage from '../media/processor/displacement/noise.png'
+import {Config} from '../types'
+import ImageManager from '../services/image-manager.js'
 
-export default class Img2Pxl {
+export default class Main {
   /**
    * @type {RendererManager}
    */
@@ -31,9 +31,9 @@ export default class Img2Pxl {
   debugManager: DebugManager
 
   /**
-   * @type {App}
+   * @type {Runner}
    */
-  #app: App
+  #runner: Runner
 
   /**
    * @type {ImageManager}
@@ -180,7 +180,7 @@ export default class Img2Pxl {
 
     this.#timer.dispose()
 
-    this.#app.dispose()
+    this.#runner.dispose()
 
     this.rendererManager.dispose()
 
@@ -202,7 +202,7 @@ export default class Img2Pxl {
 
     this.#initDebugManager()
 
-    this.#initApp()
+    this.#initRunner()
 
     if (this.#config.containerSelector) {
       this.#initDom(this.#config.containerSelector)
@@ -236,7 +236,7 @@ export default class Img2Pxl {
   #render(t = 0): void {
     this.#timer.update(t)
 
-    this.#app.update(this.#timer.getElapsed())
+    this.#runner.update(this.#timer.getElapsed())
 
     this.#requestAnimationId = requestAnimationFrame(this.#render.bind(this))
   }
@@ -259,7 +259,7 @@ export default class Img2Pxl {
    * @returns {void}
    */
   #enableDebug(): void {
-    this.#app.debug()
+    this.#runner.debug()
     this.debugManager.enable()
   }
 
@@ -273,12 +273,12 @@ export default class Img2Pxl {
   }
 
   /**
-   * Init app
+   * Init runner
    *
    * @returns {void}
    */
-  #initApp(): void {
-    this.#app = new App(
+  #initRunner(): void {
+    this.#runner = new Runner(
       new Image(
         this.rendererManager,
         this.debugManager,

@@ -3,7 +3,7 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 import * as THREE from 'three'
-import RendererManager from '../services/renderer-manager.js'
+import RendererManager from '../../../services/renderer-manager.js'
 import Canvas from './pointer/canvas.js'
 
 export default class Pointer {

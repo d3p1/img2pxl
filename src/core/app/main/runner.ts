@@ -1,5 +1,5 @@
 /**
- * @description App
+ * @description Runner
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  * @note        This class will manage how the renderer manager,
  *              debug manager, the image, the pointer
@@ -7,14 +7,14 @@
  *              interact between each other
  */
 import * as THREE from 'three'
-import RendererManager from './services/renderer-manager.js'
-import DebugManager from './services/debug-manager.js'
-import Image from './app/image.js'
-import Pointer from './app/pointer.js'
-import parsVertexShader from './app/shader/pars_vertex.glsl'
-import positionVertexShader from './app/shader/position_vertex.glsl'
+import RendererManager from '../../services/renderer-manager.js'
+import DebugManager from '../../services/debug-manager.js'
+import Image from './runner/image.js'
+import Pointer from './runner/pointer.js'
+import parsVertexShader from './runner/shader/pars_vertex.glsl'
+import positionVertexShader from './runner/shader/position_vertex.glsl'
 
-export default class App {
+export default class Runner {
   /**
    * @type {Image}
    */

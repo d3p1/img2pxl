@@ -11,13 +11,19 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/img2pxl.ts'),
-      name: 'img2pxl',
+      entry: {
+        core: resolve(__dirname, 'src/core/index.ts'),
+      },
+      formats: ['es'],
     },
     sourcemap: true,
     rollupOptions: {
       external: ['three', 'tweakpane'],
     },
   },
-  plugins: [glsl(), dts(), tailwindcss()],
+  plugins: [
+    glsl(),
+    dts({exclude: ['node_modules/**', 'dev/**']}),
+    tailwindcss(),
+  ],
 })

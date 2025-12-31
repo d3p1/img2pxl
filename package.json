@@ -4,18 +4,14 @@
   "description": "An image to pixel transformation with motion effect",
   "private": false,
   "type": "module",
-  "main": "./dist/img2pxl.umd.cjs",
-  "module": "./dist/img2pxl.js",
-  "types": "./dist/img2pxl.d.ts",
+  "main": "./dist/core.js",
+  "module": "./dist/core.js",
+  "types": "./dist/core/index.d.ts",
   "exports": {
-    ".": {
+    "./core": {
       "import": {
-        "types": "./dist/img2pxl.d.ts",
-        "default": "./dist/img2pxl.js"
-      },
-      "require": {
-        "types": "./dist/img2pxl.d.ts",
-        "default": "./dist/img2pxl.umd.cjs"
+        "types": "./dist/core/index.d.ts",
+        "default": "./dist/core.js"
       }
     }
   },
