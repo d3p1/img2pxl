@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/d3p1/img2pxl/compare/v1.22.2...v1.23.0) (2025-12-31)
+
+
+### Features
+
+* add new entry point for library core version ([9d9c335](https://github.com/d3p1/img2pxl/commit/9d9c335da2f586a7cdb9ad4bcd629a872cc54372))
+
 ## [1.22.2](https://github.com/d3p1/img2pxl/compare/v1.22.1...v1.22.2) (2025-05-08)
 
 
