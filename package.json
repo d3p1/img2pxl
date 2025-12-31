@@ -6,11 +6,11 @@
   "type": "module",
   "main": "./dist/core.js",
   "module": "./dist/core.js",
-  "types": "./dist/core/index.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     "./core": {
       "import": {
-        "types": "./dist/core/index.d.ts",
+        "types": "./dist/index.d.ts",
         "default": "./dist/core.js"
       }
     }
