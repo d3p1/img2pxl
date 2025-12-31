@@ -24,13 +24,6 @@ An efficient image-to-pixel transformation with motion effects, leveraging WebGL
 > [!TIP]
 > If you would like to implement a similar effect on a 3D model, you can use the related library [`d3p1/thr2pxl`](https://github.com/d3p1/thr2pxl), which uses [GPGPU](https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units) to achieve it with high performance.
 
-> [!NOTE]
-> This library was inspired by these excellent tutorials:
-> - [Three.js Journey - Particle Cursor Animation Shader](https://threejs-journey.com/lessons/particles-cursor-animation-shader).
-> - [Learn Creative Coding: Image Effects](https://www.youtube.com/watch?v=UeZ1pTg_nMo).
-> - [Image into Interactive Particles - HTML Canvas Animation Tutorial | Advanced Pure Vanilla JavaScript](https://www.youtube.com/watch?v=afdHgwn1XCY). 
-
-
 ## Installation
 
 You can install this library using a package manager like `npm`:
@@ -71,7 +64,7 @@ Using this library is straightforward:
 3. Instantiate the library with the configuration copied in the previous step, for example:
 
 ```javascript
-import Img2Pxl from '@d3p1/img2pxl'
+import {Img2Pxl} from '@d3p1/img2pxl/core'
 
 new Img2Pxl({
   images: {
