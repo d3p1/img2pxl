@@ -8,7 +8,7 @@
  *              should be displaced
  */
 import * as THREE from 'three'
-import DebugManager from '../../lib/debug-manager.js'
+import DebugManager from '../../services/debug-manager.js'
 
 export default class Canvas {
   /**

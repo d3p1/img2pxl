@@ -7,8 +7,8 @@
  *              interact between each other
  */
 import * as THREE from 'three'
-import RendererManager from './lib/renderer-manager.js'
-import DebugManager from './lib/debug-manager.js'
+import RendererManager from './services/renderer-manager.js'
+import DebugManager from './services/debug-manager.js'
 import Image from './app/image.js'
 import Pointer from './app/pointer.js'
 import parsVertexShader from './app/shader/pars_vertex.glsl'

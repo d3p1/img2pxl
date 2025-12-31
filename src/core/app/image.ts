@@ -5,8 +5,8 @@
  *              transformation of the image into vertices/points/pixels
  */
 import * as THREE from 'three'
-import RendererManager from '../lib/renderer-manager.js'
-import DebugManager from '../lib/debug-manager.js'
+import RendererManager from '../services/renderer-manager.js'
+import DebugManager from '../services/debug-manager.js'
 import imageVertexShader from './image/shader/vertex.glsl'
 import imageFragmentShader from './image/shader/fragment.glsl'
 

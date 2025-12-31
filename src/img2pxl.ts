@@ -9,15 +9,15 @@
  */
 import {Timer} from 'three/addons'
 import App from './core/app.js'
-import RendererManager from './core/lib/renderer-manager.js'
-import DebugManager from './core/lib/debug-manager.js'
+import RendererManager from './core/services/renderer-manager.js'
+import DebugManager from './core/services/debug-manager.js'
 import Image from './core/app/image.js'
 import Pointer from './core/app/pointer.js'
 import PointerCanvas from './core/app/pointer/canvas.js'
 import pointerImage from './media/processor/displacement/pointer.png'
 import noiseImage from './media/processor/displacement/noise.png'
 import {Config} from './types'
-import ImageManager from './core/lib/image-manager.js'
+import ImageManager from './core/services/image-manager.js'
 
 export default class Img2Pxl {
   /**
