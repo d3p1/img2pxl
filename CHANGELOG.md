@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/d3p1/img2pxl/compare/v1.23.0...v2.0.0) (2025-12-31)
+
+
+### Features
+
+* add new entry point for library core version ([d1ea4fa](https://github.com/d3p1/img2pxl/commit/d1ea4fa90b27ac077d9aeaae22472d3cfd13f419))
+
+
+### BREAKING CHANGES
+
+* Modify how the core version of this library must be imported
+
 # [1.23.0](https://github.com/d3p1/img2pxl/compare/v1.22.2...v1.23.0) (2025-12-31)
 
 
