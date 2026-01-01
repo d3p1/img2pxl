@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/d3p1/img2pxl/compare/v2.0.0...v3.0.0) (2026-01-01)
+
+
+### Features
+
+* init react entry point [[#9](https://github.com/d3p1/img2pxl/issues/9)] ([de2019c](https://github.com/d3p1/img2pxl/commit/de2019ce749086c4c1295f53aac899d7f450e88e))
+
+
+### BREAKING CHANGES
+
+* adjust entry points so a react one can be used
+
 # [2.0.0](https://github.com/d3p1/img2pxl/compare/v1.23.0...v2.0.0) (2025-12-31)
 
 
