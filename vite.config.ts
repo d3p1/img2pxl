@@ -5,14 +5,14 @@ import tailwindcss from '@tailwindcss/vite'
 import {defineConfig} from 'vite'
 
 export default defineConfig({
-  base: '/img2pxl/',
   server: {
     host: true,
   },
   build: {
     lib: {
       entry: {
-        core: resolve(__dirname, 'src/core/index.ts'),
+        'core/index': resolve(__dirname, 'src/core/index.ts'),
+        'react/index': resolve(__dirname, 'src/react/index.ts'),
       },
       formats: ['es'],
     },
@@ -23,7 +23,10 @@ export default defineConfig({
   },
   plugins: [
     glsl(),
-    dts({exclude: ['node_modules/**', 'dev/**']}),
     tailwindcss(),
+    dts({
+      tsconfigPath: resolve(__dirname, 'tsconfig.app.json'),
+      exclude: ['node_modules/**', 'dev/**'],
+    }),
   ],
 })

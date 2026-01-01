@@ -6,7 +6,7 @@
  *              It is defined an image by breakpoint, so it is necessary
  *              to handle which image should be used
  */
-import {ImgSource, ImgSourceCollection} from '../types'
+import type {ImgSource, ImgSourceCollection} from '../types'
 
 /**
  * @note The `0` breakpoint for image must always be set.

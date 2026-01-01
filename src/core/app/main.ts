@@ -16,7 +16,7 @@ import Pointer from './main/runner/pointer.js'
 import PointerCanvas from './main/runner/pointer/canvas.js'
 import pointerImage from '../media/processor/displacement/pointer.png'
 import noiseImage from '../media/processor/displacement/noise.png'
-import {Config} from '../types'
+import type {Config} from '../types'
 import ImageManager from '../services/image-manager.js'
 
 export default class Main {

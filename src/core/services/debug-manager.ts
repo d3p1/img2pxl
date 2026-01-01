@@ -4,7 +4,8 @@
  * @note        The idea behind this class is to encapsulate and wrap the
  *              debug management logic
  */
-import {BindingParams, FolderApi, FolderParams, Pane} from 'tweakpane'
+import {Pane} from 'tweakpane'
+import type {FolderApi, BindingParams, FolderParams} from 'tweakpane'
 import {BindingApi} from '@tweakpane/core'
 import {getSettings} from './debug-manager/copy/settings.js'
 
