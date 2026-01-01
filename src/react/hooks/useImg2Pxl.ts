@@ -10,8 +10,7 @@ export default function useImg2Pxl(config: Config) {
   const instanceRef = useRef<Img2Pxl>(null)
 
   useEffect(() => {
-    if (instanceRef.current) return
-
+    instanceRef.current?.dispose()
     instanceRef.current = new Img2Pxl(config)
 
     return () => instanceRef.current?.dispose()
