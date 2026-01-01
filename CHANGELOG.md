@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/d3p1/img2pxl/compare/v3.1.0...v3.1.1) (2026-01-01)
+
+
+### Bug Fixes
+
+* solve hook rerender and reinit logic when config is updated [[#9](https://github.com/d3p1/img2pxl/issues/9)] ([6af4c5f](https://github.com/d3p1/img2pxl/commit/6af4c5f127dd0ebf3015b073ad8d924fd8fa0fd0))
+
 # [3.1.0](https://github.com/d3p1/img2pxl/compare/v3.0.0...v3.1.0) (2026-01-01)
 
 
