@@ -1,3 +1,11 @@
+# [3.1.0](https://github.com/d3p1/img2pxl/compare/v3.0.0...v3.1.0) (2026-01-01)
+
+
+### Features
+
+* init react entry point [[#9](https://github.com/d3p1/img2pxl/issues/9)] ([6061bff](https://github.com/d3p1/img2pxl/commit/6061bff5eb99fb348afd2efe8ece6450c0beb3a0))
+* init react library [[#9](https://github.com/d3p1/img2pxl/issues/9)] ([2a0fa8a](https://github.com/d3p1/img2pxl/commit/2a0fa8ac5af4299bf81db5a5cc7d80151ae39192))
+
 # [3.0.0](https://github.com/d3p1/img2pxl/compare/v2.0.0...v3.0.0) (2026-01-01)
 
 
