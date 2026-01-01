@@ -13,12 +13,7 @@
   <title>img2pxl</title>
 </head>
 <body class="w-screen h-screen overflow-hidden grid place-items-center bg-primary-800">
-  <div id="img2pxl" class="bg-primary-600 rounded-2xl inset-shadow-[0_0_0.3rem_black]"></div>
-
-  <script type="module">
-    import {Img2Pxl} from '@d3p1/img2pxl/core'
-    import {config} from './js/etc/config.js'
-    new Img2Pxl(config)
-  </script>
+  <div id="root"></div>
+  <script type="module" src="./js/react/app.tsx"></script>
 </body>
 </html>
