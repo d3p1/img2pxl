@@ -13,6 +13,12 @@
         "types": "./dist/core/index.d.ts",
         "default": "./dist/core/index.js"
       }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      }
     }
   },
   "files": [
@@ -83,7 +89,9 @@
   },
   "peerDependencies": {
     "three": "^0.173.0",
-    "tweakpane": "^4.0.5"
+    "tweakpane": "^4.0.5",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "publishConfig": {
     "access": "public"

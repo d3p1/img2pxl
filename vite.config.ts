@@ -1,6 +1,7 @@
 import {resolve} from 'path'
 import glsl from 'vite-plugin-glsl'
 import dts from 'vite-plugin-dts'
+import react from '@vitejs/plugin-react-swc'
 import tailwindcss from '@tailwindcss/vite'
 import {defineConfig} from 'vite'
 
@@ -19,10 +20,11 @@ export default defineConfig({
     },
     sourcemap: true,
     rollupOptions: {
-      external: ['three', 'tweakpane'],
+      external: ['three', 'tweakpane', 'react', 'react-dom'],
     },
   },
   plugins: [
+    react(),
     glsl(),
     tailwindcss(),
     dts({
