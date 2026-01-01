@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 import {defineConfig} from 'vite'
 
 export default defineConfig({
+  base: '/img2pxl/',
   server: {
     host: true,
   },

@@ -5,14 +5,14 @@
 'use client'
 
 import {useEffect} from 'react'
-import Img2Pxl from '@d3p1/img2pxl'
+import {Img2Pxl} from '@d3p1/img2pxl/core'
 
 export default function Lib() {
   useEffect(() => {
     new Img2Pxl({
       images: {
         0: {
-          src: '/img2pxl/media/images/services/meisje-met-de-parel.png',
+          src: '/img2pxl/media/images/lib/meisje-met-de-parel.png',
           width: 512 * 0.5,
           height: 600 * 0.5,
           resolution: {
@@ -37,7 +37,7 @@ export default function Lib() {
           },
         },
         820: {
-          src: '/img2pxl/media/images/services/meisje-met-de-parel.png',
+          src: '/img2pxl/media/images/lib/meisje-met-de-parel.png',
           width: 512 * 1.3,
           height: 600 * 1.3,
           resolution: {
