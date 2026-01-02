@@ -37,6 +37,7 @@ Or you can use a CDN like [jsDelivr](https://www.jsdelivr.com/) and this [import
 ```html
 <head>
   ...
+  <!-- Vanilla -->
   <script type="importmap">
     {
       "imports": {
@@ -50,8 +51,27 @@ Or you can use a CDN like [jsDelivr](https://www.jsdelivr.com/) and this [import
 </head>
 ```
 
+```html
+<head>
+  ...
+  <!-- React -->
+  <script type="importmap">
+    {
+      "imports": {
+        "@d3p1/img2pxl": "https://cdn.jsdelivr.net/npm/@d3p1/img2pxl@<version>/dist/img2pxl.min.js",
+        "react": "https://cdn.jsdelivr.net/npm/react@<version>/jsx-runtime.min.js",
+        "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@<version>/index.min.js",
+        "three": "https://cdn.jsdelivr.net/npm/three@<version>/build/three.module.min.js",
+        "tweakpane": "https://cdn.jsdelivr.net/npm/tweakpane@<version>/dist/tweakpane.min.js"
+      }
+    }
+  </script>
+  ...
+</head>
+```
+
 > [!NOTE]
-> Remember to replace the `<version>` with the actual version of `img2pxl` and its peer dependencies ([`three`](https://github.com/mrdoob/three.js) and [`tweakpane`](https://github.com/cocopon/tweakpane)). To do that, you can check the [`package.json`](https://github.com/d3p1/img2pxl/blob/main/package.json) of the last release and get required versions from there.
+> Remember to replace the `<version>` with the actual version of `img2pxl` and its peer dependencies ([`three`](https://github.com/mrdoob/three.js) - [`tweakpane`](https://github.com/cocopon/tweakpane) - [`react`](https://github.com/facebook/react) - [`react-dom`](https://github.com/facebook/react)). To do that, you can check the [`package.json`](https://github.com/d3p1/img2pxl/blob/main/package.json) of the last release and get required versions from there.
 
 ## Usage
 
@@ -64,8 +84,9 @@ Using this library is straightforward:
 3. Instantiate the library with the configuration copied in the previous step, for example:
 
 ```javascript
+// Vanilla
 import {Img2Pxl} from '@d3p1/img2pxl/core'
-
+...
 new Img2Pxl({
   images: {
     0: {
@@ -101,6 +122,49 @@ new Img2Pxl({
     }
   }
 })
+```
+
+```javascript
+// React
+import {Img2Pxl} from '@d3p1/img2pxl/react'
+...
+const config = {
+  images: {
+    0: {
+      src: <image-src>,
+      width: <image-width>,
+      height: <image-height>,
+      resolution: {
+        width: <image-resolution-width>,
+        height: <image-resolution-height>
+      },
+      pixel: {
+        size: 2,
+        alphaTest: 0.9,
+        motion: {
+          displacement: {
+            frequency: 1,
+            amplitude: 40,
+          },
+        },
+      },
+      motion: {
+        noise: {
+          frequency: 0.025,
+          amplitude: 40,
+        },
+      },
+    },
+  },
+  pointer: {
+    size: 0.1,
+    trailing: {
+      factor: 0.01
+    }
+  }
+}
+...
+return <Img2Pxl {...config} />
 ```
 
 > [!NOTE]
