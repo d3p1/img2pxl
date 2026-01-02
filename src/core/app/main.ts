@@ -8,7 +8,7 @@
  *              effect parent container configuration
  */
 import {Timer} from 'three/addons'
-import Runner from './main/runner.ts'
+import Runner from './main/runner.js'
 import RendererManager from '../services/renderer-manager.js'
 import DebugManager from '../services/debug-manager.js'
 import Image from './main/runner/image.js'
