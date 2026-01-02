@@ -1,3 +1,10 @@
+## [3.1.2](https://github.com/d3p1/img2pxl/compare/v3.1.1...v3.1.2) (2026-01-02)
+
+
+### Bug Fixes
+
+* adjust react component initialization to use component HTML element [[#9](https://github.com/d3p1/img2pxl/issues/9)] ([12856f4](https://github.com/d3p1/img2pxl/commit/12856f44fcea3e2dd1a8392c88419971cfbe4e9a))
+
 ## [3.1.1](https://github.com/d3p1/img2pxl/compare/v3.1.0...v3.1.1) (2026-01-01)
 
 
