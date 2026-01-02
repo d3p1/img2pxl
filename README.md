@@ -87,30 +87,31 @@ Using this library is straightforward:
 // Vanilla
 import {Img2Pxl} from '@d3p1/img2pxl/core'
 ...
-new Img2Pxl({
+const config = {
   images: {
     0: {
       src: <image-src>,
       width: <image-width>,
       height: <image-height>,
-      resolution: {
-        width: <image-resolution-width>,
-        height: <image-resolution-height>
-      },
-      pixel: {
-        size: 2,
-        alphaTest: 0.9,
-        motion: {
-          displacement: {
-            frequency: 1,
-            amplitude: 40,
+        resolution: {
+          width: <image-resolution-width>,
+          height: <image-resolution-height>
+        },
+        pixel: {
+          size: 2,
+          alphaTest: 0.9,
+          motion: {
+            displacement: {
+              frequency: 1,
+              amplitude: 40,
+            },
           },
         },
-      },
-      motion: {
-        noise: {
-          frequency: 0.025,
-          amplitude: 40,
+        motion: {
+          noise: {
+            frequency: 0.025,
+            amplitude: 40,
+          },
         },
       },
     },
@@ -121,7 +122,8 @@ new Img2Pxl({
       factor: 0.01
     }
   }
-})
+}  
+new Img2Pxl(config)
 ```
 
 ```javascript
@@ -163,7 +165,6 @@ const config = {
     }
   }
 }
-...
 return <Img2Pxl {...config} />
 ```
 
