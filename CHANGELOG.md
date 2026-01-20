@@ -1,3 +1,10 @@
+## [3.1.4](https://github.com/d3p1/img2pxl/compare/v3.1.3...v3.1.4) (2026-01-20)
+
+
+### Bug Fixes
+
+* adjust preserve use client directive plugin use [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([299fe66](https://github.com/d3p1/img2pxl/commit/299fe66be25732b220251e1ddaf5cfeee1b2df53))
+
 ## [3.1.3](https://github.com/d3p1/img2pxl/compare/v3.1.2...v3.1.3) (2026-01-20)
 
 
