@@ -4,6 +4,7 @@ import dts from 'vite-plugin-dts'
 import react from '@vitejs/plugin-react-swc'
 import tailwindcss from '@tailwindcss/vite'
 import {defineConfig} from 'vite'
+import {preserveDirective} from 'rollup-preserve-directives'
 
 export default defineConfig({
   base: '/img2pxl/',
@@ -31,5 +32,6 @@ export default defineConfig({
       tsconfigPath: resolve(__dirname, 'tsconfig.app.json'),
       exclude: ['node_modules/**', 'dev/**'],
     }),
+    preserveDirective()
   ],
 })
