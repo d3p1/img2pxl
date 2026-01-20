@@ -1,3 +1,10 @@
+## [3.1.3](https://github.com/d3p1/img2pxl/compare/v3.1.2...v3.1.3) (2026-01-20)
+
+
+### Bug Fixes
+
+* build adjustment to preserve use client directive [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([67d4c2f](https://github.com/d3p1/img2pxl/commit/67d4c2f616de542b341491a2df1fc8c3007ec1e9))
+
 ## [3.1.2](https://github.com/d3p1/img2pxl/compare/v3.1.1...v3.1.2) (2026-01-02)
 
 
