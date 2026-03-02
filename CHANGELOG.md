@@ -1,3 +1,10 @@
+## [3.1.5](https://github.com/d3p1/img2pxl/compare/v3.1.4...v3.1.5) (2026-03-02)
+
+
+### Bug Fixes
+
+* add touch action none to trigger pointer events on mobile devices [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([592cca1](https://github.com/d3p1/img2pxl/commit/592cca11351e52284761654b122be523b48f07ac))
+
 ## [3.1.4](https://github.com/d3p1/img2pxl/compare/v3.1.3...v3.1.4) (2026-01-20)
 
 
