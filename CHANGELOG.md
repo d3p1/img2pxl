@@ -1,3 +1,10 @@
+## [3.1.6](https://github.com/d3p1/img2pxl/compare/v3.1.5...v3.1.6) (2026-03-10)
+
+
+### Bug Fixes
+
+* force release of new version [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([b77cb8f](https://github.com/d3p1/img2pxl/commit/b77cb8f9892404d6fa6c1d858a7cf42ecb562cc5))
+
 ## [3.1.5](https://github.com/d3p1/img2pxl/compare/v3.1.4...v3.1.5) (2026-03-02)
 
 
