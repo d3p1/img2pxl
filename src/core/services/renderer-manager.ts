@@ -94,12 +94,7 @@ export default class RendererManager {
    *          do not require this feature
    */
   #initRenderer(): void {
-    /**
-     * @note Add `touch-action` to `none` so mobile devices
-     *       consider touch as a pointer event and not as a scroll event
-     */
     const canvas = document.createElement('canvas')
-    canvas.style.touchAction = 'none'
     document.body.append(canvas)
 
     this.dpr = Math.min(window.devicePixelRatio, 2)
