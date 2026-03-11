@@ -1,3 +1,10 @@
+## [3.1.11](https://github.com/d3p1/img2pxl/compare/v3.1.10...v3.1.11) (2026-03-11)
+
+
+### Bug Fixes
+
+* remove unneeded touch action none from canvas [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([f1e2cb3](https://github.com/d3p1/img2pxl/commit/f1e2cb328970bcb3366b6a0f431950f0f5cc79b7))
+
 ## [3.1.10](https://github.com/d3p1/img2pxl/compare/v3.1.9...v3.1.10) (2026-03-11)
 
 
