@@ -1,3 +1,10 @@
+## [3.1.7](https://github.com/d3p1/img2pxl/compare/v3.1.6...v3.1.7) (2026-03-11)
+
+
+### Bug Fixes
+
+* remove registry url from node action to solve oidc auth inside release workflow [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([1ec9ea9](https://github.com/d3p1/img2pxl/commit/1ec9ea98b8559d37a7042edad5b08dd3b5e53502))
+
 ## [3.1.6](https://github.com/d3p1/img2pxl/compare/v3.1.5...v3.1.6) (2026-03-10)
 
 
