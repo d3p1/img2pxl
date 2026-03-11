@@ -150,10 +150,19 @@ export default class Pointer {
       this.#boundPointerLeave,
     )
 
+    /**
+     * @note The plane `width` and `height` dimensions
+     *       are calculated in physical pixels.
+     *       The renderer manager gives the logical pixels (CSS pixels),
+     *       so we need to multiply this by the dpr to get the
+     *       physical pixel dimensions.
+     *       This plane must fill the renderer/canvas to catch
+     *       every interaction with the image rendered by it
+     */
     this.raycasterPlane = new THREE.Mesh(
       new THREE.PlaneGeometry(
-        this.#rendererManager.width,
-        this.#rendererManager.height,
+        this.#rendererManager.width * this.#rendererManager.dpr,
+        this.#rendererManager.height * this.#rendererManager.dpr,
       ),
       new THREE.MeshBasicMaterial(),
     )
