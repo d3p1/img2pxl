@@ -1,3 +1,10 @@
+## [3.1.12](https://github.com/d3p1/img2pxl/compare/v3.1.11...v3.1.12) (2026-03-11)
+
+
+### Bug Fixes
+
+* adjust how canvas size is calculated & add touch action none to improve mobile effect [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([1c72014](https://github.com/d3p1/img2pxl/commit/1c720147403d30ecab72b558d9421b8e62b1f40f))
+
 ## [3.1.11](https://github.com/d3p1/img2pxl/compare/v3.1.10...v3.1.11) (2026-03-11)
 
 
