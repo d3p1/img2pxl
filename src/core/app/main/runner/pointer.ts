@@ -110,8 +110,11 @@ export default class Pointer {
    */
   #processPointerMove(e: PointerEvent): void {
     const target = e.target as HTMLCanvasElement
-    this.coord.x = (e.offsetX / target.clientWidth - 0.5) * 2
-    this.coord.y = -(e.offsetY / target.clientHeight - 0.5) * 2
+    const rect = target.getBoundingClientRect()
+    this.coord.x = ((e.clientX - rect.left) / rect.width - 0.5) * 2
+    this.coord.y = -((e.clientY - rect.top) / rect.height - 0.5) * 2
+
+    console.log(this.coord.x, this.coord.y)
   }
 
   /**
