@@ -1,3 +1,10 @@
+## [3.1.10](https://github.com/d3p1/img2pxl/compare/v3.1.9...v3.1.10) (2026-03-11)
+
+
+### Bug Fixes
+
+* upgrade release workflow actions to avoid node deprecated warning [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([2d9c59b](https://github.com/d3p1/img2pxl/commit/2d9c59b55bcaf24d29c43ef8da1356732cae4b67))
+
 ## [3.1.9](https://github.com/d3p1/img2pxl/compare/v3.1.8...v3.1.9) (2026-03-11)
 
 
