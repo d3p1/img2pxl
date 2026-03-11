@@ -205,7 +205,7 @@ export default class Image {
    * @note    It is created a plane that occupies all the render
    * @note    The dom element width and height of the renderer include
    *          the device pixel ratio, so it is important to use them
-   *          to create a plane that take all the render space/pixels
+   *          to create a plane that takes all the render space/physical pixels
    * @note    It is removed the index and normals from the geometry
    *          to improve performance.
    *          Normals are not going to be needed.

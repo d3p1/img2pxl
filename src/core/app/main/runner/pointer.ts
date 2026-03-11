@@ -113,8 +113,6 @@ export default class Pointer {
     const rect = target.getBoundingClientRect()
     this.coord.x = ((e.clientX - rect.left) / rect.width - 0.5) * 2
     this.coord.y = -((e.clientY - rect.top) / rect.height - 0.5) * 2
-
-    console.log(this.coord.x, this.coord.y)
   }
 
   /**
@@ -151,18 +149,15 @@ export default class Pointer {
     )
 
     /**
-     * @note The plane `width` and `height` dimensions
-     *       are calculated in physical pixels.
-     *       The renderer manager gives the logical pixels (CSS pixels),
-     *       so we need to multiply this by the dpr to get the
-     *       physical pixel dimensions.
-     *       This plane must fill the renderer/canvas to catch
-     *       every interaction with the image rendered by it
+     * @note The dom element width and height of the renderer include
+     *       the device pixel ratio, so it is important to use them
+     *       to create a raycaster plane that takes all
+     *       the render space/physical pixels
      */
     this.raycasterPlane = new THREE.Mesh(
       new THREE.PlaneGeometry(
-        this.#rendererManager.width * this.#rendererManager.dpr,
-        this.#rendererManager.height * this.#rendererManager.dpr,
+        this.#rendererManager.renderer.domElement.width,
+        this.#rendererManager.renderer.domElement.height,
       ),
       new THREE.MeshBasicMaterial(),
     )

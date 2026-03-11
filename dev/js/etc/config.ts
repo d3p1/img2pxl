@@ -26,8 +26,8 @@ export const config = {
       },
       motion: {
         noise: {
-          frequency: 0.025,
-          amplitude: 40,
+          frequency: 0,
+          amplitude: 0,
         },
       },
     },
