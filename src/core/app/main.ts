@@ -292,8 +292,6 @@ export default class Main {
         this.rendererManager,
         new PointerCanvas(
           this.debugManager,
-          this.#imageManager.currentImage.resolution.width,
-          this.#imageManager.currentImage.resolution.height,
           this.#config.pointer?.src ?? pointerImage,
           this.#config.pointer?.size ?? 0.15,
           this.#config.pointer?.trailing?.factor ?? 0.01,

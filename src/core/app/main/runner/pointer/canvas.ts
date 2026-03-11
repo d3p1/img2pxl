@@ -9,13 +9,9 @@
  */
 import * as THREE from 'three'
 import DebugManager from '../../../../services/debug-manager.js'
+import {CANVAS_TEXTURE_RESOLUTION} from '../../../../etc/config.ts'
 
 export default class Canvas {
-  /**
-   * @type {DebugManager}
-   */
-  #debugManager: DebugManager
-
   /**
    * @type {THREE.CanvasTexture}
    */
@@ -25,6 +21,11 @@ export default class Canvas {
    * @type {HTMLCanvasElement}
    */
   element: HTMLCanvasElement
+
+  /**
+   * @type {DebugManager}
+   */
+  #debugManager: DebugManager
 
   /**
    * @type {CanvasRenderingContext2D}
@@ -60,23 +61,19 @@ export default class Canvas {
    * Constructor
    *
    * @param {DebugManager} debugManager
-   * @param {number}       resolutionWidth
-   * @param {number}       resolutionHeight
    * @param {string}       pointerImageSrc
    * @param {number}       pointerImageSize
    * @param {number}       pointerTrailingFactor
    */
   constructor(
     debugManager: DebugManager,
-    resolutionWidth: number,
-    resolutionHeight: number,
     pointerImageSrc: string,
     pointerImageSize: number = 0.1,
     pointerTrailingFactor: number = 0.05,
   ) {
     this.#debugManager = debugManager
     this.#pointerTrailingFactor = pointerTrailingFactor
-    this.#initCanvasTexture(resolutionWidth, resolutionHeight)
+    this.#initCanvasTexture()
     this.#initPointerImage(pointerImageSrc, pointerImageSize)
   }
 
@@ -206,17 +203,19 @@ export default class Canvas {
    * Init canvas texture used to detect pointer location and
    * displace points
    *
-   * @param   {number} resolutionWidth
-   * @param   {number} resolutionHeight
    * @returns {void}
-   * @note    The canvas will have the same number of pixels as the
-   *          image.
-   *          That is why it is used the image resolution as its dimensions
+   * @note    This canvas will work as a texture, but it is not necessary
+   *          to use 1 to 1 map between renderer/image pixels and
+   *          it.
+   *          It is considered that a low-resolution texture
+   *          improves performance without affecting the final effect
    */
-  #initCanvasTexture(resolutionWidth: number, resolutionHeight: number): void {
+  #initCanvasTexture(): void {
     this.element = document.createElement('canvas')
-    this.element.width = resolutionWidth
-    this.element.height = resolutionHeight
+    this.element.style.width = `${CANVAS_TEXTURE_RESOLUTION}px`
+    this.element.style.height = `${CANVAS_TEXTURE_RESOLUTION}px`
+    this.element.width = CANVAS_TEXTURE_RESOLUTION
+    this.element.height = CANVAS_TEXTURE_RESOLUTION
     this.texture = new THREE.CanvasTexture(this.element)
 
     this.#context = this.element.getContext('2d') as CanvasRenderingContext2D
