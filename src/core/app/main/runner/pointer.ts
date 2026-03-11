@@ -109,9 +109,9 @@ export default class Pointer {
    *          use it for raycasting
    */
   #processPointerMove(e: PointerEvent): void {
-    const target = e.target as EventTarget & {width: number; height: number}
-    this.coord.x = (e.offsetX / target.width - 0.5) * 2
-    this.coord.y = -(e.offsetY / target.height - 0.5) * 2
+    const target = e.target as HTMLCanvasElement
+    this.coord.x = (e.offsetX / target.clientWidth - 0.5) * 2
+    this.coord.y = -(e.offsetY / target.clientHeight - 0.5) * 2
   }
 
   /**
