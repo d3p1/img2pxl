@@ -1,3 +1,16 @@
+# [3.2.0](https://github.com/d3p1/img2pxl/compare/v3.1.12...v3.2.0) (2026-03-11)
+
+
+### Bug Fixes
+
+* adjust raycaster plane width and height dimesions with dpr to improve mobile effect [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([8914264](https://github.com/d3p1/img2pxl/commit/891426405501b3004404e07537b62430063ea6a5))
+* improve how pointer ndc is calculated to improve mobile effect [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([e2bb964](https://github.com/d3p1/img2pxl/commit/e2bb9642676e7ff207aec29f06ee8bc0f9030f6b))
+
+
+### Features
+
+* adjust canvas texture dimensions to improve performance [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([59f3312](https://github.com/d3p1/img2pxl/commit/59f3312a21f4a521f3138f6df9eb67a8ff95dc76))
+
 ## [3.1.12](https://github.com/d3p1/img2pxl/compare/v3.1.11...v3.1.12) (2026-03-11)
 
 
