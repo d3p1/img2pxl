@@ -8,6 +8,6 @@ import type {Img2PxlProps} from '../types'
 import useImg2Pxl from '../hooks/useImg2Pxl.js'
 
 export default function Img2Pxl(props: Img2PxlProps) {
-  useImg2Pxl({...props, containerSelector: '#img2pxl'})
-  return <div id="img2pxl"></div>
+    useImg2Pxl({...props, containerSelector: '#img2pxl'})
+    return <div id="img2pxl"></div>
 }

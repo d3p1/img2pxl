@@ -1,5 +1,5 @@
 {
-  "dependencies": {
-    "@d3p1/img2pxl": "file:.."
-  }
+    "dependencies": {
+        "@d3p1/img2pxl": "file:.."
+    }
 }

@@ -1,8 +1,9 @@
 {
-  "printWidth": 80,
-  "semi": false,
-  "singleQuote": true,
-  "quoteProps": "consistent",
-  "bracketSpacing": false,
-  "arrowParens": "always"
+    "printWidth": 80,
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true,
+    "quoteProps": "consistent",
+    "bracketSpacing": false,
+    "arrowParens": "always"
 }

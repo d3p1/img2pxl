@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectStartupSharedConfiguration">
+    <configurations>
+      <configuration id="Shell Script.Demo" name="Demo" />
+      <configuration id="Shell Script.Dev" name="Dev" />
+      <configuration id="Shell Script.Server" name="Server" />
+    </configurations>
+  </component>
+</project>

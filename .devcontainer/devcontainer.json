@@ -3,6 +3,6 @@
  * @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
  */
 {
-  "name": "Node.js",
-  "image": "d3p1/devcontainer-node:18"
+    "name": "Node.js",
+    "image": "d3p1/devcontainer-node:18"
 }

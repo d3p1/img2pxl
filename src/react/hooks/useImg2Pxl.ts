@@ -7,14 +7,14 @@ import {Img2Pxl} from '../../core'
 import {useEffect, useRef} from 'react'
 
 export default function useImg2Pxl(config: Config) {
-  const instanceRef = useRef<Img2Pxl>(null)
+    const instanceRef = useRef<Img2Pxl>(null)
 
-  useEffect(() => {
-    instanceRef.current?.dispose()
-    instanceRef.current = new Img2Pxl(config)
+    useEffect(() => {
+        instanceRef.current?.dispose()
+        instanceRef.current = new Img2Pxl(config)
 
-    return () => instanceRef.current?.dispose()
-  }, [config])
+        return () => instanceRef.current?.dispose()
+    }, [config])
 
-  return instanceRef
+    return instanceRef
 }

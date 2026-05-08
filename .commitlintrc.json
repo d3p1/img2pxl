@@ -1,3 +1,5 @@
 {
-    "extends": ["@d3p1/commitlint-config"]
+    "extends": [
+        "@d3p1/commitlint-config"
+    ]
 }

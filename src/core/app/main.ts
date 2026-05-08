@@ -20,313 +20,315 @@ import type {Config} from '../types'
 import ImageManager from '../services/image-manager.js'
 
 export default class Main {
-  /**
-   * @type {RendererManager}
-   */
-  rendererManager: RendererManager
+    /**
+     * @type {RendererManager}
+     */
+    rendererManager: RendererManager
 
-  /**
-   * @type {DebugManager}
-   */
-  debugManager: DebugManager
+    /**
+     * @type {DebugManager}
+     */
+    debugManager: DebugManager
 
-  /**
-   * @type {Runner}
-   */
-  #runner: Runner
+    /**
+     * @type {Runner}
+     */
+    #runner: Runner
 
-  /**
-   * @type {ImageManager}
-   */
-  #imageManager: ImageManager
+    /**
+     * @type {ImageManager}
+     */
+    #imageManager: ImageManager
 
-  /**
-   * @type {Timer}
-   */
-  #timer: Timer
+    /**
+     * @type {Timer}
+     */
+    #timer: Timer
 
-  /**
-   * @type {{
-   *   containerSelector?: string;
-   *   image             : {
-   *     src       : string;
-   *     width     : number;
-   *     height    : number;
-   *     resolution: {
-   *       width : number;
-   *       height: number;
-   *     };
-   *     pixel?: {
-   *       size  ?: number;
-   *       motion?: {
-   *         displacement?: {
-   *           frequency?: number;
-   *           amplitude?: number;
-   *         }
-   *       }
-   *     };
-   *     motion?: {
-   *       noise?: {
-   *         src      ?: string;
-   *         frequency?: number;
-   *         amplitude?: number;
-   *       }
-   *     }
-   *   }[];
-   *   pointer?: {
-   *     src     ?: string;
-   *     size    ?: number;
-   *     trailing?: {
-   *       factor?: number;
-   *     }
-   *   };
-   *   isDebugging?: boolean;
-   * }}
-   */
-  #config: Config
+    /**
+     * @type {{
+     *   containerSelector?: string;
+     *   image             : {
+     *     src       : string;
+     *     width     : number;
+     *     height    : number;
+     *     resolution: {
+     *       width : number;
+     *       height: number;
+     *     };
+     *     pixel?: {
+     *       size  ?: number;
+     *       motion?: {
+     *         displacement?: {
+     *           frequency?: number;
+     *           amplitude?: number;
+     *         }
+     *       }
+     *     };
+     *     motion?: {
+     *       noise?: {
+     *         src      ?: string;
+     *         frequency?: number;
+     *         amplitude?: number;
+     *       }
+     *     }
+     *   }[];
+     *   pointer?: {
+     *     src     ?: string;
+     *     size    ?: number;
+     *     trailing?: {
+     *       factor?: number;
+     *     }
+     *   };
+     *   isDebugging?: boolean;
+     * }}
+     */
+    #config: Config
 
-  /**
-   * @type {boolean}
-   */
-  #isDebugging: boolean
+    /**
+     * @type {boolean}
+     */
+    #isDebugging: boolean
 
-  /**
-   * @type {number}
-   */
-  #requestAnimationId: number
+    /**
+     * @type {number}
+     */
+    #requestAnimationId: number
 
-  /**
-   * @type {Function}
-   */
-  #boundHandleDebug: (e: KeyboardEvent) => void
+    /**
+     * @type {Function}
+     */
+    #boundHandleDebug: (e: KeyboardEvent) => void
 
-  /**
-   * @type {Function}
-   */
-  #boundHandleResize: (e: Event) => void
+    /**
+     * @type {Function}
+     */
+    #boundHandleResize: (e: Event) => void
 
-  /**
-   * Constructor
-   *
-   * @param  {{
-   *             containerSelector?: string;
-   *             image             : {
-   *               src       : string;
-   *               width     : number;
-   *               height    : number;
-   *               resolution: {
-   *                 width : number;
-   *                 height: number;
-   *               };
-   *               pixel?: {
-   *                 size     ?: number;
-   *                 alphaTest?: number;
-   *                 motion   ?: {
-   *                   displacement?: {
-   *                     frequency?: number;
-   *                     amplitude?: number;
-   *                   }
-   *                 }
-   *               };
-   *               motion?: {
-   *                 noise?: {
-   *                   src      ?: string;
-   *                   frequency?: number;
-   *                   amplitude?: number;
-   *                 }
-   *               }
-   *             }[];
-   *             pointer?: {
-   *               src     ?: string;
-   *               size    ?: number;
-   *               trailing?: {
-   *                 factor?: number;
-   *               }
-   *             };
-   *             isDebugging?: boolean;
-   *         }} config
-   * @throws {Error}
-   */
-  constructor(config: Config) {
-    this.#config = config
-    this.#isDebugging = config.isDebugging ?? false
-    this.#imageManager = new ImageManager(config.images)
+    /**
+     * Constructor
+     *
+     * @param  {{
+     *             containerSelector?: string;
+     *             image             : {
+     *               src       : string;
+     *               width     : number;
+     *               height    : number;
+     *               resolution: {
+     *                 width : number;
+     *                 height: number;
+     *               };
+     *               pixel?: {
+     *                 size     ?: number;
+     *                 alphaTest?: number;
+     *                 motion   ?: {
+     *                   displacement?: {
+     *                     frequency?: number;
+     *                     amplitude?: number;
+     *                   }
+     *                 }
+     *               };
+     *               motion?: {
+     *                 noise?: {
+     *                   src      ?: string;
+     *                   frequency?: number;
+     *                   amplitude?: number;
+     *                 }
+     *               }
+     *             }[];
+     *             pointer?: {
+     *               src     ?: string;
+     *               size    ?: number;
+     *               trailing?: {
+     *                 factor?: number;
+     *               }
+     *             };
+     *             isDebugging?: boolean;
+     *         }} config
+     * @throws {Error}
+     */
+    constructor(config: Config) {
+        this.#config = config
+        this.#isDebugging = config.isDebugging ?? false
+        this.#imageManager = new ImageManager(config.images)
 
-    this.#init()
-  }
-
-  /**
-   * Debug
-   *
-   * @returns {void}
-   */
-  debug(): void {
-    if (!this.#isDebugging) {
-      this.#enableDebug()
-      this.#isDebugging = true
-    }
-  }
-
-  /**
-   * Dispose
-   *
-   * @returns {void}
-   */
-  dispose(): void {
-    cancelAnimationFrame(this.#requestAnimationId)
-
-    window.removeEventListener('keydown', this.#boundHandleDebug)
-    window.removeEventListener('resize', this.#boundHandleResize)
-
-    this.#timer.dispose()
-
-    this.#runner.dispose()
-
-    this.rendererManager.dispose()
-
-    this.debugManager.dispose()
-  }
-
-  /**
-   * Init
-   *
-   * @returns {void}
-   */
-  #init(): void {
-    this.rendererManager = new RendererManager(
-      this.#imageManager.currentImage.width,
-      this.#imageManager.currentImage.height,
-    )
-
-    this.#timer = new Timer()
-
-    this.#initDebugManager()
-
-    this.#initRunner()
-
-    if (this.#config.containerSelector) {
-      this.#initDom(this.#config.containerSelector)
-    }
-
-    this.#boundHandleDebug = this.#handleDebug.bind(this)
-    window.addEventListener('keydown', this.#boundHandleDebug)
-    if (this.#isDebugging) {
-      this.#enableDebug()
-    } else {
-      this.#disableDebug()
-    }
-
-    this.#boundHandleResize = () => {
-      if (this.#imageManager.update()) {
-        this.dispose()
         this.#init()
-      }
     }
-    window.addEventListener('resize', this.#boundHandleResize)
 
-    this.#render()
-  }
-
-  /**
-   * Render
-   *
-   * @params  {number} t
-   * @returns {void}
-   */
-  #render(t = 0): void {
-    this.#timer.update(t)
-
-    this.#runner.update(this.#timer.getElapsed())
-
-    this.#requestAnimationId = requestAnimationFrame(this.#render.bind(this))
-  }
-
-  /**
-   * Handle debug
-   *
-   * @param   {KeyboardEvent} e
-   * @returns {void}
-   */
-  #handleDebug(e: KeyboardEvent): void {
-    if (e.key === 'd') {
-      this.debug()
+    /**
+     * Debug
+     *
+     * @returns {void}
+     */
+    debug(): void {
+        if (!this.#isDebugging) {
+            this.#enableDebug()
+            this.#isDebugging = true
+        }
     }
-  }
 
-  /**
-   * Enable debug
-   *
-   * @returns {void}
-   */
-  #enableDebug(): void {
-    this.#runner.debug()
-    this.debugManager.enable()
-  }
+    /**
+     * Dispose
+     *
+     * @returns {void}
+     */
+    dispose(): void {
+        cancelAnimationFrame(this.#requestAnimationId)
 
-  /**
-   * Disable debug
-   *
-   * @returns {void}
-   */
-  #disableDebug(): void {
-    this.debugManager.disable()
-  }
+        window.removeEventListener('keydown', this.#boundHandleDebug)
+        window.removeEventListener('resize', this.#boundHandleResize)
 
-  /**
-   * Init runner
-   *
-   * @returns {void}
-   */
-  #initRunner(): void {
-    this.#runner = new Runner(
-      new Image(
-        this.rendererManager,
-        this.debugManager,
-        this.#imageManager.currentImage.src,
-        this.#imageManager.currentImage.resolution.width,
-        this.#imageManager.currentImage.resolution.height,
-        this.#imageManager.currentImage.pixel?.size ?? 1,
-        this.#imageManager.currentImage.pixel?.alphaTest ?? 0.1,
-      ),
-      new Pointer(
-        this.rendererManager,
-        new PointerCanvas(
-          this.debugManager,
-          this.#config.pointer?.src ?? pointerImage,
-          this.#config.pointer?.size ?? 0.15,
-          this.#config.pointer?.trailing?.factor ?? 0.01,
-        ),
-      ),
-      this.rendererManager,
-      this.debugManager,
-      this.#imageManager.currentImage.motion?.noise?.src ?? noiseImage,
-      this.#imageManager.currentImage.motion?.noise?.frequency ?? 0.05,
-      this.#imageManager.currentImage.motion?.noise?.amplitude ?? 3,
-      this.#imageManager.currentImage.pixel?.motion?.displacement?.frequency ??
-        5,
-      this.#imageManager.currentImage.pixel?.motion?.displacement?.amplitude ??
-        4,
-    )
-  }
+        this.#timer.dispose()
 
-  /**
-   * Init debug manager
-   *
-   * @returns {void}
-   */
-  #initDebugManager(): void {
-    this.debugManager = new DebugManager()
-  }
+        this.#runner.dispose()
 
-  /**
-   * Init DOM
-   *
-   * @param   {string} containerSelector
-   * @returns {void}
-   */
-  #initDom(containerSelector: string): void {
-    const node = document.querySelector(containerSelector)
-    node?.appendChild(this.rendererManager.renderer.domElement)
-    node?.appendChild(this.debugManager.debugger.element)
-  }
+        this.rendererManager.dispose()
+
+        this.debugManager.dispose()
+    }
+
+    /**
+     * Init
+     *
+     * @returns {void}
+     */
+    #init(): void {
+        this.rendererManager = new RendererManager(
+            this.#imageManager.currentImage.width,
+            this.#imageManager.currentImage.height,
+        )
+
+        this.#timer = new Timer()
+
+        this.#initDebugManager()
+
+        this.#initRunner()
+
+        if (this.#config.containerSelector) {
+            this.#initDom(this.#config.containerSelector)
+        }
+
+        this.#boundHandleDebug = this.#handleDebug.bind(this)
+        window.addEventListener('keydown', this.#boundHandleDebug)
+        if (this.#isDebugging) {
+            this.#enableDebug()
+        } else {
+            this.#disableDebug()
+        }
+
+        this.#boundHandleResize = () => {
+            if (this.#imageManager.update()) {
+                this.dispose()
+                this.#init()
+            }
+        }
+        window.addEventListener('resize', this.#boundHandleResize)
+
+        this.#render()
+    }
+
+    /**
+     * Render
+     *
+     * @params  {number} t
+     * @returns {void}
+     */
+    #render(t = 0): void {
+        this.#timer.update(t)
+
+        this.#runner.update(this.#timer.getElapsed())
+
+        this.#requestAnimationId = requestAnimationFrame(
+            this.#render.bind(this),
+        )
+    }
+
+    /**
+     * Handle debug
+     *
+     * @param   {KeyboardEvent} e
+     * @returns {void}
+     */
+    #handleDebug(e: KeyboardEvent): void {
+        if (e.key === 'd') {
+            this.debug()
+        }
+    }
+
+    /**
+     * Enable debug
+     *
+     * @returns {void}
+     */
+    #enableDebug(): void {
+        this.#runner.debug()
+        this.debugManager.enable()
+    }
+
+    /**
+     * Disable debug
+     *
+     * @returns {void}
+     */
+    #disableDebug(): void {
+        this.debugManager.disable()
+    }
+
+    /**
+     * Init runner
+     *
+     * @returns {void}
+     */
+    #initRunner(): void {
+        this.#runner = new Runner(
+            new Image(
+                this.rendererManager,
+                this.debugManager,
+                this.#imageManager.currentImage.src,
+                this.#imageManager.currentImage.resolution.width,
+                this.#imageManager.currentImage.resolution.height,
+                this.#imageManager.currentImage.pixel?.size ?? 1,
+                this.#imageManager.currentImage.pixel?.alphaTest ?? 0.1,
+            ),
+            new Pointer(
+                this.rendererManager,
+                new PointerCanvas(
+                    this.debugManager,
+                    this.#config.pointer?.src ?? pointerImage,
+                    this.#config.pointer?.size ?? 0.15,
+                    this.#config.pointer?.trailing?.factor ?? 0.01,
+                ),
+            ),
+            this.rendererManager,
+            this.debugManager,
+            this.#imageManager.currentImage.motion?.noise?.src ?? noiseImage,
+            this.#imageManager.currentImage.motion?.noise?.frequency ?? 0.05,
+            this.#imageManager.currentImage.motion?.noise?.amplitude ?? 3,
+            this.#imageManager.currentImage.pixel?.motion?.displacement
+                ?.frequency ?? 5,
+            this.#imageManager.currentImage.pixel?.motion?.displacement
+                ?.amplitude ?? 4,
+        )
+    }
+
+    /**
+     * Init debug manager
+     *
+     * @returns {void}
+     */
+    #initDebugManager(): void {
+        this.debugManager = new DebugManager()
+    }
+
+    /**
+     * Init DOM
+     *
+     * @param   {string} containerSelector
+     * @returns {void}
+     */
+    #initDom(containerSelector: string): void {
+        const node = document.querySelector(containerSelector)
+        node?.appendChild(this.rendererManager.renderer.domElement)
+        node?.appendChild(this.debugManager.debugger.element)
+    }
 }

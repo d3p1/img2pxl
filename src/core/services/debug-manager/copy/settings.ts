@@ -7,15 +7,15 @@
  *              debug manager
  */
 export const getSettings = (
-  imagePixelSize: string,
-  imagePixelMotionFrequency: string,
-  imagePixelMotionAmplitude: string,
-  imageMotionFrequency: string,
-  imageMotionAmplitude: string,
-  pointerSize: string,
-  pointerTrailing: string,
+    imagePixelSize: string,
+    imagePixelMotionFrequency: string,
+    imagePixelMotionAmplitude: string,
+    imageMotionFrequency: string,
+    imageMotionAmplitude: string,
+    pointerSize: string,
+    pointerTrailing: string,
 ) => {
-  return `{
+    return `{
     images: {
       0: {
         src: <image-src>,
