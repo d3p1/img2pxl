@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/d3p1/img2pxl/compare/v3.2.0...v3.2.1) (2026-05-08)
+
+
+### Bug Fixes
+
+* improve code style [[#1](https://github.com/d3p1/img2pxl/issues/1)] ([9ef9fae](https://github.com/d3p1/img2pxl/commit/9ef9faefb6c10292207ea5ebdd25ade963ab8428))
+
 # [3.2.0](https://github.com/d3p1/img2pxl/compare/v3.1.12...v3.2.0) (2026-03-11)
 
 
