@@ -1,42 +1,42 @@
 {
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/d3p1/img2pxl.git"
-  },
-  "author": "C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/d3p1/img2pxl/issues"
-  },
-  "homepage": "https://github.com/d3p1/img2pxl#readme",
-  "dependencies": {
-    "@d3p1/img2pxl": "^3.0.0",
-    "next": "16.1.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "three": "^0.173.0",
-    "tweakpane": "^4.0.5"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@tweakpane/core": "^2.0.5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/three": "^0.174.0",
-    "eslint": "^9",
-    "eslint-config-next": "15.2.3",
-    "eslint-config-prettier": "^9.0.0",
-    "prettier": "3.0.3",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+    "private": true,
+    "scripts": {
+        "dev": "next dev --turbopack",
+        "build": "next build",
+        "start": "next start",
+        "lint": "eslint"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/d3p1/img2pxl.git"
+    },
+    "author": "C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/d3p1/img2pxl/issues"
+    },
+    "homepage": "https://github.com/d3p1/img2pxl#readme",
+    "dependencies": {
+        "@d3p1/img2pxl": "^3.0.0",
+        "next": "16.1.1",
+        "react": "19.2.3",
+        "react-dom": "19.2.3",
+        "three": "^0.173.0",
+        "tweakpane": "^4.0.5"
+    },
+    "devDependencies": {
+        "@eslint/eslintrc": "^3",
+        "@tailwindcss/postcss": "^4",
+        "@tweakpane/core": "^2.0.5",
+        "@types/node": "^20",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "@types/three": "^0.174.0",
+        "eslint": "^9",
+        "eslint-config-next": "15.2.3",
+        "eslint-config-prettier": "^9.0.0",
+        "prettier": "3.0.3",
+        "tailwindcss": "^4",
+        "typescript": "^5"
+    }
 }

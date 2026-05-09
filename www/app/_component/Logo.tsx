@@ -5,14 +5,14 @@
 import Image from 'next/image'
 
 export default function Logo() {
-  return (
-    <div className="logo">
-      <Image
-        src="/img2pxl/media/images/logo.png"
-        width="112"
-        height="427"
-        alt="img2pxl"
-      />
-    </div>
-  )
+    return (
+        <div className="logo">
+            <Image
+                src="/img2pxl/media/images/logo.png"
+                width="112"
+                height="427"
+                alt="img2pxl"
+            />
+        </div>
+    )
 }
